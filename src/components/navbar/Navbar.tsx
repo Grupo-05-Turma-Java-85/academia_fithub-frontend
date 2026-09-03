@@ -1,18 +1,22 @@
+
 import {
     ListIcon,
     XIcon,
 } from "@phosphor-icons/react";
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext } from "react";
+import { NavContext } from "../../contexts/NavContext";
 
 function Navbar() {
-    const [menuAberto, setMenuAberto] = useState(false);
 
-    const fecharMenu = () => {
-        setMenuAberto(false);
-    };
 
+
+    const {
+        menuAberto,
+        alternarMenu,
+        fecharMenu,
+    } = useContext(NavContext);
 
     return (
         <header className="absolute fixed left-1/2 top-6 z-50 w-[calc(100%-32px)] max-w-[1180px] -translate-x-1/2">
@@ -42,7 +46,7 @@ function Navbar() {
                         Início
                     </Link>
 
-                    <Link 
+                    <Link
                         to="/sobre"
                         className="text-sm font-semibold text-white/70 transition duration-300 hover:text-purple-400"
                     >
@@ -63,6 +67,13 @@ function Navbar() {
                         Treinos
                     </Link>
 
+                    <Link
+                        to="/perfil"
+                        className="text-sm font-semibold text-white/70 transition duration-300 hover:text-purple-400"
+                    >
+                        Perfil
+                    </Link>
+
                 </nav>
 
                 {/* DIREITA */}
@@ -75,6 +86,7 @@ function Navbar() {
                     >
                         Já sou alune
                     </Link>
+
                     <Link
                         to="/login"
                         className="hidden rounded-xl bg-white px-5 py-3 text-sm font-black text-black transition duration-300 hover:bg-purple-500 hover:text-white sm:block"
@@ -85,7 +97,7 @@ function Navbar() {
                     {/* HAMBÚRGUER */}
                     <button
                         type="button"
-                        onClick={() => setMenuAberto(!menuAberto)}
+                        onClick={alternarMenu}
                         className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition duration-300 hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-purple-400 lg:hidden"
                         aria-label={
                             menuAberto
@@ -147,6 +159,14 @@ function Navbar() {
                             className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
                         >
                             Treinos
+                        </Link>
+
+                        <Link
+                            to="/perfil"
+                            onClick={fecharMenu}
+                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
+                        >
+                            perfil
                         </Link>
 
                         {/* BOTÃO LOGIN MOBILE */}
