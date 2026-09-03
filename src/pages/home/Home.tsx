@@ -76,7 +76,7 @@ function Home() {
     ];
 
     return (
-        <div className="min-h-screen bg-purple-500 text-white">
+        <div className="min-h-screen bg-purple-50 text-white">
 
             {/* HERO */}
             <section className="relative h-[calc(100vh-80px)] min-h-[680px] max-h-[900px] overflow-hidden">
@@ -240,14 +240,9 @@ function Home() {
                             Planos
                         </span>
 
-                        <h2 className="mt-4 text-5xl font-black tracking-tight xl:text-6xl">
+                        <h2 className="mt-4 text-5xl font-black tracking-tight text-black xl:text-6xl">
                             Escolha como você quer evoluir.
                         </h2>
-
-                        <p className="mt-6 text-lg leading-8 text-zinc-400">
-                            Planos pensados para acompanhar cada fase da sua
-                            jornada.
-                        </p>
 
                     </div>
 
@@ -260,14 +255,14 @@ function Home() {
                                 key={plan.name}
                                 className={`relative flex min-h-[520px] flex-col rounded-3xl border p-10 ${
                                     plan.popular
-                                        ? "border-purple-500 bg-purple-600/[0.08] shadow-2xl shadow-purple-950/20"
+                                        ? "border-purple-500 bg-purple-900/[0.08] text-black shadow-2xl shadow-purple-950/20"
                                         : "border-zinc-800 bg-[#100D17]"
                                 }`}
                             >
 
                                 {/* MAIS ESCOLHIDO */}
                                 {plan.popular && (
-                                    <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-purple-600 px-6 py-2 text-xs font-black uppercase tracking-wider">
+                                    <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-purple-600  text-white px-6 py-2 text-xs font-black uppercase tracking-wider">
                                         Mais escolhido
                                     </div>
                                 )}
@@ -276,7 +271,8 @@ function Home() {
                                     {plan.name}
                                 </h3>
 
-                                <p className="mt-3 max-w-[350px] text-sm leading-6 text-zinc-500">
+                                <p className={"mt-3 max-w-[350px] text-sm leading-6 text-zinc-500"}>
+                                    
                                     {plan.description}
                                 </p>
 
@@ -306,7 +302,7 @@ function Home() {
 
                                         <li
                                             key={feature}
-                                            className="flex items-center gap-3 text-sm text-zinc-300"
+                                            className="flex items-center gap-3 text-sm text-purple-700"
                                         >
 
                                             <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-500/10 text-purple-500">
@@ -331,7 +327,7 @@ function Home() {
                                     to="/login"
                                     className={`mt-10 flex items-center justify-center rounded-xl px-6 py-4 font-bold transition duration-300 ${
                                         plan.popular
-                                            ? "bg-purple-600 hover:bg-purple-500"
+                                            ? "bg-purple-600 text-white hover:bg-purple-500"
                                             : "border border-zinc-700 hover:border-purple-500 hover:bg-purple-500/5 hover:text-purple-400"
                                     }`}
                                 >
@@ -344,37 +340,24 @@ function Home() {
 
                     </div>
 
-                    <p className="mt-8 text-center text-xs text-zinc-600">
-                        * Valores ilustrativos. Personalize os preços e
-                        benefícios de acordo com as regras do seu projeto.
-                    </p>
-
                 </div>
 
             </section>
 
-            {/* CTA FINAL */}
-            <section className="relative overflow-hidden border-t border-zinc-900 bg-[#0B0911] py-32">
+            <section className="relative overflow-hidden bg-purple-50 py-10">
 
                 {/* GLOW */}
-                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[650px] w-[650px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-700/20 blur-[130px]" />
+                <div className="pointer-events-none mt-40 absolute left-1/2 top-1/2 h-[350px] w-[950px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-700/20 blur-[130px]" />
 
-                <div className="relative z-10 mx-auto max-w-[900px] px-10 text-center">
+                <div className="relative z-10 mx-auto max-w-[900px] px-10 mb-10 text-center">
 
                     <span className="text-sm font-bold uppercase tracking-[0.2em] text-purple-500">
                         Sua jornada começa aqui
                     </span>
 
-                    <h2 className="mt-5 text-5xl font-black leading-tight tracking-tight xl:text-6xl">
+                    <h2 className="mt-5 text-5xl font-black leading-tight text-black tracking-tight xl:text-6xl">
                         Pronto para alcançar seu próximo nível?
                     </h2>
-
-                    <p className="mx-auto mt-7 max-w-[650px] text-lg leading-8 text-zinc-400">
-
-                        Comece agora, encontre seu ritmo e transforme seus
-                        objetivos em resultados.
-
-                    </p>
 
                     <Link
                         to="/treinos"

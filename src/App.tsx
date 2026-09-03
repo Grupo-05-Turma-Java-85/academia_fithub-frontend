@@ -4,12 +4,14 @@ import About from './pages/about/About'
 import Support from './pages/suport/Suport'
 import Home from './pages/home/Home'
 import Footer from './components/footer/Footer'
+import Navbar from './components/navbar/Navbar'
 
 function App() {
 
   return (
     <>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route
             path="/sobre"
@@ -24,7 +26,7 @@ function App() {
             element={<Home />}
           />
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </>
   )
