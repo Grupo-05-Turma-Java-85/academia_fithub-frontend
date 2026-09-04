@@ -54,8 +54,8 @@ function AppContent() {
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/homeadmin" element={<HomeAdmin />} />
           <Route path="/exercicios" element={<Exercicios />} />
-        <Route path="/exercicios/:categoriaId" element={<Exercicios />} />  
-         <Route path="/exercicio/:id" element={<ExercicioDetalhe />} />
+          <Route path="/exercicios/:categoriaId" element={<Exercicios />} />
+          <Route path="/exercicio/:id" element={<ExercicioDetalhe />} />
         </Routes>
 
         <Footer />
