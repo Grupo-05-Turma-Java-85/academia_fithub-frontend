@@ -61,7 +61,7 @@ export default function Register() {
             await cadastrarUsuario(
                 "/usuarios/cadastrar",
                 payload,
-                () => {}
+                () => { }
             );
 
             toast.success("Cadastro realizado com sucesso!");
@@ -127,14 +127,14 @@ export default function Register() {
                             weight="bold"
                             className="-rotate-45 text-[#a855f7]"
                         />
-
-                        <h1 className="flex text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                            FIT
-                            <span className="text-purple-500">
-                                GYM
-                            </span>
-                        </h1>
-
+                        <Link to='/'>
+                            <h1 className="flex text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                                FIT
+                                <span className="text-purple-500">
+                                    GYM
+                                </span>
+                            </h1>
+                        </Link>
                     </div>
 
                     <p className="text-sm font-medium text-neutral-400 sm:text-base">

@@ -8,6 +8,7 @@ import {
     PencilSimpleIcon,
     TrashIcon,
     FolderIcon,
+    ArrowSquareOutIcon,
 } from "@phosphor-icons/react";
 
 import { useContext, useEffect, useState } from "react";
@@ -353,8 +354,8 @@ function HomeAdmin() {
 
 
             {/* =========================
-                GERENCIAMENTO
-            ========================= */}
+    GERENCIAMENTO
+========================= */}
 
             <section className="bg-[#09080e]">
 
@@ -380,8 +381,8 @@ function HomeAdmin() {
                     <div className="grid grid-cols-2 gap-5">
 
                         {/* =========================
-                            CATEGORIAS
-                        ========================= */}
+                CATEGORIAS
+            ========================= */}
 
                         <div className="rounded-xl border border-white/5 bg-[#100d16] p-6">
 
@@ -490,8 +491,8 @@ function HomeAdmin() {
 
 
                         {/* =========================
-                            EXERCÍCIOS
-                        ========================= */}
+                EXERCÍCIOS
+            ========================= */}
 
                         <div className="rounded-xl border border-white/5 bg-[#100d16] p-6">
 
@@ -586,6 +587,50 @@ function HomeAdmin() {
                                 <PlusIcon size={15} weight="bold" />
                                 Adicionar exercício
                             </button>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* =========================
+            INTEGRAÇÃO FITRH
+        ========================= */}
+
+                    <div className="mt-5 rounded-xl border border-white/5 bg-[#100d16] p-6">
+
+                        <div className="flex items-center justify-between">
+
+                            <div className="flex items-center gap-4">
+
+                                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
+                                    <UsersThreeIcon size={24} />
+                                </div>
+
+                                <div>
+
+                                    <h3 className="text-lg font-bold">
+                                        Gestão de Colaboradores
+                                    </h3>
+
+                                    <p className="mt-1 text-[10px] text-gray-600">
+                                        Acesse o FitRH para gerenciar sua equipe.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <a
+                                href="LINK_DO_FITRH"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 rounded-lg bg-purple-600 px-5 py-3 text-[10px] font-bold transition hover:bg-purple-500"
+                            >
+                                Acessar FitRH
+                                <ArrowSquareOutIcon size={15} />
+                            </a>
 
                         </div>
 

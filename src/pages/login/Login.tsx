@@ -116,14 +116,14 @@ export default function Login() {
                                 className="-rotate-45 text-[#a855f7]"
                             />
                         </div>
-
-                        <h1 className="flex text-4xl font-extrabold tracking-tight text-white lg:text-5xl">
-                            FIT
-                            <span className="text-purple-500">
-                                GYM
-                            </span>
-                        </h1>
-
+                        <Link to='/'>
+                            <h1 className="flex text-4xl font-extrabold tracking-tight text-white lg:text-5xl">
+                                FIT
+                                <span className="text-purple-500">
+                                    GYM
+                                </span>
+                            </h1>
+                        </Link>
                     </div>
 
                     <p className="text-base font-medium text-neutral-400">

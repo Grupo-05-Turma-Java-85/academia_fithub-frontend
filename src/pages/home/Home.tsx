@@ -8,10 +8,64 @@ import {
 } from "@phosphor-icons/react";
 
 import { Link } from "react-router-dom";
+import { useContext, useRef } from "react";
 
 import VideoHero from "../../components/videohero/VideoHero";
 
+import { CartContext } from "../../contexts/CartContext";
+import Cart from "../../components/carrinho/cart/Cart";
+
 function Home() {
+    const { adicionarPlano } = useContext(CartContext);
+
+    const meuAlvoRef = useRef<HTMLElement | null>(null);
+
+    const executarRolagem = () => {
+        meuAlvoRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    };
+
+    const plans = [
+        {
+            id: 1,
+            name: "Fit",
+            description: "Para quem quer começar a treinar.",
+            price: 59.9,
+            features: [
+                "Acesso aos treinos",
+                "Histórico de treinos",
+                "Acompanhamento de evolução",
+            ],
+        },
+        {
+            id: 2,
+            name: "Performance",
+            description: "Para quem quer acelerar seus resultados.",
+            price: 89.9,
+            popular: true,
+            features: [
+                "Todos os treinos",
+                "Treinos personalizados",
+                "Métricas de desempenho",
+                "Acompanhamento de evolução",
+            ],
+        },
+        {
+            id: 3,
+            name: "Black",
+            description: "Para quem busca máxima performance.",
+            price: 129.9,
+            features: [
+                "Tudo do Performance",
+                "Acompanhamento avançado",
+                "Análises detalhadas",
+                "Suporte prioritário",
+            ],
+        },
+    ];
+
     const benefits = [
         {
             icon: BarbellIcon,
@@ -36,42 +90,6 @@ function Home() {
             title: "Para todos os níveis",
             description:
                 "Do iniciante ao avançado, encontre o treino ideal para você.",
-        },
-    ];
-
-    const plans = [
-        {
-            name: "Fit",
-            description: "Para quem quer começar a treinar.",
-            price: "59,90",
-            features: [
-                "Acesso aos treinos",
-                "Histórico de treinos",
-                "Acompanhamento de evolução",
-            ],
-        },
-        {
-            name: "Performance",
-            description: "Para quem quer acelerar seus resultados.",
-            price: "89,90",
-            popular: true,
-            features: [
-                "Todos os treinos",
-                "Treinos personalizados",
-                "Métricas de desempenho",
-                "Acompanhamento de evolução",
-            ],
-        },
-        {
-            name: "Black",
-            description: "Para quem busca máxima performance.",
-            price: "129,90",
-            features: [
-                "Tudo do Performance",
-                "Acompanhamento avançado",
-                "Análises detalhadas",
-                "Suporte prioritário",
-            ],
         },
     ];
 
@@ -126,27 +144,19 @@ function Home() {
                         {/* BOTÕES */}
                         <div className="mt-7 flex flex-col items-stretch gap-3 sm:mt-9 sm:flex-row sm:items-center sm:gap-4">
 
-                            <Link
-                                to="/treinos"
+                            <button
+                                onClick={executarRolagem}
                                 className="group inline-flex items-center justify-center gap-3 rounded-xl bg-purple-600 px-6 py-4 font-bold shadow-xl shadow-purple-950/30 transition duration-300 hover:-translate-y-1 hover:bg-purple-500 sm:px-8"
                             >
 
-                                Começar agora
+                              Ver planos
 
                                 <ArrowRightIcon
                                     size={21}
                                     weight="bold"
                                     className="transition-transform duration-300 group-hover:translate-x-1"
-                                />
-
-                            </Link>
-
-                            <a
-                                href="#planos"
-                                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-black/20 px-6 py-4 text-center font-bold backdrop-blur-md transition duration-300 hover:border-purple-400 hover:text-purple-400 sm:px-8"
-                            >
-                                Ver planos
-                            </a>
+                                />                              
+                            </button>
 
                         </div>
 
@@ -223,6 +233,7 @@ function Home() {
 
             {/* PLANOS */}
             <section
+                ref={meuAlvoRef}
                 id="planos"
                 className="relative overflow-hidden py-16 sm:py-20 lg:py-28"
             >
@@ -252,10 +263,11 @@ function Home() {
 
                             <div
                                 key={plan.name}
-                                className={`relative flex min-h-[500px] flex-col rounded-3xl border p-6 sm:min-h-[520px] sm:p-8 lg:p-10 ${plan.popular
+                                className={`relative flex min-h-[500px] flex-col rounded-3xl border p-6 sm:min-h-[520px] sm:p-8 lg:p-10 ${
+                                    plan.popular
                                         ? "border-purple-500 bg-purple-900/[0.08] text-black shadow-2xl shadow-purple-950/20"
                                         : "border-zinc-800 bg-[#100D17]"
-                                    }`}
+                                }`}
                             >
 
                                 {/* MAIS ESCOLHIDO */}
@@ -269,7 +281,7 @@ function Home() {
                                     {plan.name}
                                 </h3>
 
-                                <p className={"mt-3 max-w-[350px] text-sm leading-6 text-zinc-500"}>
+                                <p className="mt-3 max-w-[350px] text-sm leading-6 text-zinc-500">
                                     {plan.description}
                                 </p>
 
@@ -281,7 +293,10 @@ function Home() {
                                     </span>
 
                                     <span className="ml-2 text-5xl font-black tracking-tight sm:text-6xl">
-                                        {plan.price}
+                                        {plan.price.toLocaleString("pt-BR", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        })}
                                     </span>
 
                                     <span className="mb-2 ml-2 text-sm text-zinc-500">
@@ -320,15 +335,16 @@ function Home() {
                                 </ul>
 
                                 {/* BOTÃO */}
-                                <Link
-                                    to="/login"
-                                    className={`mt-8 flex items-center justify-center rounded-xl px-6 py-4 font-bold transition duration-300 sm:mt-10 ${plan.popular
+                                <button
+                                    onClick={() => adicionarPlano(plan)}
+                                    className={`mt-8 flex items-center justify-center rounded-xl px-6 py-4 font-bold transition duration-300 sm:mt-10 ${
+                                        plan.popular
                                             ? "bg-purple-600 text-white hover:bg-purple-500"
                                             : "border border-zinc-700 hover:border-purple-500 hover:bg-purple-500/5 hover:text-purple-400"
-                                        }`}
+                                    }`}
                                 >
                                     Escolher plano
-                                </Link>
+                                </button>
 
                             </div>
 
@@ -373,6 +389,8 @@ function Home() {
                 </div>
 
             </section>
+
+            <Cart />
 
         </div>
     );

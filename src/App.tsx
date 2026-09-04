@@ -23,6 +23,8 @@ import NavbarAdmin from './components/navbar/NavbarAdmin'
 import Treinos from './pages/treinos/Treinos'
 import Exercicios from './pages/exercicios/Exercicios'
 import { ToastContainer } from 'react-toastify'
+import { CartProvider } from './contexts/CartContext'
+import ScrollToTop from './components/scrolltotop/ScrollToTop'
 
 function AppContent() {
 
@@ -35,27 +37,29 @@ function AppContent() {
       {tipoNavbar === "aluno" && <NavbarAluno />}
 
       {tipoNavbar === "admin" && <NavbarAdmin />}
+      <CartProvider>
+        <ScrollToTop/>
+        <Routes>
+          <Route path="/sobre" element={<About />} />
+          <Route path="/suporte" element={<Support />} />
+          <Route path="/" element={<Home />} />
 
-      <Routes>
-        <Route path="/sobre" element={<About />} />
-        <Route path="/suporte" element={<Support />} />
-        <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cadastrar" element={<Cadastrar />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/cadastrar" element={<Cadastrar />} />
+          <Route path="/perfil" element={<Perfil />} />
 
-        <Route path="/perfil" element={<Perfil />} />
+          <Route path="/homealuno" element={<HomeAluno />} />
+          <Route path="/categorias" element={<Treinos />} />
+          <Route path="/exercicios" element={<Exercicios />} />
 
-        <Route path="/homealuno" element={<HomeAluno />} />
-        <Route path="/categorias" element={<Treinos />} />
-        <Route path="/exercicios" element={<Exercicios />} />
-        
-        <Route path="/homeadmin" element={<HomeAdmin />} />
+          <Route path="/homeadmin" element={<HomeAdmin />} />
 
 
-      </Routes>
+        </Routes>
 
-      <Footer />
+        <Footer />
+      </CartProvider>
     </>
   )
 }
@@ -75,7 +79,7 @@ function App() {
 
       </AuthProvider>
 
-      <ToastContainer/>
+      <ToastContainer />
 
     </BrowserRouter>
   )
