@@ -17,6 +17,9 @@ import Autoplay from "embla-carousel-autoplay";
 import type Categoria from "../../models/Categoria";
 import { AuthContext } from "../../contexts/AuthContext";
 import { atualizar, buscar } from "../../service/Service";
+import { pdf } from "@react-pdf/renderer";
+import FichaTreinoPDF from "../../components/pdf/FichaTreinoPDF";
+import { toast } from "react-toastify";
 
 type Nivel = "INICIANTE" | "INTERMEDIARIO" | "AVANÇADO";
 
@@ -33,22 +36,22 @@ const OBJETIVOS: {
     titulo: string;
     subtitulo: string;
 }[] = [
-    {
-        id: "Emagrecimento",
-        titulo: "Emagrecimento",
-        subtitulo: "Definição corporal",
-    },
-    {
-        id: "Manter peso",
-        titulo: "Manter peso",
-        subtitulo: "Resistência e saúde",
-    },
-    {
-        id: "Ganho de massa",
-        titulo: "Ganho de massa",
-        subtitulo: "Construção de músculos",
-    },
-];
+        {
+            id: "Emagrecimento",
+            titulo: "Emagrecimento",
+            subtitulo: "Definição corporal",
+        },
+        {
+            id: "Manter peso",
+            titulo: "Manter peso",
+            subtitulo: "Resistência e saúde",
+        },
+        {
+            id: "Ganho de massa",
+            titulo: "Ganho de massa",
+            subtitulo: "Construção de músculos",
+        },
+    ];
 
 const TREINOS_POR_NIVEL: Record<Nivel, Treino[]> = {
     INICIANTE: [
@@ -166,8 +169,20 @@ export default function HomeAluno() {
     const [slidesCount, setSlidesCount] = useState(0);
 
     useEffect(() => {
-        buscar("/categorias", setCategorias, {});
-    }, []);
+    if (!usuario?.token) {
+        return;
+    }
+
+    buscar(
+        "/categorias",
+        setCategorias,
+        {
+            headers: {
+                Authorization: usuario.token,
+            },
+        }
+    );
+}, [usuario?.token]);
 
     useEffect(() => {
         const nivel = usuario.nivel?.toUpperCase();
@@ -269,7 +284,7 @@ export default function HomeAluno() {
                     treinoGerado: usuario.treinoGerado,
                     tipoUsuario: usuario.tipoUsuario,
                 },
-                () => {},
+                () => { },
                 {
                     headers: {
                         Authorization: usuario.token,
@@ -287,6 +302,52 @@ export default function HomeAluno() {
             );
         }
     }
+
+    // PDF
+    const gerarPDF = async () => {
+    try {
+        if (!usuario) {
+            toast.error("Usuário não encontrado.");
+            return;
+        }
+
+        if (categorias.length === 0) {
+            toast.error("As categorias ainda não foram carregadas.");
+            return;
+        }
+
+        console.log("USUARIO PDF:", usuario);
+        console.log("CATEGORIAS PDF:", categorias);
+        console.log("TREINOS PDF:", treinos);
+
+        const documento = (
+            <FichaTreinoPDF
+                usuario={usuario}
+                treinos={treinos}
+                categorias={categorias}
+            />
+        );
+
+        const blob = await pdf(documento).toBlob();
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `ficha-treino-${usuario.nome}.pdf`;
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+
+        toast.success("Ficha de treino baixada com sucesso!");
+    } catch (error) {
+        console.error("Erro ao gerar PDF:", error);
+        toast.error("Erro ao gerar a ficha de treino.");
+    }
+};
 
     return (
         <div className="min-h-screen bg-[#08060D] text-white">
@@ -737,14 +798,12 @@ export default function HomeAluno() {
                                             onClick={() =>
                                                 scrollTo(index)
                                             }
-                                            aria-label={`Ir para treino ${
-                                                index + 1
-                                            }`}
-                                            className={`h-2.5 rounded-full transition-all ${
-                                                selectedIndex === index
-                                                    ? "w-7 bg-violet-500 shadow-lg shadow-violet-500/30"
-                                                    : "w-2.5 bg-white/20 hover:bg-white/30"
-                                            }`}
+                                            aria-label={`Ir para treino ${index + 1
+                                                }`}
+                                            className={`h-2.5 rounded-full transition-all ${selectedIndex === index
+                                                ? "w-7 bg-violet-500 shadow-lg shadow-violet-500/30"
+                                                : "w-2.5 bg-white/20 hover:bg-white/30"
+                                                }`}
                                         />
 
                                     ))}
@@ -795,11 +854,10 @@ export default function HomeAluno() {
                                     onClick={() =>
                                         setObjetivo(op.id)
                                     }
-                                    className={`rounded-xl border p-4 text-left transition-all ${
-                                        objetivo === op.id
-                                            ? "border-violet-500/50 bg-violet-500/10 shadow-lg shadow-violet-950/10"
-                                            : "border-white/10 bg-black/10 hover:border-white/20 hover:bg-white/[0.04]"
-                                    }`}
+                                    className={`rounded-xl border p-4 text-left transition-all ${objetivo === op.id
+                                        ? "border-violet-500/50 bg-violet-500/10 shadow-lg shadow-violet-950/10"
+                                        : "border-white/10 bg-black/10 hover:border-white/20 hover:bg-white/[0.04]"
+                                        }`}
                                 >
 
                                     <p className="font-semibold text-white">
@@ -807,11 +865,10 @@ export default function HomeAluno() {
                                     </p>
 
                                     <p
-                                        className={`mt-0.5 text-xs ${
-                                            objetivo === op.id
-                                                ? "text-violet-400"
-                                                : "text-slate-500"
-                                        }`}
+                                        className={`mt-0.5 text-xs ${objetivo === op.id
+                                            ? "text-violet-400"
+                                            : "text-slate-500"
+                                            }`}
                                     >
                                         {op.subtitulo}
                                     </p>
@@ -835,11 +892,10 @@ export default function HomeAluno() {
                                     onClick={() =>
                                         setDiasPorSemana(dias)
                                     }
-                                    className={`rounded-xl border py-3 text-center text-sm font-semibold transition-all ${
-                                        diasPorSemana === dias
-                                            ? "border-violet-500/50 bg-violet-500/10 text-violet-400"
-                                            : "border-white/10 bg-black/10 text-slate-400 hover:border-white/20 hover:text-white"
-                                    }`}
+                                    className={`rounded-xl border py-3 text-center text-sm font-semibold transition-all ${diasPorSemana === dias
+                                        ? "border-violet-500/50 bg-violet-500/10 text-violet-400"
+                                        : "border-white/10 bg-black/10 text-slate-400 hover:border-white/20 hover:text-white"
+                                        }`}
                                 >
                                     {dias} Dias / sem
                                 </button>
@@ -850,15 +906,12 @@ export default function HomeAluno() {
 
                         <div className="mt-6 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
 
-                            <button className="flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-900/20 transition-all hover:bg-violet-500">
-
-                                <Download
-                                    size={16}
-                                    weight="bold"
-                                />
-
+                            <button
+                                onClick={gerarPDF}
+                                className="flex items-center gap-2 ..."
+                            >
+                                <Download size={20} />
                                 Baixar ficha em PDF
-
                             </button>
 
                         </div>
@@ -922,11 +975,10 @@ export default function HomeAluno() {
                                     onClick={() =>
                                         setNivelEscolhido(nivel)
                                     }
-                                    className={`w-full rounded-xl border p-4 text-left transition ${
-                                        nivelEscolhido === nivel
-                                            ? "border-violet-500 bg-violet-500/10 ring-1 ring-violet-500/40"
-                                            : "border-white/10 bg-white/[0.02] hover:border-violet-500/30 hover:bg-violet-500/5"
-                                    }`}
+                                    className={`w-full rounded-xl border p-4 text-left transition ${nivelEscolhido === nivel
+                                        ? "border-violet-500 bg-violet-500/10 ring-1 ring-violet-500/40"
+                                        : "border-white/10 bg-white/[0.02] hover:border-violet-500/30 hover:bg-violet-500/5"
+                                        }`}
                                 >
 
                                     <div className="flex items-center justify-between">
@@ -973,11 +1025,10 @@ export default function HomeAluno() {
                         <button
                             onClick={salvarNivel}
                             disabled={!nivelEscolhido}
-                            className={`mt-6 w-full rounded-lg py-3 text-sm font-semibold text-white transition ${
-                                nivelEscolhido
-                                    ? "bg-violet-600 shadow-lg shadow-violet-900/20 hover:bg-violet-500"
-                                    : "cursor-not-allowed bg-white/10 text-slate-500"
-                            }`}
+                            className={`mt-6 w-full rounded-lg py-3 text-sm font-semibold text-white transition ${nivelEscolhido
+                                ? "bg-violet-600 shadow-lg shadow-violet-900/20 hover:bg-violet-500"
+                                : "cursor-not-allowed bg-white/10 text-slate-500"
+                                }`}
                         >
                             Confirmar nível
                         </button>
@@ -1007,11 +1058,10 @@ function MetaCard({
 }) {
     return (
         <div
-            className={`rounded-2xl border p-6 ${
-                destaque
-                    ? "border-violet-400 bg-violet-500/10"
-                    : "border-white/10 bg-white/[0.03]"
-            }`}
+            className={`rounded-2xl border p-6 ${destaque
+                ? "border-violet-400 bg-violet-500/10"
+                : "border-white/10 bg-white/[0.03]"
+                }`}
         >
 
             <span className="text-xs font-semibold tracking-wide text-violet-400">

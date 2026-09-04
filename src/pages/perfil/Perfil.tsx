@@ -1,3 +1,4 @@
+
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -222,9 +223,23 @@ export default function Perfil() {
     if (loading) {
 
         return (
-            <div className="min-h-screen bg-[#0b0b0e] flex items-center justify-center">
+            <div className="relative min-h-screen overflow-hidden bg-[#0b0b0e] flex items-center justify-center">
 
-                <p className="text-zinc-400 text-lg">
+                {/* GLOWS */}
+
+                <div className="pointer-events-none absolute inset-0 overflow-hidden">
+
+                    <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-purple-600/20 blur-[120px]" />
+
+                    <div className="absolute right-[-150px] top-[35%] h-[500px] w-[500px] rounded-full bg-purple-500/15 blur-[140px]" />
+
+                    <div className="absolute left-[35%] top-[55%] h-80 w-80 rounded-full bg-fuchsia-600/10 blur-[120px]" />
+
+                    <div className="absolute bottom-[-150px] right-[20%] h-96 w-96 rounded-full bg-violet-600/15 blur-[130px]" />
+
+                </div>
+
+                <p className="relative z-10 text-zinc-400 text-lg">
                     Carregando perfil...
                 </p>
 
@@ -233,50 +248,70 @@ export default function Perfil() {
     }
 
     return (
-        <div className="min-h-screen bg-[#0b0b0e] px-6 py-16">
+        <div className="relative min-h-screen overflow-hidden bg-[#0b0b0e] px-6 py-16">
 
-            {editando ? (
+            {/* =========================
+                GLOWS DE FUNDO
+            ========================= */}
 
-                <FormPerfil
-                    name={name}
-                    email={email}
-                    weight={weight}
-                    height={height}
-                    birthDate={birthDate}
-                    experience={experience}
-                    frequencia={frequencia}
-                    foto={foto}
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
 
-                    onNameChange={setName}
-                    onEmailChange={setEmail}
-                    onWeightChange={setWeight}
-                    onHeightChange={setHeight}
-                    onBirthDateChange={setBirthDate}
-                    onExperienceChange={setExperience}
-                    onFrequenciaChange={setFrequencia}
-                    onFotoChange={setFoto}
+                <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-purple-600/20 blur-[120px]" />
 
-                    onSubmit={handleSave}
+                <div className="absolute right-[-150px] top-[35%] h-[500px] w-[500px] rounded-full bg-purple-500/15 blur-[140px]" />
 
-                    onCancel={() => setEditando(false)}
-                />
+                <div className="absolute left-[35%] top-[55%] h-80 w-80 rounded-full bg-fuchsia-600/10 blur-[120px]" />
 
-            ) : (
+                <div className="absolute bottom-[-150px] right-[20%] h-96 w-96 rounded-full bg-violet-600/15 blur-[130px]" />
 
-                <ListaPerfil
-                    name={name}
-                    email={email}
-                    weight={weight}
-                    height={height}
-                    birthDate={birthDate}
-                    experience={experience}
-                    frequencia={frequencia}
-                    foto={foto}
+            </div>
 
-                    onEditar={() => setEditando(true)}
-                />
+            <div className="relative z-10">
 
-            )}
+                {editando ? (
+
+                    <FormPerfil
+                        name={name}
+                        email={email}
+                        weight={weight}
+                        height={height}
+                        birthDate={birthDate}
+                        experience={experience}
+                        frequencia={frequencia}
+                        foto={foto}
+
+                        onNameChange={setName}
+                        onEmailChange={setEmail}
+                        onWeightChange={setWeight}
+                        onHeightChange={setHeight}
+                        onBirthDateChange={setBirthDate}
+                        onExperienceChange={setExperience}
+                        onFrequenciaChange={setFrequencia}
+                        onFotoChange={setFoto}
+
+                        onSubmit={handleSave}
+
+                        onCancel={() => setEditando(false)}
+                    />
+
+                ) : (
+
+                    <ListaPerfil
+                        name={name}
+                        email={email}
+                        weight={weight}
+                        height={height}
+                        birthDate={birthDate}
+                        experience={experience}
+                        frequencia={frequencia}
+                        foto={foto}
+
+                        onEditar={() => setEditando(true)}
+                    />
+
+                )}
+
+            </div>
 
         </div>
     );
