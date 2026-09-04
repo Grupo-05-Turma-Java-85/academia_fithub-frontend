@@ -216,7 +216,9 @@ export default function Exercicios() {
 
                             <div
                                 key={exercicio.id}
+                                onClick={() => navigate(`/exercicio/${exercicio.id}`)}
                                 className="
+                                    cursor-pointer
                                     group
                                     bg-[#11101A]
                                     border

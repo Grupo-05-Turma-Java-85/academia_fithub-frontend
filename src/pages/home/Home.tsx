@@ -307,7 +307,7 @@ function Home() {
 
                                 <div className="my-6 h-px bg-zinc-800 sm:my-8" />
 
-                                {/* BENEFÍCIOS DO PLANO */}
+
                                 <ul className="flex flex-1 flex-col gap-4 sm:gap-5">
 
                                     {plan.features.map((feature) => (
