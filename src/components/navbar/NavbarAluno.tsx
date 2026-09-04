@@ -108,7 +108,7 @@ function NavbarAluno() {
                         <Link
                             to="/homealuno"
                             onClick={fecharMenu}
-                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white transition hover:bg-white/5 hover:text-purple-400"
+                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
                         >
                             Início
                         </Link>

@@ -372,7 +372,7 @@ function Home() {
                     </h2>
 
                     <Link
-                        to="/treinos"
+                        to="/login"
                         className="group mt-8 inline-flex w-full items-center justify-center gap-3 rounded-xl bg-purple-600 px-7 py-4 font-bold shadow-xl shadow-purple-950/20 transition duration-300 hover:-translate-y-1 hover:bg-purple-500 sm:mt-10 sm:w-auto sm:px-9"
                     >
 

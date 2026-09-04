@@ -354,8 +354,8 @@ function HomeAdmin() {
 
 
             {/* =========================
-    GERENCIAMENTO
-========================= */}
+                GERENCIAMENTO
+            ========================= */}
 
             <section className="bg-[#09080e]">
 
@@ -381,10 +381,10 @@ function HomeAdmin() {
                     <div className="grid grid-cols-2 gap-5">
 
                         {/* =========================
-                CATEGORIAS
-            ========================= */}
+                            CATEGORIAS
+                        ========================= */}
 
-                        <div className="rounded-xl border border-white/5 bg-[#100d16] p-6">
+                        <div className="rounded-xl border border-purple-500/30 bg-[#100d16] p-6 shadow-lg shadow-purple-950/10 transition hover:border-purple-500/50">
 
                             <div className="flex items-start justify-between">
 
@@ -415,9 +415,10 @@ function HomeAdmin() {
                             </div>
 
 
-                            <div className="mt-6 space-y-3">
+                            {/* Container com scroll interno */}
+                            <div className="mt-6 max-h-72 space-y-3 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-purple-500/20 hover:scrollbar-thumb-purple-500/40">
 
-                                {categorias.slice(0, 3).map((categoria) => {
+                                {categorias.map((categoria) => {
 
                                     const quantidadeExercicios =
                                         exercicios.filter(
@@ -429,7 +430,7 @@ function HomeAdmin() {
 
                                         <div
                                             key={categoria.id}
-                                            className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4"
+                                            className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4 transition hover:border-purple-500/20"
                                         >
 
                                             <div>
@@ -491,10 +492,10 @@ function HomeAdmin() {
 
 
                         {/* =========================
-                EXERCÍCIOS
-            ========================= */}
+                            EXERCÍCIOS
+                        ========================= */}
 
-                        <div className="rounded-xl border border-white/5 bg-[#100d16] p-6">
+                        <div className="rounded-xl border border-purple-500/30 bg-[#100d16] p-6 shadow-lg shadow-purple-950/10 transition hover:border-purple-500/50">
 
                             <div className="flex items-start justify-between">
 
@@ -525,13 +526,14 @@ function HomeAdmin() {
                             </div>
 
 
-                            <div className="mt-6 space-y-3">
+                            {/* Container com scroll interno */}
+                            <div className="mt-6 max-h-72 space-y-3 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-purple-500/20 hover:scrollbar-thumb-purple-500/40">
 
-                                {exercicios.slice(0, 3).map((exercicio) => (
+                                {exercicios.map((exercicio) => (
 
                                     <div
                                         key={exercicio.id}
-                                        className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4"
+                                        className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4 transition hover:border-purple-500/20"
                                     >
 
                                         <div>
@@ -594,10 +596,10 @@ function HomeAdmin() {
 
 
                     {/* =========================
-            INTEGRAÇÃO FITRH
-        ========================= */}
+                        INTEGRAÇÃO FITRH
+                    ========================= */}
 
-                    <div className="mt-5 rounded-xl border border-white/5 bg-[#100d16] p-6">
+                    <div className="mt-5 rounded-xl border border-purple-500/30 bg-[#100d16] p-6 transition hover:border-purple-500/50">
 
                         <div className="flex items-center justify-between">
 
