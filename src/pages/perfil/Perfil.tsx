@@ -246,6 +246,7 @@ export default function Perfil() {
                     experience={experience}
                     frequencia={frequencia}
                     foto={foto}
+
                     onNameChange={setName}
                     onEmailChange={setEmail}
                     onWeightChange={setWeight}
@@ -254,7 +255,9 @@ export default function Perfil() {
                     onExperienceChange={setExperience}
                     onFrequenciaChange={setFrequencia}
                     onFotoChange={setFoto}
+
                     onSubmit={handleSave}
+
                     onCancel={() => setEditando(false)}
                 />
 
@@ -269,6 +272,7 @@ export default function Perfil() {
                     experience={experience}
                     frequencia={frequencia}
                     foto={foto}
+
                     onEditar={() => setEditando(true)}
                 />
 

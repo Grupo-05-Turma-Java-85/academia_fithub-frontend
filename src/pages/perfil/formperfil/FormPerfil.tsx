@@ -8,6 +8,7 @@ import {
     ClockIcon,
     ArrowLeftIcon,
 } from "@phosphor-icons/react";
+
 import type { FormEvent } from "react";
 
 interface FormPerfilProps {
@@ -69,7 +70,10 @@ export default function FormPerfil({
                     onClick={onCancel}
                     className="flex items-center gap-2 text-zinc-400 hover:text-white transition mb-6"
                 >
-                    <ArrowLeftIcon size={20} />
+                    <ArrowLeftIcon
+                        size={20}
+                        weight="bold"
+                    />
 
                     Voltar para o perfil
                 </button>
@@ -91,6 +95,7 @@ export default function FormPerfil({
                     <form onSubmit={onSubmit}>
 
                         <div className="mb-5">
+
                             <label className="text-sm text-zinc-400 mb-2 flex items-center gap-2">
                                 <UserIcon size={18} />
                                 Nome
@@ -104,9 +109,11 @@ export default function FormPerfil({
                                 }
                                 className="w-full bg-[#0f0f14] border border-zinc-800 rounded-xl px-4 py-3 text-white outline-none focus:border-purple-500 transition"
                             />
+
                         </div>
 
                         <div className="mb-5">
+
                             <label className="text-sm text-zinc-400 mb-2 flex items-center gap-2">
                                 <UserIcon size={18} />
                                 Usuário
@@ -120,9 +127,11 @@ export default function FormPerfil({
                                 }
                                 className="w-full bg-[#0f0f14] border border-zinc-800 rounded-xl px-4 py-3 text-white outline-none focus:border-purple-500 transition"
                             />
+
                         </div>
 
                         <div className="mb-5">
+
                             <label className="text-sm text-zinc-400 mb-2 block">
                                 Foto
                             </label>
@@ -136,17 +145,20 @@ export default function FormPerfil({
                                 placeholder="URL da sua foto"
                                 className="w-full bg-[#0f0f14] border border-zinc-800 rounded-xl px-4 py-3 text-white outline-none focus:border-purple-500 transition"
                             />
+
                         </div>
 
                         <div className="grid grid-cols-2 gap-4 mb-5">
 
                             <div>
+
                                 <label className="text-sm text-zinc-400 mb-2 flex items-center gap-2">
                                     <HourglassIcon size={18} />
                                     Peso
                                 </label>
 
                                 <div className="relative">
+
                                     <input
                                         type="text"
                                         value={weight}
@@ -159,16 +171,20 @@ export default function FormPerfil({
                                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">
                                         kg
                                     </span>
+
                                 </div>
+
                             </div>
 
                             <div>
+
                                 <label className="text-sm text-zinc-400 mb-2 flex items-center gap-2">
                                     <RulerIcon size={18} />
                                     Altura
                                 </label>
 
                                 <div className="relative">
+
                                     <input
                                         type="text"
                                         value={height}
@@ -181,12 +197,15 @@ export default function FormPerfil({
                                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">
                                         m
                                     </span>
+
                                 </div>
+
                             </div>
 
                         </div>
 
                         <div className="mb-5">
+
                             <label className="text-sm text-zinc-400 mb-2 flex items-center gap-2">
                                 <CalendarIcon size={18} />
                                 Data de nascimento
@@ -200,9 +219,11 @@ export default function FormPerfil({
                                 }
                                 className="w-full bg-[#0f0f14] border border-zinc-800 rounded-xl px-4 py-3 text-white outline-none focus:border-purple-500 transition [color-scheme:dark]"
                             />
+
                         </div>
 
                         <div className="mb-5">
+
                             <label className="text-sm text-zinc-400 mb-2 flex items-center gap-2">
                                 <BarbellIcon size={18} />
                                 Nível de experiência
@@ -215,11 +236,10 @@ export default function FormPerfil({
                                     onClick={() =>
                                         onExperienceChange("INICIANTE")
                                     }
-                                    className={`py-3 rounded-xl border transition text-sm font-medium ${
-                                        experience === "INICIANTE"
+                                    className={`py-3 rounded-xl border transition text-sm font-medium ${experience === "INICIANTE"
                                             ? "bg-purple-600 border-purple-500 text-white"
                                             : "bg-[#0f0f14] border-zinc-800 text-zinc-400 hover:border-purple-500"
-                                    }`}
+                                        }`}
                                 >
                                     INICIANTE
                                 </button>
@@ -229,11 +249,10 @@ export default function FormPerfil({
                                     onClick={() =>
                                         onExperienceChange("INTERMEDIARIO")
                                     }
-                                    className={`py-3 rounded-xl border transition text-sm font-medium ${
-                                        experience === "INTERMEDIARIO"
+                                    className={`py-3 rounded-xl border transition text-sm font-medium ${experience === "INTERMEDIARIO"
                                             ? "bg-purple-600 border-purple-500 text-white"
                                             : "bg-[#0f0f14] border-zinc-800 text-zinc-400 hover:border-purple-500"
-                                    }`}
+                                        }`}
                                 >
                                     INTERMEDIÁRIO
                                 </button>
@@ -243,19 +262,20 @@ export default function FormPerfil({
                                     onClick={() =>
                                         onExperienceChange("AVANCADO")
                                     }
-                                    className={`py-3 rounded-xl border transition text-sm font-medium ${
-                                        experience === "AVANCADO"
+                                    className={`py-3 rounded-xl border transition text-sm font-medium ${experience === "AVANCADO"
                                             ? "bg-purple-600 border-purple-500 text-white"
                                             : "bg-[#0f0f14] border-zinc-800 text-zinc-400 hover:border-purple-500"
-                                    }`}
+                                        }`}
                                 >
                                     AVANÇADO
                                 </button>
 
                             </div>
+
                         </div>
 
                         <div className="mb-7">
+
                             <label className="text-sm text-zinc-400 mb-2 flex items-center gap-2">
                                 <ClockIcon size={18} />
                                 Dias por semana
@@ -271,11 +291,10 @@ export default function FormPerfil({
                                         onClick={() =>
                                             onFrequenciaChange(dia)
                                         }
-                                        className={`h-10 rounded-lg border transition font-medium ${
-                                            frequencia === dia
+                                        className={`h-10 rounded-lg border transition font-medium ${frequencia === dia
                                                 ? "bg-purple-600 border-purple-500 text-white"
                                                 : "bg-[#0f0f14] border-zinc-800 text-zinc-400 hover:border-purple-500"
-                                        }`}
+                                            }`}
                                     >
                                         {dia}
                                     </button>
@@ -283,18 +302,26 @@ export default function FormPerfil({
                                 ))}
 
                             </div>
+
                         </div>
 
                         <button
                             type="submit"
                             className="w-full bg-purple-600 hover:bg-purple-500 transition text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2"
                         >
-                            <FloppyDiskIcon
-                                size={20}
-                                weight="bold"
-                            />
+                            <FloppyDiskIcon size={20} weight="bold"/>
 
                             Salvar alterações
+                        </button>
+
+                        <button 
+                            type="button" 
+                            onClick={onCancel} 
+                            className="w-full bg-purple-600 hover:bg-purple-500 transition text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2 mt-5" 
+                        > 
+                           
+                            <ArrowLeftIcon size={20} weight="bold" /> 
+                        Voltar 
                         </button>
 
                     </form>

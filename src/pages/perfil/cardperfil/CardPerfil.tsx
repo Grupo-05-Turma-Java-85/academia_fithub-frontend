@@ -68,7 +68,7 @@ export default function CardPerfil({
     return (
         <div className="w-full max-w-[600px]">
 
-            <div className="flex flex-col items-center mb-8">
+            <div className="flex flex-col items-center mb-8 mt-13">
 
                 <div className="w-32 h-32 rounded-full p-[3px] bg-gradient-to-br from-purple-500 via-fuchsia-500 to-pink-500">
 
