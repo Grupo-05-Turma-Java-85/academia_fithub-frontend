@@ -118,19 +118,19 @@ function Navbar() {
                         </Link>
 
                         <a
-                            href="/#beneficios"
+                            href="/sobre"
                             onClick={fecharMenu}
                             className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
                         >
-                            Benefícios
+                            Sobre
                         </a>
 
                         <a
-                            href="/#planos"
+                            href="/suporte"
                             onClick={fecharMenu}
                             className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
                         >
-                            Planos
+                            Suporte
                         </a>
 
                         {/* BOTÃO LOGIN MOBILE */}
