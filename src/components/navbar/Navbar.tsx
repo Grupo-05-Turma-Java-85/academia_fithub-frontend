@@ -73,12 +73,6 @@ function Navbar() {
                         Já sou alune
                     </Link>
 
-                    <Link
-                        to="/login"
-                        className="hidden rounded-xl bg-white px-5 py-3 text-sm font-black text-black transition duration-300 hover:bg-purple-500 hover:text-white sm:block"
-                    >
-                        Seja Franqueade
-                    </Link>
 
                     {/* HAMBÚRGUER */}
                     <button

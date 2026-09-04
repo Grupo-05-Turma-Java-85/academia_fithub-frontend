@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
     CaretRightIcon,
-    TimerIcon,
     ArrowLeftIcon,
     BarbellIcon,
 } from "@phosphor-icons/react";
@@ -148,7 +147,7 @@ export default function Exercicios() {
     return (
         <main className="min-h-screen bg-[#08060D] text-white px-6 py-10">
 
-            <div className="w-full max-w-7xl mx-auto">
+            <div className="w-full max-w-7xl mt-20 mx-auto">
 
                 <button
                     onClick={() => navigate("/categorias")}
@@ -268,25 +267,14 @@ export default function Exercicios() {
 
                                 <h2 className="text-xl font-bold text-white">
                                     {exercicio.nome}
-                                </h2>
+                                </h2>                               
 
-                                {exercicio.descricao && (
-                                    <p className="
-                                        text-zinc-400
-                                        text-sm
-                                        mt-3
-                                        line-clamp-3
-                                    ">
-                                        {exercicio.descricao}
-                                    </p>
-                                )}
+                                <div className="mt-6 flex items-center gap-2 text-purple-400 text-sm">
 
-                                <div className="mt-6 flex items-center gap-2 text-zinc-400 text-sm">
-
-                                    <TimerIcon size={18} />
+                                    <BarbellIcon size={18} />
 
                                     <span>
-                                        Exercício
+                                        4 séries x 10-12 reps
                                     </span>
 
                                 </div>
