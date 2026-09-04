@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MagnifyingGlass, ArrowRight, Barbell, ForkKnife, User, Wrench, CaretDown, Robot, WhatsappLogo, EnvelopeSimple } from '@phosphor-icons/react';
+import Footer from '../../components/footer/Footer';
 
 export default function Support() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -17,7 +18,7 @@ export default function Support() {
     },
     {
       title: 'NUTRIÇÃO',
-      desc: 'Macros, planos de refeições e ajustes de dieta.',
+      desc: 'Refeições saudáveis com o nosso Delivery Fit.',
       icon: <ForkKnife size={22} className="text-teal-400 shrink-0" />,
       bgColor: 'bg-teal-950/40 border-teal-800/30',
     },
@@ -37,16 +38,16 @@ export default function Support() {
 
   const faqs = [
     {
-      question: 'Como faço para redefinir meu programa de treino?',
-      answer: 'Você pode redefinir o programa indo em Configurações > Meu Plano de Treino > Redefinir Progresso.'
+      question: 'Quais são os planos disponíveis e as formas de pagamento?',
+      answer: 'Oferecemos planos mensais e anuais. O pagamento pode ser feito via cartão de crédito (recorrente), débito ou PIX.'
     },
     {
-      question: 'Posso sincronizar dados com o Apple Health ou Google Fit?',
-      answer: 'Sim! Acesse a aba Integracoes no seu perfil e selecione o aplicativo de saude desejado para sincronizar.'
+      question: 'Posso treinar em qualquer unidade da rede?',
+      answer: 'Sim, o acesso às demais unidades depende do seu plano. Planos VIP/Global possuem acesso livre a toda a rede.'
     },
     {
-      question: 'Como atualizo meu método de pagamento?',
-      answer: 'Acesse a aba Conta > Faturamento para adicionar ou alterar seu cartão de crédito.'
+      question: 'Como funciona a avaliação física e como posso agendá-la?',
+      answer: 'A avaliação analisa sua composição corporal e objetivos. Você pode agendá-la pelo app na aba Agendamentos ou na recepção.'
     },
   ];
 
@@ -87,7 +88,7 @@ export default function Support() {
             {categories.map((cat, idx) => (
               <div
                 key={idx}
-                className="bg-[#121316] border border-neutral-800/80 rounded-xl p-5 sm:p-6 flex flex-col justify-between gap-4 hover:border-primary-container transition cursor-pointer"
+                className="bg-[#121316] border border-neutral-800/80 rounded-xl p-5 sm:p-6 flex flex-col justify-between gap-4 hover:border-purple-600 transition cursor-pointer"
               >
                 <div className={`w-10 h-10 rounded-lg border flex items-center justify-center ${cat.bgColor}`}>
                   {cat.icon}
@@ -126,7 +127,7 @@ export default function Support() {
         </div>
 
         {/* Card de Atendimento Direto */}
-        <div className="bg-[#121316] border border-neutral-800/80 rounded-2xl p-6 sm:p-8 lg:p-10 flex flex-col items-center text-center gap-6 sm:gap-8">
+        <div className="bg-[#121316] border border-neutral-800/80 rounded-2xl p-6 sm:p-8 lg:p-10 flex flex-col items-center text-center gap-6 sm:gap-8 mb-3">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold text-primary">Ainda precisa de ajuda?</h2>
             <p className="text-neutral-400 text-xs sm:text-sm mt-2">
@@ -145,7 +146,7 @@ export default function Support() {
             </div>
 
             {/* WhatsApp */}
-            <div className="bg-neutral-900/80 border border-neutral-800 rounded-xl p-5 sm:p-6 flex flex-col items-center justify-center gap-2.5 hover:border-teal-500 transition cursor-pointer">
+            <div className="bg-neutral-900/80 border border-teal-800 rounded-xl p-5 sm:p-6 flex flex-col items-center justify-center gap-2.5 hover:border-teal-500 transition cursor-pointer">
               <div className="w-10 h-10 rounded-lg bg-teal-950/60 border border-teal-800/40 flex items-center justify-center text-teal-400">
                 <WhatsappLogo size={22} />
               </div>
