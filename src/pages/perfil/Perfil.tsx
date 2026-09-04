@@ -23,6 +23,23 @@ export default function Perfil() {
     const [frequencia, setFrequencia] = useState<number | null>(null);
     const [foto, setFoto] = useState("");
 
+    /*
+     * Calcula o IMC utilizando os valores que estão
+     * atualmente nos estados de peso e altura.
+     */
+    const pesoAtual = Number(
+        weight.replace(",", ".")
+    );
+
+    const alturaAtual = Number(
+        height.replace(",", ".")
+    );
+
+    const imc =
+        pesoAtual > 0 && alturaAtual > 0
+            ? pesoAtual / (alturaAtual * alturaAtual)
+            : 0;
+
     useEffect(() => {
 
         async function carregarPerfil() {
@@ -36,8 +53,13 @@ export default function Perfil() {
 
                 const setDados = (dados: any) => {
 
-                    setName(dados.nome ?? "");
-                    setEmail(dados.usuario ?? "");
+                    setName(
+                        dados.nome ?? ""
+                    );
+
+                    setEmail(
+                        dados.usuario ?? ""
+                    );
 
                     setWeight(
                         dados.peso !== null &&
@@ -70,7 +92,9 @@ export default function Perfil() {
                             : null
                     );
 
-                    setFoto(dados.foto ?? "");
+                    setFoto(
+                        dados.foto ?? ""
+                    );
                 };
 
                 await buscar(
@@ -112,48 +136,74 @@ export default function Perfil() {
         event.preventDefault();
 
         if (!usuario.id || !usuario.token) {
-            toast.error("Usuário não autenticado.");
+
+            toast.error(
+                "Usuário não autenticado."
+            );
+
             return;
         }
 
         if (!name.trim()) {
-            toast.error("Informe seu nome.");
+
+            toast.error(
+                "Informe seu nome."
+            );
+
             return;
         }
 
         if (!email.trim()) {
-            toast.error("Informe seu usuário.");
+
+            toast.error(
+                "Informe seu usuário."
+            );
+
             return;
         }
 
         if (!weight.trim()) {
-            toast.error("Informe seu peso.");
+
+            toast.error(
+                "Informe seu peso."
+            );
+
             return;
         }
 
         if (!height.trim()) {
-            toast.error("Informe sua altura.");
+
+            toast.error(
+                "Informe sua altura."
+            );
+
             return;
         }
 
         if (!birthDate) {
+
             toast.error(
                 "Informe sua data de nascimento."
             );
+
             return;
         }
 
         if (!experience) {
+
             toast.error(
                 "Selecione seu nível de experiência."
             );
+
             return;
         }
 
         if (!frequencia) {
+
             toast.error(
                 "Selecione sua frequência semanal."
             );
+
             return;
         }
 
@@ -165,15 +215,36 @@ export default function Perfil() {
             height.replace(",", ".")
         );
 
-        if (Number.isNaN(peso) || peso <= 0) {
-            toast.error("Informe um peso válido.");
+        if (
+            Number.isNaN(peso) ||
+            peso <= 0
+        ) {
+
+            toast.error(
+                "Informe um peso válido."
+            );
+
             return;
         }
 
-        if (Number.isNaN(altura) || altura <= 0) {
-            toast.error("Informe uma altura válida.");
+        if (
+            Number.isNaN(altura) ||
+            altura <= 0
+        ) {
+
+            toast.error(
+                "Informe uma altura válida."
+            );
+
             return;
         }
+
+        /*
+         * Calcula o IMC usando os valores
+         * que acabaram de ser informados.
+         */
+        const imcCalculado =
+            peso / (altura * altura);
 
         const dados = {
             id: usuario.id,
@@ -185,6 +256,7 @@ export default function Perfil() {
             dataNascimento: birthDate,
             nivel: experience,
             frequenciaSemanal: frequencia,
+            imc: imcCalculado,
         };
 
         try {
@@ -233,6 +305,7 @@ export default function Perfil() {
     }
 
     return (
+
         <div className="min-h-screen bg-[#0b0b0e] px-6 py-16">
 
             {editando ? (
@@ -272,6 +345,7 @@ export default function Perfil() {
                     experience={experience}
                     frequencia={frequencia}
                     foto={foto}
+                    imc={imc}
 
                     onEditar={() => setEditando(true)}
                 />

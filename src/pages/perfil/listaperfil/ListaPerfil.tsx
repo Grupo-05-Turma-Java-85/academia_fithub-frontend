@@ -9,6 +9,7 @@ interface ListaPerfilProps {
     experience: string;
     frequencia: number | null;
     foto: string;
+    imc: number;
     onEditar: () => void;
 }
 
@@ -21,12 +22,12 @@ export default function ListaPerfil({
     experience,
     frequencia,
     foto,
+    imc,
     onEditar,
 }: ListaPerfilProps) {
 
     return (
         <div className="w-full flex justify-center">
-
             <CardPerfil
                 name={name}
                 email={email}
@@ -36,9 +37,10 @@ export default function ListaPerfil({
                 experience={experience}
                 frequencia={frequencia}
                 foto={foto}
+                imc={imc}
                 onEditar={onEditar}
             />
-
         </div>
     );
 }
+

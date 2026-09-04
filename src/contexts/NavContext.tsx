@@ -67,7 +67,7 @@ export function NavProvider({ children }: NavProviderProps) {
             caminho.startsWith("/perfil") ||
             caminho.startsWith("/exercicios") ||
             caminho.startsWith("/categorias") ||
-            caminho.startsWith("/exercicio/:id")
+            caminho.startsWith("/exercicio/")
         ) {
             return "aluno";
         }

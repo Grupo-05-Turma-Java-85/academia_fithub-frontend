@@ -1,3 +1,4 @@
+
 import {
     PencilSimpleIcon,
     UserIcon,
@@ -17,6 +18,7 @@ interface CardPerfilProps {
     experience: string;
     frequencia: number | null;
     foto: string;
+    imc: number;
     onEditar: () => void;
 }
 
@@ -29,6 +31,7 @@ export default function CardPerfil({
     experience,
     frequencia,
     foto,
+    imc,
     onEditar,
 }: CardPerfilProps) {
 
@@ -127,17 +130,21 @@ export default function CardPerfil({
                         onClick={onEditar}
                         className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 transition text-white text-sm font-medium"
                     >
+
                         <PencilSimpleIcon
                             size={18}
                             weight="bold"
                         />
 
                         Editar
+
                     </button>
 
                 </div>
 
                 <div className="p-6">
+
+                    {/* DADOS PESSOAIS */}
 
                     <div className="mb-8">
 
@@ -146,6 +153,8 @@ export default function CardPerfil({
                         </p>
 
                         <div className="space-y-4">
+
+                            {/* NOME */}
 
                             <div className="flex items-center gap-4">
 
@@ -171,6 +180,8 @@ export default function CardPerfil({
                                 </div>
 
                             </div>
+
+                            {/* DATA DE NASCIMENTO */}
 
                             <div className="flex items-center gap-4">
 
@@ -201,6 +212,8 @@ export default function CardPerfil({
 
                     </div>
 
+                    {/* DADOS FÍSICOS */}
+
                     <div className="mb-8">
 
                         <p className="text-xs uppercase tracking-wider text-purple-400 font-semibold mb-4">
@@ -208,6 +221,8 @@ export default function CardPerfil({
                         </p>
 
                         <div className="grid grid-cols-2 gap-4">
+
+                            {/* PESO */}
 
                             <div className="bg-[#0f0f14] border border-zinc-800 rounded-xl p-4">
 
@@ -221,12 +236,16 @@ export default function CardPerfil({
                                 </p>
 
                                 <p className="text-white text-lg font-semibold mt-1">
+
                                     {weight
                                         ? `${weight} kg`
                                         : "Não informado"}
+
                                 </p>
 
                             </div>
+
+                            {/* ALTURA */}
 
                             <div className="bg-[#0f0f14] border border-zinc-800 rounded-xl p-4">
 
@@ -240,9 +259,34 @@ export default function CardPerfil({
                                 </p>
 
                                 <p className="text-white text-lg font-semibold mt-1">
+
                                     {height
                                         ? `${height} m`
                                         : "Não informado"}
+
+                                </p>
+
+                            </div>
+
+                            {/* IMC */}
+
+                            <div className="bg-[#0f0f14] border border-zinc-800 rounded-xl p-4">
+
+                                <ScalesIcon
+                                    size={23}
+                                    className="text-purple-400 mb-3"
+                                />
+
+                                <p className="text-xs text-zinc-500">
+                                    IMC
+                                </p>
+
+                                <p className="text-white text-lg font-semibold mt-1">
+
+                                    {imc > 0
+                                        ? imc.toFixed(2)
+                                        : "Não informado"}
+
                                 </p>
 
                             </div>
@@ -251,6 +295,8 @@ export default function CardPerfil({
 
                     </div>
 
+                    {/* PERFIL DE TREINO */}
+
                     <div>
 
                         <p className="text-xs uppercase tracking-wider text-purple-400 font-semibold mb-4">
@@ -258,6 +304,8 @@ export default function CardPerfil({
                         </p>
 
                         <div className="grid grid-cols-2 gap-4">
+
+                            {/* NÍVEL */}
 
                             <div className="bg-[#0f0f14] border border-zinc-800 rounded-xl p-4">
 
@@ -276,6 +324,8 @@ export default function CardPerfil({
 
                             </div>
 
+                            {/* FREQUÊNCIA */}
+
                             <div className="bg-[#0f0f14] border border-zinc-800 rounded-xl p-4">
 
                                 <ClockIcon
@@ -288,9 +338,11 @@ export default function CardPerfil({
                                 </p>
 
                                 <p className="text-white text-lg font-semibold mt-1">
+
                                     {frequencia
                                         ? `${frequencia}x por semana`
                                         : "Não informado"}
+
                                 </p>
 
                             </div>
@@ -306,3 +358,4 @@ export default function CardPerfil({
         </div>
     );
 }
+
