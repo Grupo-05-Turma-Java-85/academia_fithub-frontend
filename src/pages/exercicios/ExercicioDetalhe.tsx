@@ -148,18 +148,14 @@ export default function ExercicioDetalhe() {
                 {/* Grid Superior: Mídia + Cartões Laterais */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
                     {/* Imagem / Vídeo do Exercício */}
-                    <div className="lg:col-span-7 bg-[#11101A] border border-zinc-800/80 rounded-2xl overflow-hidden relative group aspect-video lg:aspect-auto flex items-center justify-center min-h-[300px]">
-                        <img
+                    <div className="lg:col-span-7 bg-[#11101A] border mt-30 border-zinc-800/80 rounded-2xl overflow-hidden relative group aspect-video lg:aspect-auto flex items-center justify-center max-h-110">
+                        <video
                             src={
                                 exercicio.foto ||
-                                "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000&auto=format&fit=crop"
+                                "https://www.pexels.com/pt-br/download/video/36785554/"
                             }
-                            alt={exercicio.nome}
-                            className="w-full h-full object-cover"
+                            controls autoPlay
                         />
-                        <button className="absolute w-14 h-14 bg-purple-600/90 hover:bg-purple-600 rounded-full flex items-center justify-center transition-transform transform group-hover:scale-110 shadow-lg">
-                            <Play size={24} weight="fill" className="text-white ml-1" />
-                        </button>
                     </div>
 
                     {/* Lado Direito: Séries e Cronômetro */}
@@ -191,11 +187,10 @@ export default function ExercicioDetalhe() {
                                     <div
                                         key={serie}
                                         onClick={() => toggleSerie(index)}
-                                        className={`flex items-center justify-between p-3.5 rounded-xl border transition cursor-pointer ${
-                                            seriesConcluidas[index]
+                                        className={`flex items-center justify-between p-3.5 rounded-xl border transition cursor-pointer ${seriesConcluidas[index]
                                                 ? "border-purple-500/50 bg-purple-950/10"
                                                 : "border-zinc-800/60 bg-[#161422]/50 hover:border-zinc-700"
-                                        }`}
+                                            }`}
                                     >
                                         <span className="font-semibold text-sm text-zinc-300">
                                             Série {serie}
@@ -205,11 +200,10 @@ export default function ExercicioDetalhe() {
                                                 {seriesConcluidas[index] ? "Concluída" : "-"}
                                             </span>
                                             <div
-                                                className={`w-6 h-6 rounded-full border flex items-center justify-center transition ${
-                                                    seriesConcluidas[index]
+                                                className={`w-6 h-6 rounded-full border flex items-center justify-center transition ${seriesConcluidas[index]
                                                         ? "bg-purple-600 border-purple-500 text-white"
                                                         : "border-zinc-700 bg-transparent"
-                                                }`}
+                                                    }`}
                                             >
                                                 {seriesConcluidas[index] && (
                                                     <Check size={14} weight="bold" />
