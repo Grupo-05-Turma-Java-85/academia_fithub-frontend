@@ -11,6 +11,7 @@ import {
 } from "@phosphor-icons/react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { cadastrarUsuario } from "../../service/Service";
 
 export default function Register() {
     const [nome, setNome] = useState("");
@@ -19,6 +20,7 @@ export default function Register() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [peso, setPeso] = useState("");
     const [altura, setAltura] = useState("");
+    const [tipoUsuario, setTipoUsuario] = useState("");
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
@@ -26,8 +28,15 @@ export default function Register() {
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // 1. Validação dos campos
-        if (!nome || !email || !password || !confirmPassword || !peso || !altura) {
+        if (
+            !nome ||
+            !email ||
+            !password ||
+            !confirmPassword ||
+            !peso ||
+            !altura ||
+            !tipoUsuario
+        ) {
             toast.error("Preencha todos os campos!");
             return;
         }
@@ -39,25 +48,34 @@ export default function Register() {
 
         setLoading(true);
 
-        // 2. Mapeamento para os campos idênticos ao Java
         const payload = {
             nome: nome,
-            usuario: email, // Mapeia o e-mail no campo 'usuario' do Spring Boot
+            usuario: email,
             senha: password,
             peso: parseFloat(peso.replace(",", ".")),
-            altura: parseFloat(altura.replace(",", "."))
+            altura: parseFloat(altura.replace(",", ".")),
+            tipoUsuario: Number(tipoUsuario),
         };
 
         try {
-            // 3. Chamada via Axios para cadastrar
-            await axios.post("http://localhost:8080/usuarios/cadastrar", payload);
+            await cadastrarUsuario(
+                "/usuarios/cadastrar",
+                payload,
+                () => {}
+            );
 
             toast.success("Cadastro realizado com sucesso!");
             navigate("/login");
+
         } catch (error: any) {
             console.error("Erro no cadastro:", error);
-            const msgErro = error.response?.data?.message || "Erro ao realizar cadastro. Tente novamente!";
+
+            const msgErro =
+                error.response?.data?.message ||
+                "Erro ao realizar cadastro. Tente novamente!";
+
             toast.error(msgErro);
+
         } finally {
             setLoading(false);
         }
@@ -257,8 +275,78 @@ export default function Register() {
                             </div>
                         </div>
 
+                        {/* TIPO DE USUÁRIO */}
+                        <div>
+                            <label
+                                htmlFor="tipoUsuario"
+                                className="mb-1.5 block text-xs sm:text-sm font-semibold text-neutral-300"
+                            >
+                                Tipo de usuário
+                            </label>
+
+                            <div
+                                className="
+                                    flex
+                                    items-center
+                                    rounded-xl
+                                    border
+                                    border-neutral-800
+                                    bg-[#18191c]
+                                    px-3.5
+                                    py-2.5
+                                    transition-colors
+                                    focus-within:border-purple-500
+                                "
+                            >
+                                <User
+                                    size={20}
+                                    weight="regular"
+                                    className="mr-3 shrink-0 text-purple-300/80"
+                                />
+
+                                <select
+                                    id="tipoUsuario"
+                                    value={tipoUsuario}
+                                    onChange={(e) =>
+                                        setTipoUsuario(e.target.value)
+                                    }
+                                    className="
+                                        w-full
+                                        border-none
+                                        bg-transparent
+                                        text-sm
+                                        font-medium
+                                        text-white
+                                        outline-none
+                                    "
+                                >
+                                    <option
+                                        value=""
+                                        className="bg-[#18191c]"
+                                    >
+                                        Selecione o tipo de usuário
+                                    </option>
+
+                                    <option
+                                        value="1"
+                                        className="bg-[#18191c]"
+                                    >
+                                        Aluno
+                                    </option>
+
+                                    <option
+                                        value="2"
+                                        className="bg-[#18191c]"
+                                    >
+                                        Administrador
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
                         {/* GRID PESO E ALTURA */}
                         <div className="grid grid-cols-2 gap-3">
+
                             {/* PESO */}
                             <div>
                                 <label
@@ -267,8 +355,14 @@ export default function Register() {
                                 >
                                     Peso (kg)
                                 </label>
+
                                 <div className="flex items-center rounded-xl border border-neutral-800 bg-[#18191c] px-3 py-2.5 transition-colors focus-within:border-purple-500">
-                                    <Hourglass size={18} className="mr-2 shrink-0 text-purple-300/80" />
+
+                                    <Hourglass
+                                        size={18}
+                                        className="mr-2 shrink-0 text-purple-300/80"
+                                    />
+
                                     <input
                                         id="peso"
                                         type="text"
@@ -277,6 +371,7 @@ export default function Register() {
                                         placeholder="75.0"
                                         className="w-full bg-transparent text-sm font-medium text-white outline-none placeholder:text-neutral-600"
                                     />
+
                                 </div>
                             </div>
 
@@ -288,8 +383,14 @@ export default function Register() {
                                 >
                                     Altura (cm)
                                 </label>
+
                                 <div className="flex items-center rounded-xl border border-neutral-800 bg-[#18191c] px-3 py-2.5 transition-colors focus-within:border-purple-500">
-                                    <Ruler size={18} className="mr-2 shrink-0 text-purple-300/80" />
+
+                                    <Ruler
+                                        size={18}
+                                        className="mr-2 shrink-0 text-purple-300/80"
+                                    />
+
                                     <input
                                         id="altura"
                                         type="text"
@@ -298,8 +399,10 @@ export default function Register() {
                                         placeholder="175"
                                         className="w-full bg-transparent text-sm font-medium text-white outline-none placeholder:text-neutral-600"
                                     />
+
                                 </div>
                             </div>
+
                         </div>
 
                         {/* SENHA */}
@@ -383,7 +486,9 @@ export default function Register() {
                                     id="confirmPassword"
                                     type="password"
                                     value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    onChange={(e) =>
+                                        setConfirmPassword(e.target.value)
+                                    }
                                     placeholder="••••••••"
                                     className="
                                         w-full
@@ -461,13 +566,17 @@ export default function Register() {
                     </p>
 
                     <div className="flex items-center gap-2 text-xs font-medium text-neutral-500">
+
                         <p className="transition hover:text-neutral-400 cursor-pointer">
                             Termos de Uso
                         </p>
+
                         <span>•</span>
+
                         <p className="transition hover:text-neutral-400 cursor-pointer">
                             Política de Privacidade
                         </p>
+
                     </div>
 
                 </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
     EnvelopeSimple,
@@ -7,6 +7,7 @@ import {
     ArrowRight,
 } from "@phosphor-icons/react";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -14,7 +15,9 @@ export default function Login() {
 
     const navigate = useNavigate();
 
-    const handleLogin = (e: React.FormEvent) => {
+    const { handleLogin, isLoading } = useContext(AuthContext);
+
+    const handleLoginSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!email || !password) {
@@ -22,8 +25,30 @@ export default function Login() {
             return;
         }
 
-        toast.success("Login efetuado com sucesso!");
-        navigate("/home");
+        const usuarioLogin = {
+            usuario: email,
+            senha: password,
+        };
+
+        const usuarioAutenticado = await handleLogin(
+            usuarioLogin as any
+        );
+
+        if (!usuarioAutenticado) {
+            return;
+        }
+
+        if (usuarioAutenticado.tipoUsuario === 1) {
+            navigate("/homealuno");
+            return;
+        }
+
+        if (usuarioAutenticado.tipoUsuario === 2) {
+            navigate("/homeadmin");
+            return;
+        }
+
+        toast.error("Tipo de usuário inválido.");
     };
 
     return (
@@ -138,7 +163,7 @@ export default function Login() {
                     </div>
 
                     <form
-                        onSubmit={handleLogin}
+                        onSubmit={handleLoginSubmit}
                         className="flex flex-col gap-6"
                     >
 
@@ -258,6 +283,7 @@ export default function Login() {
                         {/* BOTÃO */}
                         <button
                             type="submit"
+                            disabled={isLoading}
                             className="
                                 mt-1
                                 flex
@@ -278,14 +304,17 @@ export default function Login() {
                                 hover:bg-[#6d28d9]
                                 hover:shadow-purple-600/40
                                 active:scale-[0.98]
+                                disabled:opacity-50
                             "
                         >
-                            Entrar
+                            {isLoading ? "Entrando..." : "Entrar"}
 
-                            <ArrowRight
-                                size={20}
-                                weight="bold"
-                            />
+                            {!isLoading && (
+                                <ArrowRight
+                                    size={20}
+                                    weight="bold"
+                                />
+                            )}
                         </button>
 
                     </form>
@@ -317,19 +346,13 @@ export default function Login() {
 
                     <div className="flex items-center gap-3 text-xs font-medium text-neutral-500">
 
-                        <p
-                           
-                            className="transition hover:text-neutral-300"
-                        >
+                        <p className="transition hover:text-neutral-300">
                             Termos de Uso
                         </p>
 
                         <span>•</span>
 
-                        <p
-                            
-                            className="transition hover:text-neutral-300"
-                        >
+                        <p className="transition hover:text-neutral-300">
                             Política de Privacidade
                         </p>
 

@@ -1,4 +1,4 @@
-import type Categoria from "./categoria";
+import type Categoria from "./Categoria";
 
 export default interface Exercicio {
     id: number,

@@ -1,4 +1,3 @@
-
 import {
     ListIcon,
     XIcon,
@@ -8,9 +7,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { NavContext } from "../../contexts/NavContext";
 
-function Navbar() {
-
-
+function NavbarAdmin() {
 
     const {
         menuAberto,
@@ -26,7 +23,7 @@ function Navbar() {
 
                 {/* LOGO */}
                 <Link
-                    to="/"
+                    to="/homeadmin"
                     onClick={fecharMenu}
                     className="shrink-0 text-2xl font-black tracking-[-0.05em] text-white"
                 >
@@ -37,47 +34,19 @@ function Navbar() {
                 </Link>
 
                 {/* LINKS DESKTOP */}
-                <nav className="hidden items-center justify-center gap-8 lg:flex">
-
-                    <Link
-                        to="/"
-                        className="text-sm font-semibold text-white/70 transition duration-300 hover:text-purple-400"
-                    >
-                        Início
-                    </Link>
-
-                    <Link
-                        to="/sobre"
-                        className="text-sm font-semibold text-white/70 transition duration-300 hover:text-purple-400"
-                    >
-                        Sobre
-                    </Link>
-
-                    <Link
-                        to="/suporte"
-                        className="text-sm font-semibold text-white/70 transition duration-300 hover:text-purple-400"
-                    >
-                        Suporte
-                    </Link>
+                <nav className="hidden items-center gap-8 lg:flex">
 
                 </nav>
 
                 {/* DIREITA */}
                 <div className="flex items-center gap-3">
 
-                    {/* JÁ SOU ALUNO */}
+                    {/* BOTÃO ADMIN */}
                     <Link
-                        to="/login"
+                        to="/"
                         className="hidden rounded-xl bg-white px-5 py-3 text-sm font-black text-black transition duration-300 hover:bg-purple-500 hover:text-white sm:block"
                     >
-                        Já sou alune
-                    </Link>
-
-                    <Link
-                        to="/login"
-                        className="hidden rounded-xl bg-white px-5 py-3 text-sm font-black text-black transition duration-300 hover:bg-purple-500 hover:text-white sm:block"
-                    >
-                        Seja Franqueade
+                        Sair
                     </Link>
 
                     {/* HAMBÚRGUER */}
@@ -118,34 +87,9 @@ function Navbar() {
                         <Link
                             to="/"
                             onClick={fecharMenu}
-                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white transition hover:bg-white/5 hover:text-purple-400"
-                        >
-                            Início
-                        </Link>
-
-                        <a
-                            href="/#beneficios"
-                            onClick={fecharMenu}
-                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
-                        >
-                            Benefícios
-                        </a>
-
-                        <a
-                            href="/#planos"
-                            onClick={fecharMenu}
-                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
-                        >
-                            Planos
-                        </a>
-
-                        {/* BOTÃO LOGIN MOBILE */}
-                        <Link
-                            to="/login"
-                            onClick={fecharMenu}
                             className="mt-2 flex items-center justify-center rounded-xl bg-purple-600 px-4 py-3.5 text-sm font-black text-white transition duration-300 hover:bg-purple-500"
                         >
-                            Já sou aluno
+                            Sair
                         </Link>
 
                     </nav>
@@ -157,4 +101,4 @@ function Navbar() {
     );
 }
 
-export default Navbar;
+export default NavbarAdmin;

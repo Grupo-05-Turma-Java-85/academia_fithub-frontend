@@ -10,15 +10,180 @@ import {
     FolderIcon,
 } from "@phosphor-icons/react";
 
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+
+import { buscar } from "../../service/Service";
+import { AuthContext } from "../../contexts/AuthContext";
+
+import type Categoria from "../../models/Categoria";
+import type Exercicio from "../../models/Exercicio";
+
+import DeletarExercicios from "../../components/exercicios/deletarexercicios/DeletarExercicios";
+import FormExercicios from "../../components/exercicios/formexercicios/FormExercicios";
+
+import DeletarCategoria from "../../components/categorias/deletarcategoria/DeletarCategoria";
+import FormCategorias from "../../components/categorias/formcategoria/FormCategoria";
+
 
 function HomeAdmin() {
+
+    const [categorias, setCategorias] = useState<Categoria[]>([]);
+    const [exercicios, setExercicios] = useState<Exercicio[]>([]);
+
+    // =========================
+    // MODAIS EXERCÍCIOS
+    // =========================
+
+    const [modalFormulario, setModalFormulario] = useState(false);
+    const [modalDeletar, setModalDeletar] = useState(false);
+
+    const [exercicioSelecionado, setExercicioSelecionado] =
+        useState<Exercicio | null>(null);
+
+
+    // =========================
+    // MODAIS CATEGORIAS
+    // =========================
+
+    const [modalFormularioCategoria, setModalFormularioCategoria] =
+        useState(false);
+
+    const [modalDeletarCategoria, setModalDeletarCategoria] =
+        useState(false);
+
+    const [categoriaSelecionada, setCategoriaSelecionada] =
+        useState<Categoria | null>(null);
+
+
+    const { usuario } = useContext(AuthContext);
+
+
+    // =========================
+    // CARREGAR DADOS
+    // =========================
+
+    async function carregarDados() {
+
+        if (!usuario.token) return;
+
+        const header = {
+            headers: {
+                Authorization: usuario.token
+            }
+        };
+
+        buscar("/categorias", setCategorias, header);
+        buscar("/exercicios", setExercicios, header);
+    }
+
+
+    useEffect(() => {
+
+        carregarDados();
+
+    }, [usuario.token]);
+
+
+    // =========================
+    // EXERCÍCIOS
+    // =========================
+
+    function abrirAdicionarExercicio() {
+
+        setExercicioSelecionado(null);
+        setModalFormulario(true);
+    }
+
+
+    function abrirEditarExercicio(exercicio: Exercicio) {
+
+        setExercicioSelecionado(exercicio);
+        setModalFormulario(true);
+    }
+
+
+    function abrirDeletarExercicio(exercicio: Exercicio) {
+
+        setExercicioSelecionado(exercicio);
+        setModalDeletar(true);
+    }
+
+
+    function fecharFormulario() {
+
+        setModalFormulario(false);
+        setExercicioSelecionado(null);
+    }
+
+
+    function fecharDeletar() {
+
+        setModalDeletar(false);
+        setExercicioSelecionado(null);
+    }
+
+
+    // =========================
+    // CATEGORIAS
+    // =========================
+
+    function abrirAdicionarCategoria() {
+
+        setCategoriaSelecionada(null);
+        setModalFormularioCategoria(true);
+    }
+
+
+    function abrirEditarCategoria(categoria: Categoria) {
+
+        setCategoriaSelecionada(categoria);
+        setModalFormularioCategoria(true);
+    }
+
+
+    function abrirDeletarCategoria(categoria: Categoria) {
+
+        setCategoriaSelecionada(categoria);
+        setModalDeletarCategoria(true);
+    }
+
+
+    function fecharFormularioCategoria() {
+
+        setModalFormularioCategoria(false);
+        setCategoriaSelecionada(null);
+    }
+
+
+    function fecharDeletarCategoria() {
+
+        setModalDeletarCategoria(false);
+        setCategoriaSelecionada(null);
+    }
+
+
+    // =========================
+    // ATUALIZAR LISTAS
+    // =========================
+
+    async function atualizarLista() {
+
+        await carregarDados();
+
+    }
+
+    console.log("USUÁRIO LOGADO:", usuario);
+    console.log("TIPO:", usuario.tipoUsuario);
+    console.log("TOKEN:", usuario.token);
+
     return (
+
         <main className="min-h-screen w-full py-30 overflow-x-hidden bg-[#08070d] text-white">
 
             {/* =========================
                 HEADER
             ========================= */}
+
             <section className="border-b border-white/5 bg-[#120c1d]">
 
                 <div className="w-full px-10 py-10">
@@ -26,7 +191,6 @@ function HomeAdmin() {
                     <div className="flex items-center justify-between">
 
                         <div>
-
 
                             <h1 className="mt-4 text-4xl font-black tracking-tight">
                                 Olá, Administrador
@@ -45,9 +209,11 @@ function HomeAdmin() {
 
             </section>
 
+
             {/* =========================
                 INDICADORES
             ========================= */}
+
             <section className="bg-[#09080e]">
 
                 <div className="w-full px-10 py-8">
@@ -55,6 +221,7 @@ function HomeAdmin() {
                     <div className="grid grid-cols-4 gap-5">
 
                         {/* ALUNOS */}
+
                         <div className="rounded-xl border border-white/5 bg-[#100d16] p-5 transition hover:border-purple-500/20">
 
                             <div className="flex items-start justify-between">
@@ -84,7 +251,9 @@ function HomeAdmin() {
 
                         </div>
 
+
                         {/* TREINOS */}
+
                         <div className="rounded-xl border border-white/5 bg-[#100d16] p-5 transition hover:border-purple-500/20">
 
                             <div className="flex items-start justify-between">
@@ -114,7 +283,9 @@ function HomeAdmin() {
 
                         </div>
 
+
                         {/* ALUNOS ATIVOS */}
+
                         <div className="rounded-xl border border-white/5 bg-[#100d16] p-5 transition hover:border-purple-500/20">
 
                             <div className="flex items-start justify-between">
@@ -143,7 +314,9 @@ function HomeAdmin() {
 
                         </div>
 
+
                         {/* PERFORMANCE */}
+
                         <div className="rounded-xl border border-purple-500/20 bg-[#120d1b] p-5">
 
                             <div className="flex items-start justify-between">
@@ -178,9 +351,11 @@ function HomeAdmin() {
 
             </section>
 
+
             {/* =========================
                 GERENCIAMENTO
             ========================= */}
+
             <section className="bg-[#09080e]">
 
                 <div className="w-full px-10 pb-10">
@@ -201,11 +376,13 @@ function HomeAdmin() {
 
                     </div>
 
+
                     <div className="grid grid-cols-2 gap-5">
 
                         {/* =========================
                             CATEGORIAS
                         ========================= */}
+
                         <div className="rounded-xl border border-white/5 bg-[#100d16] p-6">
 
                             <div className="flex items-start justify-between">
@@ -231,133 +408,91 @@ function HomeAdmin() {
                                 </div>
 
                                 <span className="rounded-md bg-purple-500/10 px-2 py-1 text-[9px] font-bold text-purple-400">
-                                    12 categorias
+                                    {categorias.length} categorias
                                 </span>
 
                             </div>
 
+
                             <div className="mt-6 space-y-3">
 
-                                {/* CATEGORIA 1 */}
-                                <div className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4">
+                                {categorias.slice(0, 3).map((categoria) => {
 
-                                    <div>
+                                    const quantidadeExercicios =
+                                        exercicios.filter(
+                                            (exercicio) =>
+                                                exercicio.categoria?.id === categoria.id
+                                        ).length;
 
-                                        <p className="text-sm font-semibold">
-                                            Peito
-                                        </p>
+                                    return (
 
-                                        <p className="mt-1 text-[9px] text-gray-600">
-                                            8 exercícios
-                                        </p>
-
-                                    </div>
-
-                                    <div className="flex items-center gap-2">
-
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-400"
-                                            title="Editar categoria"
+                                        <div
+                                            key={categoria.id}
+                                            className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4"
                                         >
-                                            <PencilSimpleIcon size={15} />
-                                        </button>
 
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
-                                            title="Excluir categoria"
-                                        >
-                                            <TrashIcon size={15} />
-                                        </button>
+                                            <div>
 
-                                    </div>
+                                                <p className="text-sm font-semibold">
+                                                    {categoria.nome}
+                                                </p>
 
-                                </div>
+                                                <p className="mt-1 text-[9px] text-gray-600">
+                                                    {quantidadeExercicios} exercícios
+                                                </p>
 
-                                {/* CATEGORIA 2 */}
-                                <div className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4">
+                                            </div>
 
-                                    <div>
 
-                                        <p className="text-sm font-semibold">
-                                            Costas
-                                        </p>
+                                            <div className="flex items-center gap-2">
 
-                                        <p className="mt-1 text-[9px] text-gray-600">
-                                            10 exercícios
-                                        </p>
+                                                <button
+                                                    onClick={() =>
+                                                        abrirEditarCategoria(categoria)
+                                                    }
+                                                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-400"
+                                                    title="Editar categoria"
+                                                >
+                                                    <PencilSimpleIcon size={15} />
+                                                </button>
 
-                                    </div>
 
-                                    <div className="flex items-center gap-2">
+                                                <button
+                                                    onClick={() =>
+                                                        abrirDeletarCategoria(categoria)
+                                                    }
+                                                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
+                                                    title="Excluir categoria"
+                                                >
+                                                    <TrashIcon size={15} />
+                                                </button>
 
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-400"
-                                            title="Editar categoria"
-                                        >
-                                            <PencilSimpleIcon size={15} />
-                                        </button>
+                                            </div>
 
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
-                                            title="Excluir categoria"
-                                        >
-                                            <TrashIcon size={15} />
-                                        </button>
+                                        </div>
 
-                                    </div>
+                                    );
 
-                                </div>
-
-                                {/* CATEGORIA 3 */}
-                                <div className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4">
-
-                                    <div>
-
-                                        <p className="text-sm font-semibold">
-                                            Pernas
-                                        </p>
-
-                                        <p className="mt-1 text-[9px] text-gray-600">
-                                            14 exercícios
-                                        </p>
-
-                                    </div>
-
-                                    <div className="flex items-center gap-2">
-
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-400"
-                                            title="Editar categoria"
-                                        >
-                                            <PencilSimpleIcon size={15} />
-                                        </button>
-
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
-                                            title="Excluir categoria"
-                                        >
-                                            <TrashIcon size={15} />
-                                        </button>
-
-                                    </div>
-
-                                </div>
+                                })}
 
                             </div>
 
-                            <Link
-                                to="/categorias"
+
+                            <button
+                                onClick={abrirAdicionarCategoria}
                                 className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-purple-600 py-3 text-[10px] font-bold transition hover:bg-purple-500"
                             >
                                 <PlusIcon size={15} weight="bold" />
-                                Gerenciar categorias
-                            </Link>
+                                Adicionar categoria
+                            </button>
 
                         </div>
+
 
                         {/* =========================
                             EXERCÍCIOS
                         ========================= */}
+
                         <div className="rounded-xl border border-white/5 bg-[#100d16] p-6">
 
                             <div className="flex items-start justify-between">
@@ -383,127 +518,74 @@ function HomeAdmin() {
                                 </div>
 
                                 <span className="rounded-md bg-purple-500/10 px-2 py-1 text-[9px] font-bold text-purple-400">
-                                    84 exercícios
+                                    {exercicios.length} exercícios
                                 </span>
 
                             </div>
 
+
                             <div className="mt-6 space-y-3">
 
-                                {/* EXERCÍCIO 1 */}
-                                <div className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4">
+                                {exercicios.slice(0, 3).map((exercicio) => (
 
-                                    <div>
+                                    <div
+                                        key={exercicio.id}
+                                        className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4"
+                                    >
 
-                                        <p className="text-sm font-semibold">
-                                            Supino reto
-                                        </p>
+                                        <div>
 
-                                        <p className="mt-1 text-[9px] text-gray-600">
-                                            Categoria: Peito
-                                        </p>
+                                            <p className="text-sm font-semibold">
+                                                {exercicio.nome}
+                                            </p>
 
-                                    </div>
+                                            <p className="mt-1 text-[9px] text-gray-600">
+                                                Categoria:{" "}
+                                                {exercicio.categoria?.nome || "Sem categoria"}
+                                            </p>
 
-                                    <div className="flex items-center gap-2">
+                                        </div>
 
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-400"
-                                            title="Editar exercício"
-                                        >
-                                            <PencilSimpleIcon size={15} />
-                                        </button>
 
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
-                                            title="Excluir exercício"
-                                        >
-                                            <TrashIcon size={15} />
-                                        </button>
+                                        <div className="flex items-center gap-2">
 
-                                    </div>
+                                            <button
+                                                onClick={() =>
+                                                    abrirEditarExercicio(exercicio)
+                                                }
+                                                className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-400"
+                                                title="Editar exercício"
+                                            >
+                                                <PencilSimpleIcon size={15} />
+                                            </button>
 
-                                </div>
 
-                                {/* EXERCÍCIO 2 */}
-                                <div className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4">
+                                            <button
+                                                onClick={() =>
+                                                    abrirDeletarExercicio(exercicio)
+                                                }
+                                                className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
+                                                title="Excluir exercício"
+                                            >
+                                                <TrashIcon size={15} />
+                                            </button>
 
-                                    <div>
-
-                                        <p className="text-sm font-semibold">
-                                            Puxada frontal
-                                        </p>
-
-                                        <p className="mt-1 text-[9px] text-gray-600">
-                                            Categoria: Costas
-                                        </p>
+                                        </div>
 
                                     </div>
 
-                                    <div className="flex items-center gap-2">
-
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-400"
-                                            title="Editar exercício"
-                                        >
-                                            <PencilSimpleIcon size={15} />
-                                        </button>
-
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
-                                            title="Excluir exercício"
-                                        >
-                                            <TrashIcon size={15} />
-                                        </button>
-
-                                    </div>
-
-                                </div>
-
-                                {/* EXERCÍCIO 3 */}
-                                <div className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4">
-
-                                    <div>
-
-                                        <p className="text-sm font-semibold">
-                                            Agachamento
-                                        </p>
-
-                                        <p className="mt-1 text-[9px] text-gray-600">
-                                            Categoria: Pernas
-                                        </p>
-
-                                    </div>
-
-                                    <div className="flex items-center gap-2">
-
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-400"
-                                            title="Editar exercício"
-                                        >
-                                            <PencilSimpleIcon size={15} />
-                                        </button>
-
-                                        <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 text-gray-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
-                                            title="Excluir exercício"
-                                        >
-                                            <TrashIcon size={15} />
-                                        </button>
-
-                                    </div>
-
-                                </div>
+                                ))}
 
                             </div>
 
-                            <Link
-                                to="/exercicios"
+
+                            <button
+                                onClick={abrirAdicionarExercicio}
                                 className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-purple-600 py-3 text-[10px] font-bold transition hover:bg-purple-500"
                             >
                                 <PlusIcon size={15} weight="bold" />
-                                Gerenciar exercícios
-                            </Link>
+                                Adicionar exercício
+                            </button>
 
                         </div>
 
@@ -513,28 +595,50 @@ function HomeAdmin() {
 
             </section>
 
+
             {/* =========================
-                FOOTER
+                MODAL EXERCÍCIO
             ========================= */}
-            <footer className="border-t border-white/5 bg-[#08070d]">
 
-                <div className="flex items-center justify-between px-10 py-6">
+            <FormExercicios
+                aberto={modalFormulario}
+                exercicio={exercicioSelecionado}
+                categorias={categorias}
+                token={usuario.token}
+                onFechar={fecharFormulario}
+                onSucesso={atualizarLista}
+            />
 
-                    <p className="text-[9px] uppercase tracking-widest text-gray-700">
-                        FitGym • Painel Administrativo
-                    </p>
 
-                    <Link
-                        to="/perfil"
-                        className="flex items-center gap-2 text-[9px] font-semibold text-gray-600 transition hover:text-purple-400"
-                    >
-                        <UserCircleIcon size={15} />
-                        Meu perfil
-                    </Link>
+            <DeletarExercicios
+                aberto={modalDeletar}
+                exercicio={exercicioSelecionado}
+                token={usuario.token}
+                onFechar={fecharDeletar}
+                onSucesso={atualizarLista}
+            />
 
-                </div>
 
-            </footer>
+            {/* =========================
+                MODAL CATEGORIA
+            ========================= */}
+
+            <FormCategorias
+                aberto={modalFormularioCategoria}
+                categoria={categoriaSelecionada}
+                token={usuario.token}
+                onFechar={fecharFormularioCategoria}
+                onSucesso={atualizarLista}
+            />
+
+
+            <DeletarCategoria
+                aberto={modalDeletarCategoria}
+                categoria={categoriaSelecionada}
+                token={usuario.token}
+                onFechar={fecharDeletarCategoria}
+                onSucesso={atualizarLista}
+            />
 
         </main>
     );

@@ -10,5 +10,6 @@ frequenciaSemanal: number,
 usuario: string,
 senha: string,
 treinoGerado: string,
-tokem: string
+tipoUsuario: number;
+token: string
 }
