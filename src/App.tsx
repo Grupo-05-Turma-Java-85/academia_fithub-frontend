@@ -20,11 +20,14 @@ import { AuthProvider } from './contexts/AuthContext'
 import { NavProvider, NavContext } from './contexts/NavContext'
 import NavbarAluno from './components/navbar/NavbarAluno'
 import NavbarAdmin from './components/navbar/NavbarAdmin'
-import Treinos from './pages/treinos/Treinos'
-import Exercicios from './pages/exercicios/Exercicios'
+
+
 import { ToastContainer } from 'react-toastify'
 import { CartProvider } from './contexts/CartContext'
 import ScrollToTop from './components/scrolltotop/ScrollToTop'
+
+import Categorias from './pages/categorias/Categorias'
+import Exercicios from './pages/exercicios/Exercicios'
 
 function AppContent() {
 
@@ -38,24 +41,19 @@ function AppContent() {
 
       {tipoNavbar === "admin" && <NavbarAdmin />}
       <CartProvider>
-        <ScrollToTop/>
+        <ScrollToTop />
         <Routes>
           <Route path="/sobre" element={<About />} />
           <Route path="/suporte" element={<Support />} />
           <Route path="/" element={<Home />} />
-
           <Route path="/login" element={<Login />} />
           <Route path="/cadastrar" element={<Cadastrar />} />
-
           <Route path="/perfil" element={<Perfil />} />
-
           <Route path="/homealuno" element={<HomeAluno />} />
-          <Route path="/categorias" element={<Treinos />} />
-          <Route path="/exercicios" element={<Exercicios />} />
-
+          <Route path="/categorias" element={<Categorias />} />
           <Route path="/homeadmin" element={<HomeAdmin />} />
-
-
+          <Route path="/exercicios" element={<Exercicios />} />
+          <Route path="/exercicios/:categoriaId" element={<Exercicios />} />
         </Routes>
 
         <Footer />

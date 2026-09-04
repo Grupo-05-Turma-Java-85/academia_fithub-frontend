@@ -51,13 +51,6 @@ function NavbarAluno() {
                     </Link>
 
                     <Link
-                        to="/exercicios"
-                        className="text-sm font-semibold text-white/70 transition duration-300 hover:text-purple-400"
-                    >
-                        Exercícios
-                    </Link>
-
-                    <Link
                         to="/perfil"
                         className="text-sm font-semibold text-white/70 transition duration-300 hover:text-purple-400"
                     >

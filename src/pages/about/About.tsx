@@ -7,6 +7,7 @@ import {
   CheckCircle,
   ArrowRight,
 } from '@phosphor-icons/react';
+import { Link } from 'react-router-dom';
 
 export default function About() {
   return (
@@ -54,7 +55,7 @@ export default function About() {
                 </span>
               </h1>
 
-             
+
 
             </div>
 
@@ -149,7 +150,7 @@ export default function About() {
               <span className="mt-5 text-xs font-semibold uppercase tracking-wider text-orange-400">
                 Nossos valores
               </span>
-              
+
               <div className="mx-auto mt-5 w-full max-w-[250px] space-y-3 text-left">
 
                 <div className="flex items-center gap-2 text-base text-neutral-400">
@@ -306,14 +307,6 @@ export default function About() {
               <Lightning size={20} weight="fill" />
             </div>
 
-            <div>
-              <p className="mt-1 text-base leading-5 text-neutral-500">
-                Um ecossistema pensado para tornar sua rotina mais
-                equilibrada, prática e consciente.
-              </p>
-
-            </div>
-
           </div>
 
         </section>
@@ -340,13 +333,15 @@ export default function About() {
               conectada para acompanhar sua evolução.
             </p>
 
-            <button
-              type="button"
-              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-purple-600 px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-purple-500 hover:shadow-lg hover:shadow-purple-900/30"
-            >
-              Conheça o ecossistema
-              <ArrowRight size={18} />
-            </button>
+            <a href='https://delivery-alimentos-two.vercel.app' target="_blank">
+              <button
+                type="button"
+                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-purple-600 px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-purple-500 hover:shadow-lg hover:shadow-purple-900/30"
+              >
+                Conheça o FITNUTRI
+                <ArrowRight size={18} />
+              </button>
+            </a>
 
           </div>
 
