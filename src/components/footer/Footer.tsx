@@ -112,7 +112,7 @@ function Footer() {
                     </div>
 
                     <p className="pl-16">
-                        Â© {new Date().getFullYear()} FitGym.
+                        © {new Date().getFullYear()} FitGym.
                     </p>
 
                 </div>
