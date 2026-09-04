@@ -121,13 +121,6 @@ function NavbarAluno() {
                             Treinos
                         </Link>
 
-                        <Link
-                            to="/exercicios"
-                            onClick={fecharMenu}
-                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
-                        >
-                            Exercícios
-                        </Link>
 
                         <Link
                             to="/perfil"
