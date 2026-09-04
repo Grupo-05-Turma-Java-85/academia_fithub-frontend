@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -72,9 +71,24 @@ export default function Categorias() {
 
     if (carregando) {
         return (
-            <main className="min-h-screen bg-[#08060D] text-white flex items-center justify-center">
+            <main className="relative min-h-screen overflow-hidden bg-[#08060D] text-white flex items-center justify-center">
 
-                <div className="text-center">
+                {/* FUNDOS ROXOS */}
+
+                <div className="pointer-events-none absolute inset-0 overflow-hidden">
+
+                    <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-purple-600/20 blur-[120px]" />
+
+                    <div className="absolute right-[-150px] top-[35%] h-[500px] w-[500px] rounded-full bg-purple-500/15 blur-[140px]" />
+
+                    <div className="absolute left-[35%] top-[55%] h-80 w-80 rounded-full bg-fuchsia-600/10 blur-[120px]" />
+
+                    <div className="absolute bottom-[-150px] right-[20%] h-96 w-96 rounded-full bg-violet-600/15 blur-[130px]" />
+
+                </div>
+
+
+                <div className="relative z-10 text-center">
 
                     <div className="w-14 h-14 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin mx-auto mb-5" />
 
@@ -99,9 +113,24 @@ export default function Categorias() {
 
     if (erro) {
         return (
-            <main className="min-h-screen bg-[#08060D] text-white flex items-center justify-center px-6">
+            <main className="relative min-h-screen overflow-hidden bg-[#08060D] text-white flex items-center justify-center px-6">
 
-                <div className="text-center max-w-md">
+                {/* FUNDOS ROXOS */}
+
+                <div className="pointer-events-none absolute inset-0 overflow-hidden">
+
+                    <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-purple-600/20 blur-[120px]" />
+
+                    <div className="absolute right-[-150px] top-[35%] h-[500px] w-[500px] rounded-full bg-purple-500/15 blur-[140px]" />
+
+                    <div className="absolute left-[35%] top-[55%] h-80 w-80 rounded-full bg-fuchsia-600/10 blur-[120px]" />
+
+                    <div className="absolute bottom-[-150px] right-[20%] h-96 w-96 rounded-full bg-violet-600/15 blur-[130px]" />
+
+                </div>
+
+
+                <div className="relative z-10 text-center max-w-md">
 
                     <div className="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-6">
 
@@ -142,161 +171,180 @@ export default function Categorias() {
     // =========================
 
     return (
-        <main className="min-h-screen bg-[#08060D] py-20 text-white">
+        <main className="relative min-h-screen overflow-hidden bg-[#08060D] py-20 text-white">
 
-            <section className="w-full px-6 py-12">
+            {/* FUNDOS ROXOS */}
 
-                <div className="max-w-6xl mx-auto">
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
 
-                    {/* CABEÇALHO */}
+                <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-purple-600/20 blur-[120px]" />
 
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+                <div className="absolute right-[-150px] top-[35%] h-[500px] w-[500px] rounded-full bg-purple-500/15 blur-[140px]" />
 
-                        <div>
+                <div className="absolute left-[35%] top-[55%] h-80 w-80 rounded-full bg-fuchsia-600/10 blur-[120px]" />
 
-                            <div className="flex items-center gap-3 mb-4">
+                <div className="absolute bottom-[-150px] right-[20%] h-96 w-96 rounded-full bg-violet-600/15 blur-[130px]" />
 
-                                <div className="w-11 h-11 rounded-xl bg-purple-600/15 flex items-center justify-center">
-
-                                    <BarbellIcon
-                                        size={25}
-                                        weight="duotone"
-                                        className="text-purple-400"
-                                    />
-
-                                </div>
-
-                                <span className="text-purple-400 font-semibold uppercase tracking-widest text-sm">
-                                    Treinos
-                                </span>
-
-                            </div>
-
-                            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                                Grupos musculares
-                            </h1>
-
-                            <p className="text-zinc-500 mt-4 text-base md:text-lg">
-                                Escolha uma categoria para encontrar os exercícios.
-                            </p>
-
-                        </div>
-
-                        <div className="text-sm text-zinc-600">
-                            {categorias.length}{" "}
-                            {categorias.length === 1
-                                ? "categoria disponível"
-                                : "categorias disponíveis"}
-                        </div>
-
-                    </div>
+            </div>
 
 
-                    {/* NENHUMA CATEGORIA */}
+            <div className="relative z-10">
 
-                    {categorias.length === 0 ? (
+                <section className="w-full px-6 py-12">
 
-                        <div className="border border-zinc-800 rounded-3xl bg-[#101018] p-12 text-center">
+                    <div className="max-w-6xl mx-auto">
 
-                            <BarbellIcon
-                                size={55}
-                                weight="duotone"
-                                className="text-zinc-600 mx-auto mb-5"
-                            />
+                        {/* CABEÇALHO */}
 
-                            <h2 className="text-xl font-bold">
-                                Nenhuma categoria cadastrada
-                            </h2>
+                        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
 
-                            <p className="text-zinc-500 mt-2">
-                                Ainda não existem categorias disponíveis para os exercícios.
-                            </p>
+                            <div>
 
-                        </div>
+                                <div className="flex items-center gap-3 mb-4">
 
-                    ) : (
+                                    <div className="w-11 h-11 rounded-xl bg-purple-600/15 flex items-center justify-center">
 
-                        /* CATEGORIAS */
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
-                            {categorias.map((categoria) => (
-
-                                <button
-                                    key={categoria.id}
-                                    onClick={() => abrirCategoria(categoria.id)}
-                                    className="group text-left bg-[#101018] border border-zinc-800 rounded-3xl p-6 hover:border-purple-500/60 hover:bg-[#14121f] transition-all duration-300"
-                                >
-
-                                    {/* ÍCONE */}
-
-                                    <div className="flex items-start justify-between mb-8">
-
-                                        <div className="w-14 h-14 rounded-2xl bg-purple-600/10 flex items-center justify-center group-hover:bg-purple-600 transition-all duration-300">
-
-                                            <BarbellIcon
-                                                size={29}
-                                                weight="duotone"
-                                                className="text-purple-400 group-hover:text-white transition"
-                                            />
-
-                                        </div>
-
-                                        <div className="w-10 h-10 rounded-full border border-zinc-800 flex items-center justify-center group-hover:border-purple-500 group-hover:bg-purple-600 transition-all duration-300">
-
-                                            <ArrowUpRightIcon
-                                                size={20}
-                                                className="text-zinc-500 group-hover:text-white transition"
-                                            />
-
-                                        </div>
-
-                                    </div>
-
-
-                                    {/* NOME */}
-
-                                    <h2 className="text-2xl font-bold text-white group-hover:text-purple-300 transition">
-
-                                        {categoria.nome}
-
-                                    </h2>
-
-
-                                    {/* DESCRIÇÃO */}
-
-                                    <p className="text-zinc-500 mt-3 text-sm leading-relaxed line-clamp-2">
-
-                                        {categoria.descricao ||
-                                            "Confira os exercícios disponíveis para este grupo muscular."}
-
-                                    </p>
-
-
-                                    {/* LINK VISUAL */}
-
-                                    <div className="mt-7 flex items-center gap-2 text-sm font-semibold text-purple-400">
-
-                                        Ver exercícios
-
-                                        <ArrowUpRightIcon
-                                            size={17}
-                                            className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                                        <BarbellIcon
+                                            size={25}
+                                            weight="duotone"
+                                            className="text-purple-400"
                                         />
 
                                     </div>
 
-                                </button>
+                                    <span className="text-purple-400 font-semibold uppercase tracking-widest text-sm">
+                                        Treinos
+                                    </span>
 
-                            ))}
+                                </div>
+
+                                <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+                                    Grupos musculares
+                                </h1>
+
+                                <p className="text-zinc-500 mt-4 text-base md:text-lg">
+                                    Escolha uma categoria para encontrar os exercícios.
+                                </p>
+
+                            </div>
+
+                            <div className="text-sm text-zinc-600">
+                                {categorias.length}{" "}
+                                {categorias.length === 1
+                                    ? "categoria disponível"
+                                    : "categorias disponíveis"}
+                            </div>
 
                         </div>
 
-                    )}
 
-                </div>
+                        {/* NENHUMA CATEGORIA */}
 
-            </section>
+                        {categorias.length === 0 ? (
+
+                            <div className="border border-zinc-800 rounded-3xl bg-[#101018] p-12 text-center">
+
+                                <BarbellIcon
+                                    size={55}
+                                    weight="duotone"
+                                    className="text-zinc-600 mx-auto mb-5"
+                                />
+
+                                <h2 className="text-xl font-bold">
+                                    Nenhuma categoria cadastrada
+                                </h2>
+
+                                <p className="text-zinc-500 mt-2">
+                                    Ainda não existem categorias disponíveis para os exercícios.
+                                </p>
+
+                            </div>
+
+                        ) : (
+
+                            /* CATEGORIAS */
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                                {categorias.map((categoria) => (
+
+                                    <button
+                                        key={categoria.id}
+                                        onClick={() => abrirCategoria(categoria.id)}
+                                        className="group text-left bg-[#101018] border border-zinc-800 rounded-3xl p-6 hover:border-purple-500/60 hover:bg-[#14121f] transition-all duration-300"
+                                    >
+
+                                        {/* ÍCONE */}
+
+                                        <div className="flex items-start justify-between mb-8">
+
+                                            <div className="w-14 h-14 rounded-2xl bg-purple-600/10 flex items-center justify-center group-hover:bg-purple-600 transition-all duration-300">
+
+                                                <BarbellIcon
+                                                    size={29}
+                                                    weight="duotone"
+                                                    className="text-purple-400 group-hover:text-white transition"
+                                                />
+
+                                            </div>
+
+                                            <div className="w-10 h-10 rounded-full border border-zinc-800 flex items-center justify-center group-hover:border-purple-500 group-hover:bg-purple-600 transition-all duration-300">
+
+                                                <ArrowUpRightIcon
+                                                    size={20}
+                                                    className="text-zinc-500 group-hover:text-white transition"
+                                                />
+
+                                            </div>
+
+                                        </div>
+
+
+                                        {/* NOME */}
+
+                                        <h2 className="text-2xl font-bold text-white group-hover:text-purple-300 transition">
+
+                                            {categoria.nome}
+
+                                        </h2>
+
+
+                                        {/* DESCRIÇÃO */}
+
+                                        <p className="text-zinc-500 mt-3 text-sm leading-relaxed line-clamp-2">
+
+                                            {categoria.descricao ||
+                                                "Confira os exercícios disponíveis para este grupo muscular."}
+
+                                        </p>
+
+
+                                        {/* LINK VISUAL */}
+
+                                        <div className="mt-7 flex items-center gap-2 text-sm font-semibold text-purple-400">
+
+                                            Ver exercícios
+
+                                            <ArrowUpRightIcon
+                                                size={17}
+                                                className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                                            />
+
+                                        </div>
+
+                                    </button>
+
+                                ))}
+
+                            </div>
+
+                        )}
+
+                    </div>
+
+                </section>
+
+            </div>
 
         </main>
     );

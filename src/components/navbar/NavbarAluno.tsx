@@ -38,7 +38,7 @@ function NavbarAluno() {
 
                     <Link
                         to="/homealuno"
-                        className="text-sm font-semibold text-white transition duration-300 hover:text-purple-400"
+                        className="text-sm font-semibold text-white/80 transition duration-300 hover:text-purple-400"
                     >
                         Início
                     </Link>
@@ -108,7 +108,7 @@ function NavbarAluno() {
                         <Link
                             to="/homealuno"
                             onClick={fecharMenu}
-                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
+                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/80 transition hover:bg-white/5 hover:text-purple-400"
                         >
                             Início
                         </Link>

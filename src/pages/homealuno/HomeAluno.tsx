@@ -1,3 +1,4 @@
+
 import { useContext, useEffect, useMemo, useState } from "react";
 import {
     ArrowRight,
@@ -16,6 +17,9 @@ import Autoplay from "embla-carousel-autoplay";
 import type Categoria from "../../models/Categoria";
 import { AuthContext } from "../../contexts/AuthContext";
 import { atualizar, buscar } from "../../service/Service";
+import { pdf } from "@react-pdf/renderer";
+import FichaTreinoPDF from "../../components/pdf/FichaTreinoPDF";
+import { toast } from "react-toastify";
 
 type Nivel = "INICIANTE" | "INTERMEDIARIO" | "AVANÇADO";
 
@@ -25,29 +29,29 @@ interface Treino {
     categorias: string[];
 }
 
-type Objetivo = "Hipertrofia" | "Emagrecimento" | "Condicionamento";
+type Objetivo = "Emagrecimento" | "Manter peso" | "Ganho de massa";
 
 const OBJETIVOS: {
     id: Objetivo;
     titulo: string;
     subtitulo: string;
 }[] = [
-    {
-        id: "Hipertrofia",
-        titulo: "Hipertrofia",
-        subtitulo: "Ganho de massa",
-    },
-    {
-        id: "Emagrecimento",
-        titulo: "Emagrecimento",
-        subtitulo: "Definição corporal",
-    },
-    {
-        id: "Condicionamento",
-        titulo: "Condicionamento",
-        subtitulo: "Resistência e saúde",
-    },
-];
+        {
+            id: "Emagrecimento",
+            titulo: "Emagrecimento",
+            subtitulo: "Definição corporal",
+        },
+        {
+            id: "Manter peso",
+            titulo: "Manter peso",
+            subtitulo: "Resistência e saúde",
+        },
+        {
+            id: "Ganho de massa",
+            titulo: "Ganho de massa",
+            subtitulo: "Construção de músculos",
+        },
+    ];
 
 const TREINOS_POR_NIVEL: Record<Nivel, Treino[]> = {
     INICIANTE: [
@@ -98,7 +102,7 @@ const TREINOS_POR_NIVEL: Record<Nivel, Treino[]> = {
         },
     ],
 
-    "AVANÇADO": [
+    AVANÇADO: [
         {
             letra: "A",
             titulo: "Peito & Tríceps",
@@ -143,7 +147,7 @@ export default function HomeAluno() {
     const [modalNivelAberto, setModalNivelAberto] = useState(false);
 
     const [objetivo, setObjetivo] =
-        useState<Objetivo>("Hipertrofia");
+        useState<Objetivo>("Emagrecimento");
 
     const [diasPorSemana, setDiasPorSemana] = useState(4);
 
@@ -164,12 +168,22 @@ export default function HomeAluno() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [slidesCount, setSlidesCount] = useState(0);
 
-    // Busca as categorias da API
     useEffect(() => {
-        buscar("/categorias", setCategorias, {});
-    }, []);
+    if (!usuario?.token) {
+        return;
+    }
 
-    // Pega o nível do usuário
+    buscar(
+        "/categorias",
+        setCategorias,
+        {
+            headers: {
+                Authorization: usuario.token,
+            },
+        }
+    );
+}, [usuario?.token]);
+
     useEffect(() => {
         const nivel = usuario.nivel?.toUpperCase();
 
@@ -184,7 +198,6 @@ export default function HomeAluno() {
         }
     }, [usuario.nivel]);
 
-    // Monta os treinos de acordo com o nível
     const treinos = useMemo(() => {
         if (!nivelSelecionado) {
             return [];
@@ -193,7 +206,6 @@ export default function HomeAluno() {
         return TREINOS_POR_NIVEL[nivelSelecionado];
     }, [nivelSelecionado]);
 
-    // Configuração do Embla
     useEffect(() => {
         if (!emblaApi) {
             return;
@@ -226,7 +238,6 @@ export default function HomeAluno() {
         emblaApi?.scrollTo(index);
     }
 
-    // Procura uma categoria pelo nome
     function encontrarCategoria(nome: string) {
         return categorias.find(
             (categoria) =>
@@ -235,7 +246,6 @@ export default function HomeAluno() {
         );
     }
 
-    // Conta quantos exercícios existem naquele treino
     function quantidadeExerciciosDoTreino(treino: Treino) {
         return treino.categorias.reduce(
             (quantidade, nomeCategoria) => {
@@ -251,7 +261,6 @@ export default function HomeAluno() {
         );
     }
 
-    // Salva o nível na API
     async function salvarNivel() {
         if (!nivelEscolhido) {
             return;
@@ -275,7 +284,7 @@ export default function HomeAluno() {
                     treinoGerado: usuario.treinoGerado,
                     tipoUsuario: usuario.tipoUsuario,
                 },
-                () => {},
+                () => { },
                 {
                     headers: {
                         Authorization: usuario.token,
@@ -284,9 +293,7 @@ export default function HomeAluno() {
             );
 
             setNivelSelecionado(nivelEscolhido);
-
             setModalNivelAberto(false);
-
             setNivelEscolhido("");
         } catch (error) {
             console.error(
@@ -296,17 +303,68 @@ export default function HomeAluno() {
         }
     }
 
+    // PDF
+    const gerarPDF = async () => {
+    try {
+        if (!usuario) {
+            toast.error("Usuário não encontrado.");
+            return;
+        }
+
+        if (categorias.length === 0) {
+            toast.error("As categorias ainda não foram carregadas.");
+            return;
+        }
+
+        console.log("USUARIO PDF:", usuario);
+        console.log("CATEGORIAS PDF:", categorias);
+        console.log("TREINOS PDF:", treinos);
+
+        const documento = (
+            <FichaTreinoPDF
+                usuario={usuario}
+                treinos={treinos}
+                categorias={categorias}
+            />
+        );
+
+        const blob = await pdf(documento).toBlob();
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `ficha-treino-${usuario.nome}.pdf`;
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+
+        toast.success("Ficha de treino baixada com sucesso!");
+    } catch (error) {
+        console.error("Erro ao gerar PDF:", error);
+        toast.error("Erro ao gerar a ficha de treino.");
+    }
+};
+
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-[#08060D] text-white">
 
             {/* HERO */}
-            <section className="bg-[#0B0A14] px-6 py-20 md:py-28">
+            <section className="relative overflow-hidden bg-[#08060D] px-6 py-20 md:py-28">
 
-                <div className="grid w-full gap-14 md:grid-cols-2 md:items-center">
+                {/* GLOWS */}
+                <div className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-violet-600/20 blur-[120px]" />
+                <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-purple-700/20 blur-[130px]" />
+                <div className="pointer-events-none absolute bottom-0 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-violet-500/10 blur-[110px]" />
+
+                <div className="relative grid w-full gap-14 md:grid-cols-2 md:items-center">
 
                     <div>
 
-                        <span className="inline-block rounded-full border border-violet-500/40 px-3 py-1 text-xs font-medium text-violet-300">
+                        <span className="inline-block rounded-full border border-violet-500/40 bg-violet-500/5 px-3 py-1 text-xs font-medium text-violet-300">
                             Simples. Focado. Eficiente.
                         </span>
 
@@ -334,14 +392,12 @@ export default function HomeAluno() {
                             <button
                                 onClick={() =>
                                     document
-                                        .getElementById(
-                                            "cronograma"
-                                        )
+                                        .getElementById("cronograma")
                                         ?.scrollIntoView({
                                             behavior: "smooth",
                                         })
                                 }
-                                className="flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-violet-500"
+                                className="flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-900/20 transition-all hover:bg-violet-500 hover:shadow-violet-600/20"
                             >
                                 Ver meu cronograma
 
@@ -355,56 +411,58 @@ export default function HomeAluno() {
 
                     </div>
 
-                    <div className="rounded-2xl w-3xl border border-white/10 bg-white/[0.03] p-6">
+                    <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-6 shadow-2xl shadow-violet-950/10 backdrop-blur-sm">
 
-                        <div className="flex items-center justify-between">
+                        <div className="absolute -right-16 -top-16 h-32 w-32 rounded-full bg-violet-600/20 blur-[70px]" />
 
-                            <span className="text-xs font-semibold tracking-wide text-violet-400">
-                                SEU PERFIL
-                            </span>
+                        <div className="relative">
 
-                            <CheckCircle
-                                size={22}
-                                weight="fill"
-                                className="text-emerald-400"
-                            />
+                            <div className="flex items-center justify-between">
 
-                        </div>
+                                <span className="text-xs font-semibold tracking-wide text-violet-400">
+                                    SEU PERFIL
+                                </span>
 
-                        <h3 className="mt-4 text-2xl font-bold text-white">
-                            Olá, {usuario.nome || "Aluno"}!
-                        </h3>
-
-                        <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                            Seu cronograma é baseado nas informações
-                            do seu perfil e no seu nível de treinamento.
-                        </p>
-
-                        <div className="mt-6 grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
-
-                            <div>
-
-                                <p className="text-xs text-slate-500">
-                                    Nível
-                                </p>
-
-                                <p className="mt-1 text-sm font-semibold text-white">
-                                    {nivelSelecionado ||
-                                        "Não definido"}
-                                </p>
+                                <CheckCircle
+                                    size={22}
+                                    weight="fill"
+                                    className="text-emerald-400"
+                                />
 
                             </div>
 
-                            <div>
+                            <h3 className="mt-4 text-2xl font-bold text-white">
+                                Olá, {usuario.nome || "Aluno"}!
+                            </h3>
 
-                                <p className="text-xs text-slate-500">
-                                    Frequência
-                                </p>
+                            <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                                Seu cronograma é baseado nas informações
+                                do seu perfil e no seu nível de treinamento.
+                            </p>
 
-                                <p className="mt-1 text-sm font-semibold text-white">
-                                    {usuario.frequenciaSemanal || 0}{" "}
-                                    dias
-                                </p>
+                            <div className="mt-6 grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+
+                                <div>
+                                    <p className="text-xs text-slate-500">
+                                        Nível
+                                    </p>
+
+                                    <p className="mt-1 text-sm font-semibold text-white">
+                                        {nivelSelecionado ||
+                                            "Não definido"}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p className="text-xs text-slate-500">
+                                        Frequência
+                                    </p>
+
+                                    <p className="mt-1 text-sm font-semibold text-white">
+                                        {usuario.frequenciaSemanal || 0}{" "}
+                                        dias
+                                    </p>
+                                </div>
 
                             </div>
 
@@ -419,24 +477,27 @@ export default function HomeAluno() {
             {/* CRONOGRAMA */}
             <section
                 id="cronograma"
-                className="bg-[#F5F3FC] px-6 py-20"
+                className="relative overflow-hidden bg-[#0B0912] px-6 py-20"
             >
 
-                <div className="w-full">
+                <div className="pointer-events-none absolute left-0 top-1/3 h-72 w-72 rounded-full bg-violet-700/10 blur-[120px]" />
+                <div className="pointer-events-none absolute right-0 bottom-0 h-80 w-80 rounded-full bg-purple-600/10 blur-[130px]" />
+
+                <div className="relative w-full">
 
                     <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
 
                         <div>
 
-                            <span className="inline-block rounded-full bg-violet-100 px-3 py-1 text-xs font-medium text-violet-600">
+                            <span className="inline-block rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">
                                 Seu treinamento
                             </span>
 
-                            <h2 className="mt-4 text-3xl font-extrabold text-slate-900">
+                            <h2 className="mt-4 text-3xl font-extrabold text-white">
                                 Seu Cronograma
                             </h2>
 
-                            <p className="mt-2 text-base text-slate-500">
+                            <p className="mt-2 text-base text-slate-400">
                                 Seu treino é organizado automaticamente
                                 de acordo com seu nível.
                             </p>
@@ -444,7 +505,7 @@ export default function HomeAluno() {
                         </div>
 
                         {nivelSelecionado && (
-                            <span className="inline-block w-fit rounded-full border border-violet-200 bg-white px-4 py-1.5 text-sm font-medium text-violet-600">
+                            <span className="inline-block w-fit rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-sm font-medium text-violet-400">
                                 Nível: {nivelSelecionado}
                             </span>
                         )}
@@ -453,23 +514,23 @@ export default function HomeAluno() {
 
                     {!nivelSelecionado ? (
 
-                        <div className="mt-10 rounded-2xl border border-violet-200 bg-white p-10 text-center">
+                        <div className="mt-10 rounded-2xl border border-violet-500/20 bg-white/[0.03] p-10 text-center shadow-xl shadow-black/10">
 
-                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-violet-100">
+                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-violet-500/10">
 
                                 <Barbell
                                     size={32}
                                     weight="fill"
-                                    className="text-violet-600"
+                                    className="text-violet-500"
                                 />
 
                             </div>
 
-                            <h3 className="mt-5 text-2xl font-bold text-slate-900">
+                            <h3 className="mt-5 text-2xl font-bold text-white">
                                 Seu cronograma ainda não está disponível
                             </h3>
 
-                            <p className="mx-auto mt-3 text-sm leading-relaxed text-slate-500">
+                            <p className="mx-auto mt-3 text-sm leading-relaxed text-slate-400">
                                 Deseja ter um cronograma personalizado?
                                 Preencha seu nível de treinamento para
                                 começarmos a montar sua rotina.
@@ -480,7 +541,7 @@ export default function HomeAluno() {
                                     setNivelEscolhido("");
                                     setModalNivelAberto(true);
                                 }}
-                                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-violet-500"
+                                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-900/20 transition-all hover:bg-violet-500"
                             >
 
                                 <PencilSimple
@@ -522,200 +583,166 @@ export default function HomeAluno() {
                                                     className="min-w-0 flex-[0_0_100%] px-1"
                                                 >
 
-                                                    <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
+                                                    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.035] p-6 shadow-xl shadow-black/20 md:p-8">
 
-                                                        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-start">
+                                                        <div className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-violet-600/10 blur-[80px]" />
 
-                                                            <div className="flex items-start gap-4">
+                                                        <div className="relative">
 
-                                                                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-xl font-extrabold text-white">
-                                                                    {
-                                                                        treino.letra
-                                                                    }
-                                                                </div>
+                                                            <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-start">
 
-                                                                <div>
+                                                                <div className="flex items-start gap-4">
 
-                                                                    <p className="text-xs font-semibold tracking-wide text-violet-600">
-                                                                        TREINO{" "}
-                                                                        {
-                                                                            treino.letra
-                                                                        }
-                                                                    </p>
+                                                                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-xl font-extrabold text-white shadow-lg shadow-violet-900/20">
+                                                                        {treino.letra}
+                                                                    </div>
 
-                                                                    <h3 className="mt-1 text-2xl font-bold text-slate-900">
-                                                                        {
-                                                                            treino.titulo
-                                                                        }
-                                                                    </h3>
+                                                                    <div>
 
-                                                                    <p className="mt-1 text-sm text-slate-500">
-                                                                        Foco em{" "}
-                                                                        {
-                                                                            treino.categorias.join(
+                                                                        <p className="text-xs font-semibold tracking-wide text-violet-400">
+                                                                            TREINO{" "}
+                                                                            {treino.letra}
+                                                                        </p>
+
+                                                                        <h3 className="mt-1 text-2xl font-bold text-white">
+                                                                            {treino.titulo}
+                                                                        </h3>
+
+                                                                        <p className="mt-1 text-sm text-slate-400">
+                                                                            Foco em{" "}
+                                                                            {treino.categorias.join(
                                                                                 ", "
-                                                                            )
-                                                                        }
-                                                                    </p>
+                                                                            )}
+                                                                        </p>
+
+                                                                    </div>
 
                                                                 </div>
 
                                                             </div>
 
-                                                            <span className="w-fit rounded-full bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-600">
-                                                                {exercicios > 0
-                                                                    ? `${exercicios} exercícios`
-                                                                    : "Exercícios a definir"}
-                                                            </span>
+                                                            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 
-                                                        </div>
+                                                                {treino.categorias.map(
+                                                                    (
+                                                                        categoriaNome
+                                                                    ) => {
 
-                                                        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-
-                                                            {treino.categorias.map(
-                                                                (
-                                                                    categoriaNome
-                                                                ) => {
-
-                                                                    const categoria =
-                                                                        encontrarCategoria(
-                                                                            categoriaNome
-                                                                        );
-
-                                                                    return (
-
-                                                                        <div
-                                                                            key={
+                                                                        const categoria =
+                                                                            encontrarCategoria(
                                                                                 categoriaNome
-                                                                            }
-                                                                            className="rounded-xl border border-slate-100 bg-slate-50 p-4"
-                                                                        >
+                                                                            );
 
-                                                                            <div className="flex items-center gap-3">
+                                                                        return (
 
-                                                                                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100">
+                                                                            <div
+                                                                                key={
+                                                                                    categoriaNome
+                                                                                }
+                                                                                className="rounded-xl border border-white/5 bg-black/20 p-4 transition-colors hover:border-violet-500/20 hover:bg-violet-500/5"
+                                                                            >
 
-                                                                                    <Barbell
-                                                                                        size={
-                                                                                            20
-                                                                                        }
-                                                                                        weight="bold"
-                                                                                        className="text-violet-600"
-                                                                                    />
+                                                                                <div className="flex items-center gap-3">
 
-                                                                                </div>
+                                                                                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-500/10">
 
-                                                                                <div>
+                                                                                        <Barbell
+                                                                                            size={20}
+                                                                                            weight="bold"
+                                                                                            className="text-violet-400"
+                                                                                        />
 
-                                                                                    <p className="text-sm font-semibold text-slate-900">
-                                                                                        {
-                                                                                            categoriaNome
-                                                                                        }
-                                                                                    </p>
+                                                                                    </div>
 
-                                                                                    <p className="text-xs text-slate-500">
-                                                                                        {
-                                                                                            categoria
-                                                                                                ?.exercicio
-                                                                                                ?.length ??
-                                                                                            0
-                                                                                        }{" "}
-                                                                                        exercícios
-                                                                                    </p>
+                                                                                    <div>
+
+                                                                                        <p className="text-sm font-semibold text-white">
+                                                                                            {categoriaNome}
+                                                                                        </p>
+
+                                                                                    </div>
 
                                                                                 </div>
 
                                                                             </div>
 
-                                                                        </div>
+                                                                        );
+                                                                    }
+                                                                )}
 
-                                                                    );
-                                                                }
-                                                            )}
+                                                            </div>
+
+                                                            <div className="mt-8 grid gap-4 border-t border-white/10 pt-6 sm:grid-cols-3">
+
+                                                                <div className="flex items-center gap-3">
+
+                                                                    <Clock
+                                                                        size={20}
+                                                                        className="text-violet-400"
+                                                                        weight="bold"
+                                                                    />
+
+                                                                    <div>
+
+                                                                        <p className="text-xs text-slate-500">
+                                                                            Duração
+                                                                        </p>
+
+                                                                        <p className="text-sm font-semibold text-white">
+                                                                            45–60 min
+                                                                        </p>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div className="flex items-center gap-3">
+
+                                                                    <Fire
+                                                                        size={20}
+                                                                        className="text-orange-500"
+                                                                        weight="bold"
+                                                                    />
+
+                                                                    <div>
+
+                                                                        <p className="text-xs text-slate-500">
+                                                                            Intensidade
+                                                                        </p>
+
+                                                                        <p className="text-sm font-semibold text-white">
+                                                                            Moderada
+                                                                        </p>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div className="flex items-center gap-3">
+
+                                                                    <CheckCircle
+                                                                        size={20}
+                                                                        className="text-emerald-500"
+                                                                        weight="bold"
+                                                                    />
+
+                                                                    <div>
+
+                                                                        <p className="text-xs text-slate-500">
+                                                                            Status
+                                                                        </p>
+
+                                                                        <p className="text-sm font-semibold text-white">
+                                                                            Planejado
+                                                                        </p>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
 
                                                         </div>
-
-                                                        <div className="mt-8 grid gap-4 border-t border-slate-100 pt-6 sm:grid-cols-3">
-
-                                                            <div className="flex items-center gap-3">
-
-                                                                <Clock
-                                                                    size={20}
-                                                                    className="text-violet-600"
-                                                                    weight="bold"
-                                                                />
-
-                                                                <div>
-
-                                                                    <p className="text-xs text-slate-500">
-                                                                        Duração
-                                                                    </p>
-
-                                                                    <p className="text-sm font-semibold text-slate-900">
-                                                                        45–60
-                                                                        min
-                                                                    </p>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div className="flex items-center gap-3">
-
-                                                                <Fire
-                                                                    size={20}
-                                                                    className="text-orange-500"
-                                                                    weight="bold"
-                                                                />
-
-                                                                <div>
-
-                                                                    <p className="text-xs text-slate-500">
-                                                                        Intensidade
-                                                                    </p>
-
-                                                                    <p className="text-sm font-semibold text-slate-900">
-                                                                        Moderada
-                                                                    </p>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div className="flex items-center gap-3">
-
-                                                                <CheckCircle
-                                                                    size={20}
-                                                                    className="text-emerald-500"
-                                                                    weight="bold"
-                                                                />
-
-                                                                <div>
-
-                                                                    <p className="text-xs text-slate-500">
-                                                                        Status
-                                                                    </p>
-
-                                                                    <p className="text-sm font-semibold text-slate-900">
-                                                                        Planejado
-                                                                    </p>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                        <button className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-violet-600 py-3 text-sm font-semibold text-white transition-colors hover:bg-violet-500">
-
-                                                            Ver exercícios
-
-                                                            <ArrowRight
-                                                                size={18}
-                                                                weight="bold"
-                                                            />
-
-                                                        </button>
 
                                                     </div>
 
@@ -733,28 +760,24 @@ export default function HomeAluno() {
 
                                         <button
                                             onClick={scrollPrev}
-                                            className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-md transition hover:bg-slate-50"
+                                            className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#15121F] text-slate-300 shadow-lg transition hover:border-violet-500/30 hover:bg-violet-500/10 hover:text-white"
                                             aria-label="Treino anterior"
                                         >
-
                                             <CaretLeft
                                                 size={22}
                                                 weight="bold"
                                             />
-
                                         </button>
 
                                         <button
                                             onClick={scrollNext}
-                                            className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-md transition hover:bg-slate-50"
+                                            className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#15121F] text-slate-300 shadow-lg transition hover:border-violet-500/30 hover:bg-violet-500/10 hover:text-white"
                                             aria-label="Próximo treino"
                                         >
-
                                             <CaretRight
                                                 size={22}
                                                 weight="bold"
                                             />
-
                                         </button>
 
                                     </>
@@ -775,14 +798,12 @@ export default function HomeAluno() {
                                             onClick={() =>
                                                 scrollTo(index)
                                             }
-                                            aria-label={`Ir para treino ${
-                                                index + 1
-                                            }`}
-                                            className={`h-2.5 rounded-full transition-all ${
-                                                selectedIndex === index
-                                                    ? "w-7 bg-violet-600"
-                                                    : "w-2.5 bg-slate-300"
-                                            }`}
+                                            aria-label={`Ir para treino ${index + 1
+                                                }`}
+                                            className={`h-2.5 rounded-full transition-all ${selectedIndex === index
+                                                ? "w-7 bg-violet-500 shadow-lg shadow-violet-500/30"
+                                                : "w-2.5 bg-white/20 hover:bg-white/30"
+                                                }`}
                                         />
 
                                     ))}
@@ -798,111 +819,29 @@ export default function HomeAluno() {
 
             </section>
 
-            {/* META */}
-            <section className="bg-[#0B0A14] px-6 py-20">
-
-                <div className="w-full">
-
-                    <h2 className="text-3xl font-extrabold text-white">
-                        Sua Meta
-                    </h2>
-
-                    <p className="mt-2 text-base leading-relaxed text-slate-400">
-                        Defina sua rotina atual, escolha o destino e
-                        acompanhe sua evolução.
-                    </p>
-
-                    <div className="mt-8 grid gap-4 md:grid-cols-3">
-
-                        <MetaCard
-                            numero="01"
-                            eyebrow="Onde você está"
-                            titulo="Nível Atual e Rotina"
-                            texto={`Seu nível atual é ${
-                                nivelSelecionado || "não definido"
-                            }. Continue mantendo consistência nos seus treinos.`}
-                        />
-
-                        <MetaCard
-                            numero="02"
-                            eyebrow="O que você quer"
-                            titulo="Sua Evolução"
-                            texto="Mantenha uma rotina de treinos consistente e acompanhe seu desenvolvimento ao longo das semanas."
-                        />
-
-                        <MetaCard
-                            numero="03"
-                            eyebrow="Resultado Estimado"
-                            titulo="Meta em 8 Semanas"
-                            texto="Acompanhe sua evolução, aumente sua consistência e mantenha seus objetivos sempre em foco."
-                            destaque
-                        />
-
-                    </div>
-
-                    <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-
-                        <div className="flex items-center justify-between text-sm">
-
-                            <span className="text-slate-400">
-                                Progresso da Meta Atual
-                            </span>
-
-                            <span className="font-semibold text-violet-400">
-                                62% Concluído
-                            </span>
-
-                        </div>
-
-                        <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
-
-                            <div
-                                className="h-full rounded-full bg-violet-500"
-                                style={{
-                                    width: "62%",
-                                }}
-                            />
-
-                        </div>
-
-                        <div className="mt-2 flex justify-between text-xs text-slate-500">
-
-                            <span>
-                                Início (Semana 1)
-                            </span>
-
-                            <span>
-                                Meta Prevista (Semana 8)
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
             {/* FICHA */}
-            <section className="bg-[#F5F3FC] px-6 py-20">
+            <section className="relative overflow-hidden bg-[#08060D] mb-20 px-6 py-10">
 
-                <div className="w-full text-center">
+                <div className="pointer-events-none absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-violet-700/10 blur-[120px]" />
+                <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-purple-600/10 blur-[110px]" />
 
-                    <span className="inline-block rounded-full bg-violet-100 px-3 py-1 text-xs font-medium text-violet-600">
-                        Personalização Rápida
+                <div className="relative w-full text-center">
+
+                    <span className="inline-block rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">
+                        Baixe seu treino
                     </span>
 
-                    <h2 className="mt-4 text-3xl font-extrabold text-slate-900">
+                    <h2 className="mt-4 text-3xl font-extrabold text-white">
                         Sua Ficha de Treino
                     </h2>
 
-                    <p className="mt-2 text-base text-slate-500">
-                        Personalize sua rotina de acordo com seus objetivos.
+                    <p className="mt-2 text-base text-slate-400">
+                        Baixe sua ficha e leve seu treino para onde quiser.
                     </p>
 
-                    <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 text-left">
+                    <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-left shadow-xl shadow-black/20">
 
-                        <p className="text-xs font-semibold tracking-wide text-slate-500">
+                        <p className="text-xs font-semibold tracking-wide text-slate-400">
                             1. ESCOLHA SEU OBJETIVO
                         </p>
 
@@ -915,23 +854,21 @@ export default function HomeAluno() {
                                     onClick={() =>
                                         setObjetivo(op.id)
                                     }
-                                    className={`rounded-xl border p-4 text-left transition-colors ${
-                                        objetivo === op.id
-                                            ? "border-violet-400 bg-violet-50"
-                                            : "border-slate-200 hover:border-slate-300"
-                                    }`}
+                                    className={`rounded-xl border p-4 text-left transition-all ${objetivo === op.id
+                                        ? "border-violet-500/50 bg-violet-500/10 shadow-lg shadow-violet-950/10"
+                                        : "border-white/10 bg-black/10 hover:border-white/20 hover:bg-white/[0.04]"
+                                        }`}
                                 >
 
-                                    <p className="font-semibold text-slate-900">
+                                    <p className="font-semibold text-white">
                                         {op.titulo}
                                     </p>
 
                                     <p
-                                        className={`mt-0.5 text-xs ${
-                                            objetivo === op.id
-                                                ? "text-violet-600"
-                                                : "text-slate-500"
-                                        }`}
+                                        className={`mt-0.5 text-xs ${objetivo === op.id
+                                            ? "text-violet-400"
+                                            : "text-slate-500"
+                                            }`}
                                     >
                                         {op.subtitulo}
                                     </p>
@@ -942,7 +879,7 @@ export default function HomeAluno() {
 
                         </div>
 
-                        <p className="mt-6 text-xs font-semibold tracking-wide text-slate-500">
+                        <p className="mt-6 text-xs font-semibold tracking-wide text-slate-400">
                             2. DIAS DISPONÍVEIS POR SEMANA
                         </p>
 
@@ -955,11 +892,10 @@ export default function HomeAluno() {
                                     onClick={() =>
                                         setDiasPorSemana(dias)
                                     }
-                                    className={`rounded-xl border py-3 text-center text-sm font-semibold transition-colors ${
-                                        diasPorSemana === dias
-                                            ? "border-violet-400 bg-violet-50 text-violet-600"
-                                            : "border-slate-200 text-slate-600 hover:border-slate-300"
-                                    }`}
+                                    className={`rounded-xl border py-3 text-center text-sm font-semibold transition-all ${diasPorSemana === dias
+                                        ? "border-violet-500/50 bg-violet-500/10 text-violet-400"
+                                        : "border-white/10 bg-black/10 text-slate-400 hover:border-white/20 hover:text-white"
+                                        }`}
                                 >
                                     {dias} Dias / sem
                                 </button>
@@ -968,22 +904,14 @@ export default function HomeAluno() {
 
                         </div>
 
-                        <div className="mt-6 flex flex-col items-start justify-between gap-4 border-t border-slate-100 pt-6 sm:flex-row sm:items-center">
+                        <div className="mt-6 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
 
-                            <p className="text-xs text-slate-500">
-                                PDF completo com séries, repetições e
-                                descansos.
-                            </p>
-
-                            <button className="flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-violet-500">
-
-                                <Download
-                                    size={16}
-                                    weight="bold"
-                                />
-
-                                Baixar Ficha em PDF
-
+                            <button
+                                onClick={gerarPDF}
+                                className="flex items-center gap-2 ..."
+                            >
+                                <Download size={20} />
+                                Baixar ficha em PDF
                             </button>
 
                         </div>
@@ -997,23 +925,23 @@ export default function HomeAluno() {
             {/* MODAL NÍVEL */}
             {modalNivelAberto && (
 
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-6">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-6 backdrop-blur-sm">
 
-                    <div className="w-[80h] rounded-2xl bg-white p-6 shadow-2xl">
+                    <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#110E19] p-6 shadow-2xl shadow-black/50">
 
                         <div className="flex items-start justify-between gap-4">
 
                             <div>
 
-                                <p className="text-xs font-semibold tracking-wide text-violet-600">
+                                <p className="text-xs font-semibold tracking-wide text-violet-400">
                                     PERSONALIZAÇÃO
                                 </p>
 
-                                <h3 className="mt-2 text-2xl font-bold text-slate-900">
+                                <h3 className="mt-2 text-2xl font-bold text-white">
                                     Qual é seu nível?
                                 </h3>
 
-                                <p className="mt-2 text-sm text-slate-500">
+                                <p className="mt-2 text-sm text-slate-400">
                                     Escolha seu nível para montarmos
                                     seu cronograma.
                                 </p>
@@ -1025,7 +953,7 @@ export default function HomeAluno() {
                                     setModalNivelAberto(false);
                                     setNivelEscolhido("");
                                 }}
-                                className="text-2xl text-slate-400 hover:text-slate-700"
+                                className="text-2xl text-slate-500 transition hover:text-white"
                             >
                                 ×
                             </button>
@@ -1047,18 +975,17 @@ export default function HomeAluno() {
                                     onClick={() =>
                                         setNivelEscolhido(nivel)
                                     }
-                                    className={`w-full rounded-xl border p-4 text-left transition ${
-                                        nivelEscolhido === nivel
-                                            ? "border-violet-500 bg-violet-50 ring-1 ring-violet-500"
-                                            : "border-slate-200 hover:border-violet-300 hover:bg-violet-50"
-                                    }`}
+                                    className={`w-full rounded-xl border p-4 text-left transition ${nivelEscolhido === nivel
+                                        ? "border-violet-500 bg-violet-500/10 ring-1 ring-violet-500/40"
+                                        : "border-white/10 bg-white/[0.02] hover:border-violet-500/30 hover:bg-violet-500/5"
+                                        }`}
                                 >
 
                                     <div className="flex items-center justify-between">
 
                                         <div>
 
-                                            <p className="font-semibold text-slate-900">
+                                            <p className="font-semibold text-white">
                                                 {nivel}
                                             </p>
 
@@ -1082,7 +1009,7 @@ export default function HomeAluno() {
                                             <CheckCircle
                                                 size={24}
                                                 weight="fill"
-                                                className="text-violet-600"
+                                                className="text-violet-500"
                                             />
 
                                         )}
@@ -1095,15 +1022,13 @@ export default function HomeAluno() {
 
                         </div>
 
-                        {/* CONFIRMAR */}
                         <button
                             onClick={salvarNivel}
                             disabled={!nivelEscolhido}
-                            className={`mt-6 w-full rounded-lg py-3 text-sm font-semibold text-white transition ${
-                                nivelEscolhido
-                                    ? "bg-violet-600 hover:bg-violet-500"
-                                    : "cursor-not-allowed bg-slate-300"
-                            }`}
+                            className={`mt-6 w-full rounded-lg py-3 text-sm font-semibold text-white transition ${nivelEscolhido
+                                ? "bg-violet-600 shadow-lg shadow-violet-900/20 hover:bg-violet-500"
+                                : "cursor-not-allowed bg-white/10 text-slate-500"
+                                }`}
                         >
                             Confirmar nível
                         </button>
@@ -1133,11 +1058,10 @@ function MetaCard({
 }) {
     return (
         <div
-            className={`rounded-2xl border p-6 ${
-                destaque
-                    ? "border-violet-400 bg-violet-500/10"
-                    : "border-white/10 bg-white/[0.03]"
-            }`}
+            className={`rounded-2xl border p-6 ${destaque
+                ? "border-violet-400 bg-violet-500/10"
+                : "border-white/10 bg-white/[0.03]"
+                }`}
         >
 
             <span className="text-xs font-semibold tracking-wide text-violet-400">

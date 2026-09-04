@@ -139,7 +139,7 @@ function Navbar() {
                             onClick={fecharMenu}
                             className="mt-2 flex items-center justify-center rounded-xl bg-purple-600 px-4 py-3.5 text-sm font-black text-white transition duration-300 hover:bg-purple-500"
                         >
-                            Já sou aluno
+                            Já sou alune
                         </Link>
 
                     </nav>
