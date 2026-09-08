@@ -364,10 +364,6 @@ export default function HomeAluno() {
 
                     <div>
 
-                        <span className="inline-block rounded-full border border-violet-500/40 bg-violet-500/5 px-3 py-1 text-xs font-medium text-violet-300">
-                            Simples. Focado. Eficiente.
-                        </span>
-
                         <h1 className="mt-6 text-5xl font-extrabold leading-[1.05] text-white sm:text-6xl">
 
                             Treine certo.
@@ -927,7 +923,7 @@ export default function HomeAluno() {
 
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-6 backdrop-blur-sm">
 
-                    <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#110E19] p-6 shadow-2xl shadow-black/50">
+                    <div className="w-full rounded-2xl border border-white/10 bg-[#110E19] p-6 shadow-2xl shadow-black/50">
 
                         <div className="flex items-start justify-between gap-4">
 
