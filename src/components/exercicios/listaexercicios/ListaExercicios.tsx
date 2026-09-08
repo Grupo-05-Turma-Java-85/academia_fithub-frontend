@@ -5,7 +5,7 @@ import { CaretRight, Timer, ArrowLeft, Barbell } from "@phosphor-icons/react";
 import { AuthContext } from "../../../contexts/AuthContext";
 import type Categoria from "../../../models/Categoria";
 import type Exercicio from "../../../models/Exercicio";
-import type { buscar } from "../../../service/Service";
+import { buscar } from "../../../service/Service";
 
 
 export const ListaExercicios: React.FC = () => {
