@@ -15,6 +15,7 @@ interface AuthContextProps {
     isLoading: boolean;
 }
 
+
 interface AuthProviderProps {
 
     children: ReactNode;
