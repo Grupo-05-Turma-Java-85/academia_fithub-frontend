@@ -1,98 +1,126 @@
 @import 'tailwindcss';
- 
+
 @theme {
-  /* ---- Cores (Vibrant Kinetic — design system do Fit Academy) ---- */
+
+  /* ================================
+     CORES DO TEMA ESCURO
+     ================================ */
+
   --color-surface: #131313;
   --color-surface-dim: #131313;
   --color-surface-bright: #393939;
+
   --color-surface-container-lowest: #0e0e0e;
   --color-surface-container-low: #1c1b1b;
   --color-surface-container: #201f1f;
   --color-surface-container-high: #2a2a2a;
   --color-surface-container-highest: #353534;
+
   --color-surface-variant: #353534;
+
   --color-on-surface: #e5e2e1;
   --color-on-surface-variant: #cac3d8;
+
   --color-inverse-surface: #e5e2e1;
   --color-inverse-on-surface: #313030;
+
   --color-outline: #948ea1;
   --color-outline-variant: #494455;
+
   --color-surface-tint: #cdbdff;
- 
+
   --color-background: #131313;
   --color-on-background: #e5e2e1;
- 
+
   --color-primary: #cdbdff;
   --color-on-primary: #370096;
+
   --color-primary-container: #7c4dff;
   --color-on-primary-container: #fcf6ff;
+
   --color-inverse-primary: #6833ea;
+
   --color-primary-fixed: #e8deff;
   --color-primary-fixed-dim: #cdbdff;
+
   --color-on-primary-fixed: #20005f;
   --color-on-primary-fixed-variant: #4f00d0;
- 
+
   --color-secondary: #bdf4ff;
   --color-on-secondary: #00363d;
+
   --color-secondary-container: #00e3fd;
   --color-on-secondary-container: #00616d;
-  --color-secondary-fixed: #9cf0ff;
-  --color-secondary-fixed-dim: #00daf3;
-  --color-on-secondary-fixed: #001f24;
-  --color-on-secondary-fixed-variant: #004f58;
- 
+
   --color-tertiary: #ffb688;
   --color-on-tertiary: #512400;
+
   --color-tertiary-container: #b55800;
   --color-on-tertiary-container: #fff7f4;
-  --color-tertiary-fixed: #ffdbc7;
-  --color-tertiary-fixed-dim: #ffb688;
-  --color-on-tertiary-fixed: #311300;
-  --color-on-tertiary-fixed-variant: #733600;
- 
+
   --color-error: #ffb4ab;
   --color-on-error: #690005;
-  --color-error-container: #93000a;
-  --color-on-error-container: #ffdad6;
- 
-  /* ---- Tipografia ---- */
+
+  /* ================================
+     TIPOGRAFIA
+     ================================ */
+
   --font-display: "Montserrat", "Inter", sans-serif;
   --font-body: "Inter", sans-serif;
- 
-  /* ---- Espaçamento (baseline 4px) ---- */
+
+  /* ================================
+     ESPAÇAMENTO
+     ================================ */
+
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
+
   --spacing-gutter: 16px;
   --spacing-margin-mobile: 20px;
   --spacing-margin-tablet: 40px;
 }
- 
-/* RESET OBRIGATÓRIO DE LARGURA E QUEBRAS */
+
+
+/* =========================================
+   RESET
+   ========================================= */
+
 @layer base {
-  *, ::before, ::after {
+
+  *,
+  ::before,
+  ::after {
     box-sizing: border-box;
     word-break: normal;
     overflow-wrap: normal;
   }
- 
-  html, body, #root {
+
+  html,
+  body,
+  #root {
     width: 100%;
     min-height: 100vh;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
   }
- 
+
   body {
     @apply bg-background text-on-background antialiased;
   }
 }
- 
+
+
+/* =========================================
+   COMPONENTES
+   ========================================= */
+
 @layer components {
+
   .material-symbols-outlined {
     font-variation-settings:
       "FILL" 0,
@@ -100,6 +128,7 @@
       "GRAD" 0,
       "opsz" 24;
   }
+
   .icon-fill {
     font-variation-settings:
       "FILL" 1,
@@ -107,32 +136,486 @@
       "GRAD" 0,
       "opsz" 24;
   }
+
   .gradient-card {
-    background: linear-gradient(145deg, rgba(32, 31, 31, 1) 0%, rgba(20, 20, 20, 1) 100%);
+    background: linear-gradient(
+      145deg,
+      rgba(32, 31, 31, 1) 0%,
+      rgba(20, 20, 20, 1) 100%
+    );
   }
+
   .glow-active {
-    filter: drop-shadow(0px 0px 12px rgba(124, 77, 255, 0.4));
+    filter: drop-shadow(
+      0px 0px 12px
+      rgba(124, 77, 255, 0.4)
+    );
   }
+
   .glass-card {
-    border: 1px solid rgba(124, 77, 255, 0.2);
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid
+      rgba(124, 77, 255, 0.2);
+
+    background:
+      rgba(255, 255, 255, 0.03);
+
     backdrop-filter: blur(12px);
   }
+
   .premium-border {
     position: relative;
   }
+
   .premium-border::before {
     content: "";
+
     position: absolute;
+
     inset: 0;
+
     border-radius: inherit;
+
     padding: 1px;
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+
+    background:
+      linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.02)
+      );
+
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
+
     -webkit-mask-composite: xor;
+
     mask-composite: exclude;
+
     pointer-events: none;
   }
+}
+
+
+/* =========================================================
+   ☀️ MODO CLARO
+   ========================================================= */
+
+.light-theme {
+
+  --color-surface: #ffffff;
+  --color-surface-dim: #f5f3f8;
+  --color-surface-bright: #ffffff;
+
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #faf9fc;
+  --color-surface-container: #f4f1f7;
+  --color-surface-container-high: #eeeaf2;
+  --color-surface-container-highest: #e6e1eb;
+
+  --color-surface-variant: #e8e3ed;
+
+  --color-on-surface: #111111;
+  --color-on-surface-variant: #111111;
+
+  --color-background: #faf9fc;
+  --color-on-background: #111111;
+
+  --color-outline: #8d8694;
+  --color-outline-variant: #d7d1dd;
+
+  --color-primary: #7c3aed;
+  --color-on-primary: #ffffff;
+
+  --color-primary-container: #eadcff;
+  --color-on-primary-container: #30105f;
+}
+
+
+/* =========================================================
+   FUNDO GERAL
+   ========================================================= */
+
+.light-theme body {
+  background: #faf9fc !important;
+  color: #111111 !important;
+}
+
+
+/* =========================================================
+   TODOS OS TEXTOS CINZAS → PRETOS
+   ========================================================= */
+
+.light-theme [class~="text-white"],
+.light-theme [class~="text-white/70"],
+.light-theme [class~="text-white/80"],
+.light-theme [class~="text-white/90"],
+
+.light-theme [class~="text-neutral-200"],
+.light-theme [class~="text-neutral-300"],
+.light-theme [class~="text-neutral-400"],
+.light-theme [class~="text-neutral-500"],
+.light-theme [class~="text-neutral-600"],
+.light-theme [class~="text-neutral-700"],
+
+.light-theme [class~="text-zinc-200"],
+.light-theme [class~="text-zinc-300"],
+.light-theme [class~="text-zinc-400"],
+.light-theme [class~="text-zinc-500"],
+.light-theme [class~="text-zinc-600"],
+.light-theme [class~="text-zinc-700"],
+
+.light-theme [class~="text-gray-400"],
+.light-theme [class~="text-gray-500"],
+.light-theme [class~="text-gray-600"],
+.light-theme [class~="text-gray-700"],
+
+.light-theme [class~="text-black"] {
+  color: #111111 !important;
+}
+
+
+/* =========================================================
+   LINKS ROXOS CONTINUAM ROXOS
+   ========================================================= */
+
+.light-theme [class*="text-purple-"] {
+  color: #6d28d9;
+}
+
+.light-theme [class*="text-violet-"] {
+  color: #6d28d9;
+}
+
+
+/* =========================================================
+   BOTÕES ROXOS
+   O TEXTO DELES CONTINUA BRANCO
+   ========================================================= */
+
+.light-theme [class*="bg-purple-"][class~="text-white"],
+.light-theme [class*="bg-violet-"][class~="text-white"] {
+  color: #ffffff !important;
+}
+
+
+/* =========================================================
+   FUNDOS ESCUROS → CLAROS
+   ========================================================= */
+
+.light-theme [class~="bg-[#08060D]"],
+.light-theme [class~="bg-[#08070d]"],
+.light-theme [class~="bg-[#09080e]"],
+.light-theme [class~="bg-[#0B0911]"],
+.light-theme [class~="bg-[#0B0912]"],
+.light-theme [class~="bg-[#0D0A12]"],
+.light-theme [class~="bg-[#0b0b0e]"],
+.light-theme [class~="bg-[#0f0f14]"],
+.light-theme [class~="bg-[#100D17]"],
+.light-theme [class~="bg-[#100d16]"],
+.light-theme [class~="bg-[#101018]"],
+.light-theme [class~="bg-[#110E19]"],
+.light-theme [class~="bg-[#11101A]"],
+.light-theme [class~="bg-[#120c1d]"],
+.light-theme [class~="bg-[#120d1b]"],
+.light-theme [class~="bg-[#121316]"],
+.light-theme [class~="bg-[#14121f]"],
+.light-theme [class~="bg-[#15111d]"],
+.light-theme [class~="bg-[#15121F]"],
+.light-theme [class~="bg-[#15151b]"],
+.light-theme [class~="bg-[#16121e]"],
+.light-theme [class~="bg-[#161422]"],
+.light-theme [class~="bg-[#180D24]"],
+.light-theme [class~="bg-[#181622]"],
+.light-theme [class~="bg-[#18191c]"],
+.light-theme [class~="bg-[#1A1827]"],
+.light-theme [class~="bg-[#1b1a20]"] {
+  background-color: #ffffff !important;
+}
+
+
+/* =========================================================
+   FUNDOS SEMI-TRANSPARENTES
+   ========================================================= */
+
+.light-theme [class~="bg-black/20"] {
+  background-color:
+    rgba(255, 255, 255, 0.90) !important;
+}
+
+.light-theme [class~="bg-white/5"] {
+  background-color:
+    rgba(124, 58, 237, 0.06) !important;
+}
+
+.light-theme [class~="bg-white/[0.02]"] {
+  background-color:
+    rgba(124, 58, 237, 0.03) !important;
+}
+
+.light-theme [class~="bg-white/[0.03]"] {
+  background-color:
+    rgba(124, 58, 237, 0.04) !important;
+}
+
+
+/* =========================================================
+   BORDAS
+   ========================================================= */
+
+.light-theme [class~="border-white/5"],
+.light-theme [class~="border-white/10"],
+.light-theme [class~="border-white/20"],
+.light-theme [class~="border-zinc-900"],
+.light-theme [class~="border-zinc-800"],
+.light-theme [class~="border-zinc-800/60"],
+.light-theme [class~="border-zinc-800/80"],
+.light-theme [class~="border-zinc-700"],
+.light-theme [class~="border-neutral-800"],
+.light-theme [class~="border-neutral-800/80"],
+.light-theme [class~="border-neutral-700"],
+.light-theme [class~="border-neutral-700/60"] {
+  border-color: #ddd7e3 !important;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.light-theme input,
+.light-theme textarea,
+.light-theme select {
+  color: #111111 !important;
+  color-scheme: light;
+}
+
+.light-theme input::placeholder,
+.light-theme textarea::placeholder {
+  color: #77717e !important;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.light-theme [class~="hover:bg-white/5"]:hover {
+  background-color:
+    rgba(124, 58, 237, 0.08) !important;
+}
+
+.light-theme [class~="hover:bg-white/10"]:hover {
+  background-color:
+    rgba(124, 58, 237, 0.10) !important;
+}
+
+
+/* =========================================================
+   GRADIENT CARD
+   ========================================================= */
+
+.light-theme .gradient-card {
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      #f0ebf7 100%
+    );
+}
+
+
+/* =========================================================
+   GLASS CARD
+   ========================================================= */
+
+.light-theme .glass-card {
+  border-color:
+    rgba(124, 58, 237, 0.18);
+
+  background:
+    rgba(255, 255, 255, 0.82);
+}
+
+
+/* =========================================================
+   PREMIUM BORDER
+   ========================================================= */
+
+.light-theme .premium-border::before {
+  background:
+    linear-gradient(
+      to bottom right,
+      rgba(124, 58, 237, 0.18),
+      rgba(124, 58, 237, 0.04)
+    );
+}
+
+
+/* =========================================================
+   BOTÃO DO TEMA
+   ========================================================= */
+
+.light-theme .theme-toggle {
+  border-color: #ddd6e6;
+
+  background-color:
+    rgba(124, 58, 237, 0.08);
+
+  color: #6d28d9;
+}
+
+.light-theme .theme-toggle:hover {
+  border-color: #c4b5fd;
+
+  background-color:
+    rgba(124, 58, 237, 0.14);
+
+  color: #5b21b6;
+}
+
+
+/* =========================================================
+   ☀️ LOGIN
+   Garantia para nenhum fundo preto permanecer
+   ========================================================= */
+
+.light-theme .login-page {
+  background:
+    linear-gradient(
+      135deg,
+      #faf9fc 0%,
+      #f3edfb 50%,
+      #ffffff 100%
+    ) !important;
+
+  color: #111111 !important;
+}
+
+.light-theme .login-card {
+  background:
+    rgba(255, 255, 255, 0.92) !important;
+
+  border-color: #ddd6e6 !important;
+
+  box-shadow:
+    0 25px 70px
+    rgba(76, 29, 149, 0.12) !important;
+}
+
+.light-theme .login-input {
+  background: #ffffff !important;
+  border-color: #ddd6e6 !important;
+}
+
+.light-theme .login-input:focus-within {
+  background: #ffffff !important;
+  border-color: #8b5cf6 !important;
+}
+
+
+/* =========================================================
+   🟣 FOOTER
+   Mantemos o footer escuro para a identidade visual.
+   ========================================================= */
+
+.light-theme footer {
+  background: #08060D !important;
+}
+
+
+/* O SVG da onda também permanece escuro */
+
+.light-theme footer svg path {
+  fill: #08060D !important;
+}
+
+
+/* Logo gigante continua branca */
+
+.light-theme footer h2 {
+  color: #ffffff !important;
+}
+
+
+/* FITGYM dentro da logo */
+
+.light-theme footer h2 span {
+  color: #a855f7 !important;
+}
+
+
+/* =========================================================
+   BOTÕES DO FOOTER
+   ROXINHO CLARO
+   ========================================================= */
+
+.light-theme footer .footer-social-button {
+  border-color:
+    rgba(196, 181, 253, 0.35) !important;
+
+  background:
+    rgba(196, 181, 253, 0.16) !important;
+
+  color: #c4b5fd !important;
+}
+
+.light-theme footer .footer-social-button:hover {
+  border-color:
+    #a78bfa !important;
+
+  background:
+    rgba(167, 139, 250, 0.28) !important;
+
+  color: #ddd6fe !important;
+}
+
+
+/* =========================================================
+   FOOTER — textos continuam brancos
+   ========================================================= */
+
+.light-theme footer .footer-text {
+  color: #ffffff !important;
+}
+
+
+/* =========================================================
+   TRANSIÇÃO SUAVE
+   ========================================================= */
+
+body,
+body *,
+button,
+input,
+textarea,
+select {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* =========================================================
+   FOOTER — COPYRIGHT
+   ========================================================= */
+.footer-copyright {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+
+/* =========================================================
+   FOOTER — MODO CLARO
+   ========================================================= */
+/* Copyright preto e centralizado */
+.light-theme .footer-copyright {
+    color: #111111 !important;
+}
+
+
+/* Onda branca no modo claro */
+
+.light-theme footer svg path {
+    fill: #ffffff !important;
 }

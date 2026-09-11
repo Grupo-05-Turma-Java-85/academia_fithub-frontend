@@ -6,6 +6,7 @@ import {
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { NavContext } from "../../contexts/NavContext";
+import ThemeToggle from "./ThemeToggle";
 
 function NavbarAdmin() {
 
@@ -40,6 +41,8 @@ function NavbarAdmin() {
 
                 {/* DIREITA */}
                 <div className="flex items-center gap-3">
+
+                    <ThemeToggle />
 
                     {/* BOTÃO ADMIN */}
                     <Link

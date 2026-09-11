@@ -17,28 +17,17 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         const html = document.documentElement;
-
         html.classList.toggle("light-theme", tema === "claro");
-
-        html.style.colorScheme =
-            tema === "claro" ? "light" : "dark";
-
+        html.style.colorScheme = tema === "claro" ? "light" : "dark";
         localStorage.setItem("fitgym-tema", tema);
     }, [tema]);
 
     const alternarTema = () => {
-        setTema((atual) =>
-            atual === "escuro" ? "claro" : "escuro"
-        );
+        setTema((atual) => atual === "escuro" ? "claro" : "escuro");
     };
 
     return (
-        <ThemeContext.Provider
-            value={{
-                tema,
-                alternarTema,
-            }}
-        >
+        <ThemeContext.Provider value={{ tema, alternarTema }}>
             {children}
         </ThemeContext.Provider>
     );
@@ -48,9 +37,7 @@ export function useTheme() {
     const context = useContext(ThemeContext);
 
     if (!context) {
-        throw new Error(
-            "useTheme deve ser usado dentro de ThemeProvider"
-        );
+        throw new Error("useTheme deve ser usado dentro de ThemeProvider");
     }
 
     return context;

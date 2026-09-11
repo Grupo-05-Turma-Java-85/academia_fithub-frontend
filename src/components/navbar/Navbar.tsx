@@ -7,6 +7,7 @@ import {
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { NavContext } from "../../contexts/NavContext";
+import ThemeToggle from "./ThemeToggle";
 
 function Navbar() {
 
@@ -64,6 +65,8 @@ function Navbar() {
 
                 {/* DIREITA */}
                 <div className="flex items-center gap-3">
+
+                    <ThemeToggle />
 
                     {/* JÁ SOU ALUNO */}
                     <Link

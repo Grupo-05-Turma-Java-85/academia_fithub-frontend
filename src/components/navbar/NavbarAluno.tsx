@@ -6,6 +6,7 @@ import {
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { NavContext } from "../../contexts/NavContext";
+import ThemeToggle from "./ThemeToggle";
 
 function NavbarAluno() {
 
@@ -61,6 +62,8 @@ function NavbarAluno() {
 
                 {/* DIREITA */}
                 <div className="flex items-center gap-3">
+
+                    <ThemeToggle />
 
                     {/* BOTÃO PERFIL */}
                     <Link

@@ -4,39 +4,94 @@ import {
     LinkedinLogoIcon,
     YoutubeLogoIcon,
 } from "@phosphor-icons/react";
+
 import { useLocation } from "react-router-dom";
+
 
 function Footer() {
 
     const location = useLocation();
 
-    const rotasSemFooter = ["/login", "/cadastrar"];
+    const rotasSemFooter = [
+        "/login",
+        "/cadastrar",
+    ];
 
     if (rotasSemFooter.includes(location.pathname)) {
         return null;
     }
 
+
     return (
-        <footer className="relative bg-[#08060D] text-white">
+
+        <footer
+            className="
+                relative
+                bg-[#08060D]
+                text-white
+            "
+        >
 
             {/* ONDA DO TOPO */}
-            <div className="absolute -top-16 left-0 w-full overflow-hidden leading-none">
+
+            <div
+                className="
+                    absolute
+                    -top-16
+                    left-0
+                    w-full
+                    overflow-hidden
+                    leading-none
+                "
+            >
+
                 <svg
-                    className="relative block h-20 w-full"
+                    className="
+                        relative
+                        block
+                        h-20
+                        w-full
+                    "
                     viewBox="0 0 1200 120"
                     preserveAspectRatio="none"
                 >
+
                     <path
-                        d="M0,60 C250,0 350,0 550,40 C750,80 900,90 1200,65 L1200,120 L0,120 Z"
+                        d="
+                            M0,60
+                            C250,0 350,0 550,40
+                            C750,80 900,90 1200,65
+                            L1200,120
+                            L0,120
+                            Z
+                        "
                         fill="#08060D"
                     />
+
                 </svg>
+
             </div>
 
-            {/* FITGYM GIGANTE */}
-            <div className="overflow-hidden bg-[#08060D]">
 
-                <div className="mx-auto max-w-[1800px] px-4 pt-16 sm:px-8 lg:px-12">
+            {/* FITGYM GIGANTE */}
+
+            <div
+                className="
+                    overflow-hidden
+                    bg-[#08060D]
+                "
+            >
+
+                <div
+                    className="
+                        mx-auto
+                        max-w-[1800px]
+                        px-4
+                        pt-16
+                        sm:px-8
+                        lg:px-12
+                    "
+                >
 
                     <h2
                         className="
@@ -50,71 +105,178 @@ function Footer() {
                             lg:text-[18vw]
                         "
                     >
+
                         FIT
+
                         <span className="text-purple-500">
                             GYM
                         </span>
+
                     </h2>
 
                 </div>
 
             </div>
 
-            <div className="mx-auto grid max-w-[1600px] flex-col gap-6 px-10 py-7 text-xs text-white sm:flex-row sm:items-center sm:justify-center xl:px-16">
+
+            {/* PARTE INFERIOR */}
+
+            <div
+                className="
+                    mx-auto
+                    flex
+                    max-w-[1600px]
+                    flex-col
+                    items-center
+                    justify-between
+                    gap-6
+                    px-10
+                    py-7
+                    text-xs
+                    text-white
+                    sm:flex-row
+                    xl:px-16
+                "
+            >
 
                 {/* REDES SOCIAIS */}
-                <div className="flex gap-3">
 
-                    <a
-                        href="#"
-                        aria-label="Instagram"
-                        className="flex h-11 w-11 items-center justify-center rounded-xl border border-zinc-800 text-white transition duration-300 hover:-translate-y-1 hover:border-purple-500 hover:bg-purple-500/10 hover:text-purple-400"
-                    >
-                        <InstagramLogoIcon
-                            size={21}
-                            weight="bold"
-                        />
-                    </a>
+                <div className="mx-auto grid max-w-[1600px] flex-col gap-6 px-10 py-7 text-xs text-white sm:flex-row sm:items-center sm:justify-center xl:px-16">
 
-                    <a
-                        href="#"
-                        aria-label="Facebook"
-                        className="flex h-11 w-11 items-center justify-center rounded-xl border border-zinc-800 text-white transition duration-300 hover:-translate-y-1 hover:border-purple-500 hover:bg-purple-500/10 hover:text-purple-400"
-                    >
-                        <FacebookLogoIcon
-                            size={21}
-                            weight="bold"
-                        />
-                    </a>
+                    <div className="flex gap-3">
+                        <a
+                            href="#"
+                            aria-label="Instagram"
+                            className="
+                            footer-social-button
+                            flex
+                            h-11
+                            w-11
+                            items-center
+                            justify-center
+                            rounded-xl
+                            border
+                            border-zinc-800
+                            text-white
+                            transition
+                            duration-300
+                            hover:-translate-y-1
+                            hover:border-purple-500
+                            hover:bg-purple-500/10
+                            hover:text-purple-400
+                        "
+                        >
 
-                    <a
-                        href="#"
-                        aria-label="LinkedIn"
-                        className="flex h-11 w-11 items-center justify-center rounded-xl border border-zinc-800 text-white transition duration-300 hover:-translate-y-1 hover:border-purple-500 hover:bg-purple-500/10 hover:text-purple-400"
-                    >
-                        <LinkedinLogoIcon
-                            size={21}
-                            weight="bold"
-                        />
-                    </a>
+                            <InstagramLogoIcon
+                                size={21}
+                                weight="bold"
+                            />
 
-                    <a
-                        href="#"
-                        aria-label="YouTube"
-                        className="flex h-11 w-11 items-center justify-center rounded-xl border border-zinc-800 text-white transition duration-300 hover:-translate-y-1 hover:border-purple-500 hover:bg-purple-500/10 hover:text-purple-400"
-                    >
-                        <YoutubeLogoIcon
-                            size={21}
-                            weight="bold"
-                        />
-                    </a>
+                        </a>
+
+
+                        <a
+                            href="#"
+                            aria-label="Facebook"
+                            className="
+                            footer-social-button
+                            flex
+                            h-11
+                            w-11
+                            items-center
+                            justify-center
+                            rounded-xl
+                            border
+                            border-zinc-800
+                            text-white
+                            transition
+                            duration-300
+                            hover:-translate-y-1
+                            hover:border-purple-500
+                            hover:bg-purple-500/10
+                            hover:text-purple-400
+                        "
+                        >
+
+                            <FacebookLogoIcon
+                                size={21}
+                                weight="bold"
+                            />
+
+                        </a>
+
+
+                        <a
+                            href="#"
+                            aria-label="LinkedIn"
+                            className="
+                            footer-social-button
+                            flex
+                            h-11
+                            w-11
+                            items-center
+                            justify-center
+                            rounded-xl
+                            border
+                            border-zinc-800
+                            text-white
+                            transition
+                            duration-300
+                            hover:-translate-y-1
+                            hover:border-purple-500
+                            hover:bg-purple-500/10
+                            hover:text-purple-400
+                        "
+                        >
+
+                            <LinkedinLogoIcon
+                                size={21}
+                                weight="bold"
+                            />
+
+                        </a>
+
+
+                        <a
+                            href="#"
+                            aria-label="YouTube"
+                            className="
+                            footer-social-button
+                            flex
+                            h-11
+                            w-11
+                            items-center
+                            justify-center
+                            rounded-xl
+                            border
+                            border-zinc-800
+                            text-white
+                            transition
+                            duration-300
+                            hover:-translate-y-1
+                            hover:border-purple-500
+                            hover:bg-purple-500/10
+                            hover:text-purple-400
+                        "
+                        >
+
+                            <YoutubeLogoIcon
+                                size={21}
+                                weight="bold"
+                            />
+
+                        </a>
+
+                    </div>
+
+
+                    {/* COPYRIGHT */}
+
+                    <p className="footer-text footer-copyright w-full text-center">
+                        © {new Date().getFullYear()} FitGym.
+                    </p>
 
                 </div>
-
-                <p className="pl-16">
-                    © {new Date().getFullYear()} FitGym.
-                </p>
-
             </div>
 
         </footer>

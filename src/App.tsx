@@ -17,6 +17,7 @@ import HomeAluno from './pages/homealuno/HomeAluno'
 import HomeAdmin from './pages/homeadm/HomeAdm'
 
 import { AuthProvider } from './contexts/AuthContext'
+import { ThemeProvider } from './contexts/ThemeContext'
 import { NavProvider, NavContext } from './contexts/NavContext'
 import NavbarAluno from './components/navbar/NavbarAluno'
 import NavbarAdmin from './components/navbar/NavbarAdmin'
@@ -73,7 +74,9 @@ function App() {
 
         <NavProvider>
 
-          <AppContent />
+          <ThemeProvider>
+            <AppContent />
+          </ThemeProvider>
 
         </NavProvider>
 
