@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { MagnifyingGlass, ArrowRight, Barbell, ForkKnife, User, Wrench, CaretDown, Robot, WhatsappLogo, EnvelopeSimple } from '@phosphor-icons/react';
 import Footer from '../../components/footer/Footer';
+import EmailModal from '../../components/suporte/EmailModal';
 
 export default function Support() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [emailModalAberto, setEmailModalAberto] = useState(false);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -50,6 +52,19 @@ export default function Support() {
       answer: 'A avaliação analisa sua composição corporal e objetivos. Você pode agendá-la pelo app na aba Agendamentos ou na recepção.'
     },
   ];
+
+  const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
+
+  const abrirWhatsApp = () => {
+    const mensagem = encodeURIComponent(
+      "Olá! Entrei em contato pelo FitGym e preciso de ajuda."
+    );
+
+    window.open(
+      `https://wa.me/${whatsappNumber}?text=${mensagem}`,
+      "_blank"
+    );
+  };
 
   return (
     <div className='bg-[#08060D] py-24'>
@@ -146,16 +161,30 @@ export default function Support() {
             </div>
 
             {/* WhatsApp */}
-            <div className="bg-neutral-900/80 border border-teal-800 rounded-xl p-5 sm:p-6 flex flex-col items-center justify-center gap-2.5 hover:border-teal-500 transition cursor-pointer">
+            {/* WhatsApp */}
+            {/* WhatsApp */}
+            <div
+              onClick={abrirWhatsApp}
+              className="bg-neutral-900/80 border border-teal-800 rounded-xl p-5 sm:p-6 flex flex-col items-center justify-center gap-2.5 hover:border-teal-500 transition cursor-pointer"
+            >
               <div className="w-10 h-10 rounded-lg bg-teal-950/60 border border-teal-800/40 flex items-center justify-center text-teal-400">
                 <WhatsappLogo size={22} />
               </div>
-              <strong className="block text-sm font-bold text-white">WhatsApp</strong>
-              <small className="text-xs text-neutral-400">Tempo médio: 1h</small>
+
+              <strong className="block text-sm font-bold text-white">
+                WhatsApp
+              </strong>
+
+              <small className="text-xs text-neutral-400">
+                Tempo médio: 1h
+              </small>
             </div>
 
             {/* E-mail */}
-            <div className="bg-neutral-900/80 border border-neutral-900 rounded-xl p-5 sm:p-6 flex flex-col items-center justify-center gap-2.5 hover:border-neutral-700 transition cursor-pointer sm:col-span-2 lg:col-span-1">
+            <div
+              onClick={() => setEmailModalAberto(true)}
+              className="bg-neutral-900/80 border border-neutral-900 rounded-xl p-5 sm:p-6 flex flex-col items-center justify-center gap-2.5 hover:border-neutral-700 transition cursor-pointer sm:col-span-2 lg:col-span-1"
+            >
               <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center text-neutral-300">
                 <EnvelopeSimple size={22} />
               </div>
@@ -165,6 +194,16 @@ export default function Support() {
           </div>
         </div>
       </div>
+
+      {
+        emailModalAberto && (
+          <EmailModal
+            onClose={() => setEmailModalAberto(false)}
+          />
+        )
+      }
+
     </div>
   );
+
 }

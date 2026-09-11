@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import './App.css'
 
 import About from './pages/about/About'
-import Support from './pages/suport/Suport'
+import Support from './pages/support/Support'
 import Home from './pages/home/Home'
 import Footer from './components/footer/Footer'
 

@@ -721,3 +721,58 @@ select {
   background-color: #6d28d9 !important;
   color: #ffffff !important;
 }
+
+/* =========================================================
+   MODAL DE E-MAIL — TEMA CLARO
+========================================================= */
+
+.light-theme [class~="bg-[#0D0A13]"] {
+  background-color: #ffffff !important;
+  border-color: #e5dff0 !important;
+}
+
+/* Título */
+.light-theme [class~="bg-[#0D0A13]"] [class~="text-white"] {
+  color: #18131f !important;
+}
+
+/* Textos secundários */
+.light-theme [class~="bg-[#0D0A13]"] [class~="text-slate-400"] {
+  color: #6f6878 !important;
+}
+
+/* Labels */
+.light-theme [class~="bg-[#0D0A13]"] [class~="text-slate-200"] {
+  color: #302a38 !important;
+}
+
+/* Inputs e textarea */
+.light-theme [class~="bg-[#0D0A13]"] [class~="bg-white/5"] {
+  background-color: #f8f5fb !important;
+  border-color: #ded6e8 !important;
+  color: #18131f !important;
+}
+
+/* Placeholder */
+.light-theme [class~="bg-[#0D0A13]"] input::placeholder,
+.light-theme [class~="bg-[#0D0A13]"] textarea::placeholder {
+  color: #8b8493 !important;
+}
+
+/* Quando clicar no input */
+.light-theme [class~="bg-[#0D0A13]"] input:focus,
+.light-theme [class~="bg-[#0D0A13]"] textarea:focus {
+  background-color: #ffffff !important;
+  border-color: #7c3aed !important;
+  color: #18131f !important;
+}
+
+/* Botão fechar */
+.light-theme [class~="bg-[#0D0A13]"] [class~="bg-white/5"] {
+  color: #6f6878 !important;
+}
+
+/* Ícone do topo */
+.light-theme [class~="bg-[#0D0A13]"] [class~="bg-purple-500/10"] {
+  background-color: rgba(124, 58, 237, 0.08) !important;
+}
