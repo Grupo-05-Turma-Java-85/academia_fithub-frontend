@@ -182,7 +182,7 @@ function Home() {
                                 Por que Fit Gym?
                             </span>
 
-                            <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight sm:text-4xl md:text-5xl xl:text-6xl">
+                            <h2 className="mt-4 text-3xl text-white font-black leading-tight tracking-tight sm:text-4xl md:text-5xl xl:text-6xl">
                                 Muito mais que um treino.
                             </h2>
 
@@ -200,10 +200,10 @@ function Home() {
                             return (
                                 <div
                                     key={benefit.title}
-                                    className="group min-h-[250px] rounded-3xl border border-zinc-800 bg-[#100D17] p-6 transition duration-300 hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-950/10 sm:min-h-[270px] sm:p-7 lg:min-h-[290px] lg:p-8"
+                                    className="group min-h-[250px] rounded-3xl border text-white border-zinc-800 bg-[#100D17] p-6 transition duration-300 hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-950/10 sm:min-h-[270px] sm:p-7 lg:min-h-[290px] lg:p-8"
                                 >
 
-                                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-500/10 text-purple-500 transition duration-300 group-hover:bg-purple-600 group-hover:text-white sm:h-16 sm:w-16">
+                                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-500/10 text-purple-500 transition duration-300 group-hover:bg-purple-400 group-hover:text-white sm:h-16 sm:w-16">
 
                                         <Icon
                                             size={32}
@@ -212,11 +212,11 @@ function Home() {
 
                                     </div>
 
-                                    <h3 className="mt-6 text-lg font-bold sm:mt-8 sm:text-xl">
+                                    <h3 className="mt-6 text-lg text-white font-bold sm:mt-8 sm:text-xl">
                                         {benefit.title}
                                     </h3>
 
-                                    <p className="mt-3 max-w-[300px] text-sm leading-7 text-zinc-500 sm:mt-4">
+                                    <p className="mt-3 max-w-[300px] text-md leading-7 text-white sm:mt-4">
                                         {benefit.description}
                                     </p>
 
@@ -266,7 +266,7 @@ function Home() {
                                 className={`relative flex min-h-[500px] flex-col rounded-3xl border p-6 sm:min-h-[520px] sm:p-8 lg:p-10 ${
                                     plan.popular
                                         ? "border-purple-500 bg-purple-900/[0.08] text-black shadow-2xl shadow-purple-950/20"
-                                        : "border-zinc-800 bg-[#100D17]"
+                                        : "border-zinc-800 text-white bg-[#100D17]"
                                 }`}
                             >
 
@@ -280,10 +280,6 @@ function Home() {
                                 <h3 className="text-2xl font-black sm:text-3xl">
                                     {plan.name}
                                 </h3>
-
-                                <p className="mt-3 max-w-[350px] text-sm leading-6 text-zinc-500">
-                                    {plan.description}
-                                </p>
 
                                 {/* PREÇO */}
                                 <div className="mt-7 flex items-end sm:mt-9">

@@ -225,7 +225,7 @@
   --color-outline-variant: #d7d1dd;
 
   --color-primary: #7c3aed;
-  --color-on-primary: #ffffff;
+  --color-on-primary: #370096;
 
   --color-primary-container: #eadcff;
   --color-on-primary-container: #30105f;
@@ -258,7 +258,7 @@
 .light-theme [class~="text-neutral-600"],
 .light-theme [class~="text-neutral-700"],
 
-.light-theme [class~="text-zinc-200"],
+
 .light-theme [class~="text-zinc-300"],
 .light-theme [class~="text-zinc-400"],
 .light-theme [class~="text-zinc-500"],
@@ -330,7 +330,7 @@
 .light-theme [class~="bg-[#18191c]"],
 .light-theme [class~="bg-[#1A1827]"],
 .light-theme [class~="bg-[#1b1a20]"] {
-  background-color: #ffffff !important;
+  background-color: rgba(255, 244, 255, 0.90) !important;
 }
 
 
@@ -340,7 +340,7 @@
 
 .light-theme [class~="bg-black/20"] {
   background-color:
-    rgba(255, 255, 255, 0.90) !important;
+    rgba(255, 255, 255, 0.295) !important;
 }
 
 .light-theme [class~="bg-white/5"] {
@@ -358,6 +358,40 @@
     rgba(124, 58, 237, 0.04) !important;
 }
 
+.light-theme [class~="bg-purple-950/60"],
+.light-theme [class~="bg-teal-950/60"], 
+.light-theme [class~="bg-orange-950/60"], 
+.light-theme [class~="bg-neutral-800"],
+.light-theme [class~="bg-purple-950/40"],
+.light-theme [class~="bg-teal-950/40"], 
+.light-theme [class~="bg-orange-950/40"], 
+.light-theme [class~="bg-rose-950/40"]{
+  background-color:
+    rgb(255, 255, 255) !important;
+}
+
+.light-theme [class~="bg-neutral-900/80"]{
+  background-color:
+    rgb(229, 211, 240) !important;
+}
+
+/* =========================================================
+   CARDS — MODO CLARO
+   ========================================================= */
+ 
+.light-theme [class~="border-purple-500/20"] {
+  border-color: rgba(124, 58, 237, 0.20) !important;
+}
+ 
+.light-theme [class~="from-purple-950/30"] {
+  --tw-gradient-from: rgba(124, 58, 237, 0.08) !important;
+}
+ 
+.light-theme [class~="to-neutral-900/40"] {
+  --tw-gradient-to: rgba(253, 253, 253, 0.75) !important;
+}
+ 
+ 
 
 /* =========================================================
    BORDAS
@@ -410,7 +444,43 @@
     rgba(124, 58, 237, 0.10) !important;
 }
 
+.light-theme [class~="hover:bg-purple-600"]:hover {
+  background-color:
+    rgba(72, 12, 175, 0.1) !important;
+}
+.light-theme [class~="hover:bg-on-primary"]:hover {
+  background-color:
+    rgb(97, 46, 185) !important;
+}
 
+/* =========================================================
+   HOVER — BORDAS DOS CARDS
+   ========================================================= */
+
+.light-theme [class~="hover\:border-on-primary"]:hover {
+  background-color: rgba(255, 244, 255, 0.90) !important;
+  border-color: #7c4dff !important;
+}
+
+.light-theme [class~="hover\:border-primary-container"]:hover {
+  background-color: rgba(255, 244, 255, 0.90) !important;
+  border-color: #7c4dff !important;
+}
+
+.light-theme [class~="hover\:border-purple-500"]:hover {
+  background-color: rgb(229, 211, 240) !important;
+  border-color: #a855f7 !important;
+}
+
+.light-theme [class~="hover\:border-teal-500"]:hover {
+  background-color: rgb(229, 211, 240) !important;
+  border-color: #14b8a6 !important;
+}
+
+.light-theme [class~="hover\:border-neutral-700"]:hover {
+  background-color: rgb(229, 211, 240) !important;
+  border-color: #404040 !important;
+}
 /* =========================================================
    GRADIENT CARD
    ========================================================= */
@@ -518,72 +588,81 @@
    🟣 FOOTER
    Mantemos o footer escuro para a identidade visual.
    ========================================================= */
-
+ 
 .light-theme footer {
   background: #08060D !important;
 }
-
-
-/* O SVG da onda também permanece escuro */
-
+ 
+ 
+/* O SVG da onda */
+ 
 .light-theme footer svg path {
-  fill: #08060D !important;
+  fill: rgba(255, 244, 255, 1) !important;
 }
-
-
+ 
+ 
 /* Logo gigante continua branca */
-
+ 
 .light-theme footer h2 {
   color: #ffffff !important;
 }
-
-
+ 
+ 
 /* FITGYM dentro da logo */
-
+ 
 .light-theme footer h2 span {
   color: #a855f7 !important;
 }
-
-
+ 
+ 
 /* =========================================================
-   BOTÕES DO FOOTER
-   ROXINHO CLARO
+   FOOTER — AJUSTES DO MODO CLARO
    ========================================================= */
-
+ 
+/* ÍCONES ROXOS */
 .light-theme footer .footer-social-button {
-  border-color:
-    rgba(196, 181, 253, 0.35) !important;
-
-  background:
-    rgba(196, 181, 253, 0.16) !important;
-
-  color: #c4b5fd !important;
+  color: #a855f7 !important;
 }
-
+ 
+.light-theme footer .footer-social-button svg {
+  color: #a855f7 !important;
+  fill: #a855f7 !important;
+}
+ 
+.light-theme footer .footer-social-button svg path {
+  color: #a855f7 !important;
+  fill: #a855f7 !important;
+}
+ 
+ 
+/* ÍCONES CONTINUAM ROXOS AO PASSAR O MOUSE */
 .light-theme footer .footer-social-button:hover {
-  border-color:
-    #a78bfa !important;
-
-  background:
-    rgba(167, 139, 250, 0.28) !important;
-
-  color: #ddd6fe !important;
+  color: #a855f7 !important;
 }
-
-
-/* =========================================================
-   FOOTER — textos continuam brancos
-   ========================================================= */
-
-.light-theme footer .footer-text {
-  color: #ffffff !important;
+ 
+.light-theme footer .footer-social-button:hover svg,
+.light-theme footer .footer-social-button:hover svg path {
+  color: #a855f7 !important;
+  fill: #a855f7 !important;
 }
-
-
+ 
+ 
+/* COPYRIGHT PRETO */
+.light-theme footer .footer-text.footer-copyright {
+  color: #111111 !important;
+}
+ 
+ 
+/* COPYRIGHT CENTRALIZADO */
+.footer-copyright {
+  width: 100% !important;
+  text-align: center !important;
+}
+ 
 /* =========================================================
    TRANSIÇÃO SUAVE
    ========================================================= */
-
+ 
 body,
 body *,
 button,
@@ -595,27 +674,4 @@ select {
     border-color 0.25s ease,
     color 0.25s ease;
 }
-
-/* =========================================================
-   FOOTER — COPYRIGHT
-   ========================================================= */
-.footer-copyright {
-    width: 100% !important;
-    text-align: center !important;
-}
-
-
-/* =========================================================
-   FOOTER — MODO CLARO
-   ========================================================= */
-/* Copyright preto e centralizado */
-.light-theme .footer-copyright {
-    color: #111111 !important;
-}
-
-
-/* Onda branca no modo claro */
-
-.light-theme footer svg path {
-    fill: #ffffff !important;
-}
+ 

@@ -4,26 +4,26 @@ import {
     LinkedinLogoIcon,
     YoutubeLogoIcon,
 } from "@phosphor-icons/react";
-
+ 
 import { useLocation } from "react-router-dom";
-
-
+ 
+ 
 function Footer() {
-
+ 
     const location = useLocation();
-
+ 
     const rotasSemFooter = [
         "/login",
         "/cadastrar",
     ];
-
+ 
     if (rotasSemFooter.includes(location.pathname)) {
         return null;
     }
-
-
+ 
+ 
     return (
-
+ 
         <footer
             className="
                 relative
@@ -31,9 +31,9 @@ function Footer() {
                 text-white
             "
         >
-
+ 
             {/* ONDA DO TOPO */}
-
+ 
             <div
                 className="
                     absolute
@@ -44,7 +44,7 @@ function Footer() {
                     leading-none
                 "
             >
-
+ 
                 <svg
                     className="
                         relative
@@ -55,7 +55,7 @@ function Footer() {
                     viewBox="0 0 1200 120"
                     preserveAspectRatio="none"
                 >
-
+ 
                     <path
                         d="
                             M0,60
@@ -67,21 +67,21 @@ function Footer() {
                         "
                         fill="#08060D"
                     />
-
+ 
                 </svg>
-
+ 
             </div>
-
-
+ 
+ 
             {/* FITGYM GIGANTE */}
-
+ 
             <div
                 className="
                     overflow-hidden
                     bg-[#08060D]
                 "
             >
-
+ 
                 <div
                     className="
                         mx-auto
@@ -92,7 +92,7 @@ function Footer() {
                         lg:px-12
                     "
                 >
-
+ 
                     <h2
                         className="
                             text-center
@@ -105,22 +105,22 @@ function Footer() {
                             lg:text-[18vw]
                         "
                     >
-
+ 
                         FIT
-
+ 
                         <span className="text-purple-500">
                             GYM
                         </span>
-
+ 
                     </h2>
-
+ 
                 </div>
-
+ 
             </div>
-
-
+ 
+ 
             {/* PARTE INFERIOR */}
-
+ 
             <div
                 className="
                     mx-auto
@@ -138,11 +138,11 @@ function Footer() {
                     xl:px-16
                 "
             >
-
+ 
                 {/* REDES SOCIAIS */}
-
+ 
                 <div className="mx-auto grid max-w-[1600px] flex-col gap-6 px-10 py-7 text-xs text-white sm:flex-row sm:items-center sm:justify-center xl:px-16">
-
+ 
                     <div className="flex gap-3">
                         <a
                             href="#"
@@ -166,15 +166,15 @@ function Footer() {
                             hover:text-purple-400
                         "
                         >
-
+ 
                             <InstagramLogoIcon
                                 size={21}
                                 weight="bold"
                             />
-
+ 
                         </a>
-
-
+ 
+ 
                         <a
                             href="#"
                             aria-label="Facebook"
@@ -197,15 +197,15 @@ function Footer() {
                             hover:text-purple-400
                         "
                         >
-
+ 
                             <FacebookLogoIcon
                                 size={21}
                                 weight="bold"
                             />
-
+ 
                         </a>
-
-
+ 
+ 
                         <a
                             href="#"
                             aria-label="LinkedIn"
@@ -228,15 +228,15 @@ function Footer() {
                             hover:text-purple-400
                         "
                         >
-
+ 
                             <LinkedinLogoIcon
                                 size={21}
                                 weight="bold"
                             />
-
+ 
                         </a>
-
-
+ 
+ 
                         <a
                             href="#"
                             aria-label="YouTube"
@@ -259,28 +259,28 @@ function Footer() {
                             hover:text-purple-400
                         "
                         >
-
+ 
                             <YoutubeLogoIcon
                                 size={21}
                                 weight="bold"
                             />
-
+ 
                         </a>
-
+ 
                     </div>
-
-
+ 
+ 
                     {/* COPYRIGHT */}
-
-                    <p className="footer-text footer-copyright w-full text-center">
+ 
+                    <p className="footer-text footer-copyright w-full text-center text-white">
                         © {new Date().getFullYear()} FitGym.
                     </p>
-
+ 
                 </div>
             </div>
-
+ 
         </footer>
     );
 }
-
+ 
 export default Footer;

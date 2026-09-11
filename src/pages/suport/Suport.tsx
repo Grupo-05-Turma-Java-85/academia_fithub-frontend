@@ -88,7 +88,7 @@ export default function Support() {
             {categories.map((cat, idx) => (
               <div
                 key={idx}
-                className="bg-[#121316] border border-neutral-800/80 rounded-xl p-5 sm:p-6 flex flex-col justify-between gap-4 hover:border-purple-600 transition cursor-pointer"
+                className="bg-[#121316] border border-neutral-800/80 rounded-xl p-5 sm:p-6 flex flex-col justify-between gap-4 hover:border-on-primary transition cursor-pointer"
               >
                 <div className={`w-10 h-10 rounded-lg border flex items-center justify-center ${cat.bgColor}`}>
                   {cat.icon}
@@ -155,7 +155,7 @@ export default function Support() {
             </div>
 
             {/* E-mail */}
-            <div className="bg-neutral-900/80 border border-neutral-800 rounded-xl p-5 sm:p-6 flex flex-col items-center justify-center gap-2.5 hover:border-neutral-700 transition cursor-pointer sm:col-span-2 lg:col-span-1">
+            <div className="bg-neutral-900/80 border border-neutral-900 rounded-xl p-5 sm:p-6 flex flex-col items-center justify-center gap-2.5 hover:border-neutral-700 transition cursor-pointer sm:col-span-2 lg:col-span-1">
               <div className="w-10 h-10 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center text-neutral-300">
                 <EnvelopeSimple size={22} />
               </div>
