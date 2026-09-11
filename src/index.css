@@ -674,4 +674,50 @@ select {
     border-color 0.25s ease,
     color 0.25s ease;
 }
- 
+
+/* =========================================================
+   NAVBAR — MENU MOBILE NO MODO CLARO
+   ========================================================= */
+
+.light-theme [class~="bg-[#180D24]/60"] {
+  background-color: rgba(255, 255, 255, 0.31) !important;
+}
+
+
+/* Textos do menu mobile */
+
+.light-theme [class~="bg-[#180D24]/95"] [class~="text-white"] {
+  color: #111111 !important;
+}
+
+.light-theme [class~="bg-[#180D24]/95"] [class~="text-white/70"] {
+  color: #111111 !important;
+}
+
+
+/* Hover dos links */
+
+.light-theme [class~="bg-[#180D24]/95"] [class~="hover:bg-white/5"]:hover {
+  background-color: rgba(124, 58, 237, 0.08) !important;
+}
+
+
+/* Borda do menu */
+
+.light-theme [class~="bg-[#180D24]/95"] {
+  border-color: #ddd7e3 !important;
+}
+
+/* =========================================================
+   MENU MOBILE — BOTÃO SAIR / LOGIN NO MODO CLARO
+   ========================================================= */
+
+.light-theme [class~="bg-purple-600"] {
+  background-color: #7c3aed !important;
+  color: #ffffff !important;
+}
+
+.light-theme [class~="bg-purple-600"]:hover {
+  background-color: #6d28d9 !important;
+  color: #ffffff !important;
+}

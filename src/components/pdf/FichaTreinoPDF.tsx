@@ -7,6 +7,7 @@ import {
 } from "@react-pdf/renderer";
 
 import type Categoria from "../../models/Categoria";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface Treino {
     letra: string;
@@ -27,7 +28,13 @@ interface FichaTreinoPDFProps {
     categorias: Categoria[];
 }
 
+
+// =========================================================
+// ESTILOS BASE
+// =========================================================
+
 const styles = StyleSheet.create({
+
     page: {
         backgroundColor: "#0B0812",
         padding: 38,
@@ -139,6 +146,7 @@ const styles = StyleSheet.create({
         fontSize: 11,
         fontWeight: "bold",
         marginRight: 10,
+        color: "#FFFFFF",
     },
 
     treinoTitulo: {
@@ -199,6 +207,71 @@ const styles = StyleSheet.create({
     },
 });
 
+
+// =========================================================
+// CORES DOS TEMAS
+// =========================================================
+
+const coresPDF = {
+
+    escuro: {
+        page: "#0B0812",
+
+        texto: "#FFFFFF",
+
+        secundario: "#A1A1AA",
+
+        roxo: "#7C3AED",
+
+        roxoClaro: "#C084FC",
+
+        logo: "#A855F7",
+
+        card: "#15111F",
+
+        cardInterno: "#211C2B",
+
+        borda: "#302A3D",
+
+        bordaExercicio: "#292332",
+
+        bordaCategoria: "#282331",
+
+        vazio: "#71717A",
+    },
+
+    claro: {
+        page: "#FAF9FC",
+
+        texto: "#111111",
+
+        secundario: "#6B6573",
+
+        roxo: "#7C3AED",
+
+        roxoClaro: "#7C3AED",
+
+        logo: "#7C3AED",
+
+        card: "#FFFFFF",
+
+        cardInterno: "#F3EFF8",
+
+        borda: "#DDD7E3",
+
+        bordaExercicio: "#E5DFEA",
+
+        bordaCategoria: "#E2DCE8",
+
+        vazio: "#77717E",
+    },
+};
+
+
+// =========================================================
+// COMPONENTE
+// =========================================================
+
 export default function FichaTreinoPDF({
     usuario,
     treinos,
@@ -206,10 +279,148 @@ export default function FichaTreinoPDF({
 }: FichaTreinoPDFProps) {
 
     // =========================================================
+    // TEMA
+    // =========================================================
+
+    const { tema } = useTheme();
+
+    const modoClaro = tema === "claro";
+
+    const cores = modoClaro
+        ? coresPDF.claro
+        : coresPDF.escuro;
+
+
+    // =========================================================
+    // ESTILOS DINÂMICOS
+    // =========================================================
+
+    const estilos = {
+
+        page: {
+            ...styles.page,
+            backgroundColor: cores.page,
+            color: cores.texto,
+        },
+
+        header: {
+            ...styles.header,
+            borderBottomColor: cores.roxo,
+        },
+
+        logo: {
+            ...styles.logo,
+            color: cores.logo,
+        },
+
+        subtitulo: {
+            ...styles.subtitulo,
+            color: cores.secundario,
+        },
+
+        dadosContainer: {
+            ...styles.dadosContainer,
+            backgroundColor: cores.card,
+            borderColor: cores.borda,
+        },
+
+        nomeAluno: {
+            ...styles.nomeAluno,
+            color: cores.texto,
+        },
+
+        dado: {
+            ...styles.dado,
+            backgroundColor: cores.cardInterno,
+        },
+
+        dadoUltimo: {
+            ...styles.dadoUltimo,
+            backgroundColor: cores.cardInterno,
+        },
+
+        dadoLabel: {
+            ...styles.dadoLabel,
+            color: cores.secundario,
+        },
+
+        dadoValor: {
+            ...styles.dadoValor,
+            color: cores.texto,
+        },
+
+        nivel: {
+            ...styles.nivel,
+            backgroundColor: cores.roxo,
+        },
+
+        nivelTexto: {
+            ...styles.nivelTexto,
+            color: "#FFFFFF",
+        },
+
+        treinoHeader: {
+            ...styles.treinoHeader,
+            backgroundColor: cores.card,
+            borderColor: cores.borda,
+        },
+
+        letra: {
+            ...styles.letra,
+            backgroundColor: cores.roxo,
+            color: "#FFFFFF",
+        },
+
+        treinoTitulo: {
+            ...styles.treinoTitulo,
+            color: cores.texto,
+        },
+
+        categoria: {
+            ...styles.categoria,
+            backgroundColor: cores.card,
+            borderColor: cores.bordaCategoria,
+        },
+
+        categoriaTitulo: {
+            ...styles.categoriaTitulo,
+            color: cores.roxoClaro,
+        },
+
+        exercicio: {
+            ...styles.exercicio,
+            borderBottomColor: cores.bordaExercicio,
+        },
+
+        exercicioNome: {
+            ...styles.exercicioNome,
+            color: cores.texto,
+        },
+
+        equipamento: {
+            ...styles.equipamento,
+            color: cores.secundario,
+        },
+
+        semExercicios: {
+            ...styles.semExercicios,
+            color: cores.vazio,
+        },
+
+        rodape: {
+            ...styles.rodape,
+            borderTopColor: cores.bordaExercicio,
+            color: cores.vazio,
+        },
+    };
+
+
+    // =========================================================
     // FUNÇÃO PARA NORMALIZAR TEXTOS
     // =========================================================
 
     const normalizar = (valor: unknown) => {
+
         return String(valor ?? "")
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
@@ -239,6 +450,7 @@ export default function FichaTreinoPDF({
             .trim()
     );
 
+
     /*
      * A API pode enviar:
      *
@@ -253,7 +465,11 @@ export default function FichaTreinoPDF({
 
     let alturaEmMetros = 0;
 
-    if (!Number.isNaN(alturaNumerica) && alturaNumerica > 0) {
+    if (
+        !Number.isNaN(alturaNumerica) &&
+        alturaNumerica > 0
+    ) {
+
         alturaEmMetros =
             alturaNumerica >= 100
                 ? alturaNumerica / 100
@@ -271,6 +487,7 @@ export default function FichaTreinoPDF({
         pesoNumerico > 0 &&
         alturaEmMetros > 0
     ) {
+
         imc =
             pesoNumerico /
             (alturaEmMetros * alturaEmMetros);
@@ -282,6 +499,7 @@ export default function FichaTreinoPDF({
     // =========================================================
 
     const formatarNumero = (valor: number) => {
+
         if (!Number.isFinite(valor)) {
             return "--";
         }
@@ -311,25 +529,30 @@ export default function FichaTreinoPDF({
     };
 
 
+    // =========================================================
+    // PDF
+    // =========================================================
+
     return (
+
         <Document>
 
             <Page
                 size="A4"
-                style={styles.page}
+                style={estilos.page}
             >
 
                 {/* ================================================= */}
                 {/* CABEÇALHO */}
                 {/* ================================================= */}
 
-                <View style={styles.header}>
+                <View style={estilos.header}>
 
-                    <Text style={styles.logo}>
+                    <Text style={estilos.logo}>
                         FITGYM
                     </Text>
 
-                    <Text style={styles.subtitulo}>
+                    <Text style={estilos.subtitulo}>
                         Ficha personalizada de treino
                     </Text>
 
@@ -340,9 +563,9 @@ export default function FichaTreinoPDF({
                 {/* DADOS DO ALUNO */}
                 {/* ================================================= */}
 
-                <View style={styles.dadosContainer}>
+                <View style={estilos.dadosContainer}>
 
-                    <Text style={styles.nomeAluno}>
+                    <Text style={estilos.nomeAluno}>
                         {usuario.nome || "Aluno"}
                     </Text>
 
@@ -351,13 +574,13 @@ export default function FichaTreinoPDF({
 
                         {/* PESO */}
 
-                        <View style={styles.dado}>
+                        <View style={estilos.dado}>
 
-                            <Text style={styles.dadoLabel}>
+                            <Text style={estilos.dadoLabel}>
                                 PESO
                             </Text>
 
-                            <Text style={styles.dadoValor}>
+                            <Text style={estilos.dadoValor}>
 
                                 {pesoNumerico > 0
                                     ? `${formatarNumero(
@@ -372,13 +595,13 @@ export default function FichaTreinoPDF({
 
                         {/* ALTURA */}
 
-                        <View style={styles.dado}>
+                        <View style={estilos.dado}>
 
-                            <Text style={styles.dadoLabel}>
+                            <Text style={estilos.dadoLabel}>
                                 ALTURA
                             </Text>
 
-                            <Text style={styles.dadoValor}>
+                            <Text style={estilos.dadoValor}>
 
                                 {alturaEmMetros > 0
                                     ? `${formatarNumero(
@@ -393,13 +616,13 @@ export default function FichaTreinoPDF({
 
                         {/* IMC */}
 
-                        <View style={styles.dadoUltimo}>
+                        <View style={estilos.dadoUltimo}>
 
-                            <Text style={styles.dadoLabel}>
+                            <Text style={estilos.dadoLabel}>
                                 IMC
                             </Text>
 
-                            <Text style={styles.dadoValor}>
+                            <Text style={estilos.dadoValor}>
 
                                 {imc > 0
                                     ? formatarNumero(imc)
@@ -414,9 +637,9 @@ export default function FichaTreinoPDF({
 
                     {/* NÍVEL */}
 
-                    <View style={styles.nivel}>
+                    <View style={estilos.nivel}>
 
-                        <Text style={styles.nivelTexto}>
+                        <Text style={estilos.nivelTexto}>
 
                             NÍVEL:{" "}
 
@@ -444,13 +667,13 @@ export default function FichaTreinoPDF({
 
                         {/* CABEÇALHO DO TREINO */}
 
-                        <View style={styles.treinoHeader}>
+                        <View style={estilos.treinoHeader}>
 
-                            <Text style={styles.letra}>
+                            <Text style={estilos.letra}>
                                 {treino.letra}
                             </Text>
 
-                            <Text style={styles.treinoTitulo}>
+                            <Text style={estilos.treinoTitulo}>
                                 TREINO {treino.letra} —{" "}
                                 {treino.titulo}
                             </Text>
@@ -492,9 +715,10 @@ export default function FichaTreinoPDF({
 
 
                                 return (
+
                                     <View
                                         key={`${treino.letra}-${categoria.id}`}
-                                        style={styles.categoria}
+                                        style={estilos.categoria}
                                         wrap={false}
                                     >
 
@@ -502,7 +726,7 @@ export default function FichaTreinoPDF({
 
                                         <Text
                                             style={
-                                                styles.categoriaTitulo
+                                                estilos.categoriaTitulo
                                             }
                                         >
                                             {categoria.nome}
@@ -521,13 +745,13 @@ export default function FichaTreinoPDF({
                                                     <View
                                                         key={exercicio.id}
                                                         style={
-                                                            styles.exercicio
+                                                            estilos.exercicio
                                                         }
                                                     >
 
                                                         <Text
                                                             style={
-                                                                styles.exercicioNome
+                                                                estilos.exercicioNome
                                                             }
                                                         >
                                                             •{" "}
@@ -541,7 +765,7 @@ export default function FichaTreinoPDF({
 
                                                             <Text
                                                                 style={
-                                                                    styles.equipamento
+                                                                    estilos.equipamento
                                                                 }
                                                             >
                                                                 Equipamento:{" "}
@@ -561,7 +785,7 @@ export default function FichaTreinoPDF({
 
                                             <Text
                                                 style={
-                                                    styles.semExercicios
+                                                    estilos.semExercicios
                                                 }
                                             >
                                                 Nenhum exercício cadastrado
@@ -584,7 +808,7 @@ export default function FichaTreinoPDF({
                 {/* RODAPÉ */}
                 {/* ================================================= */}
 
-                <Text style={styles.rodape}>
+                <Text style={estilos.rodape}>
                     FITGYM • Ficha de treino personalizada
                 </Text>
 

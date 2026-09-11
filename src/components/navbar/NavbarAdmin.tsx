@@ -83,7 +83,7 @@ function NavbarAdmin() {
 
             {/* MENU MOBILE */}
             {menuAberto && (
-                <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-[#180D24]/95 p-3 shadow-2xl backdrop-blur-xl lg:hidden">
+                <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-[#180D24]/60 p-3 shadow-2xl backdrop-blur-xl lg:hidden">
 
                     <nav className="flex flex-col">
 

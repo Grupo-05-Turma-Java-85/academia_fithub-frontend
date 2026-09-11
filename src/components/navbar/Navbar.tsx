@@ -108,14 +108,14 @@ function Navbar() {
 
             {/* MENU MOBILE */}
             {menuAberto && (
-                <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-[#180D24]/95 p-3 shadow-2xl backdrop-blur-xl lg:hidden">
+                <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-[#180D24]/60 p-3 shadow-2xl backdrop-blur-xl lg:hidden">
 
                     <nav className="flex flex-col">
 
                         <Link
                             to="/"
                             onClick={fecharMenu}
-                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white transition hover:bg-white/5 hover:text-purple-400"
+                            className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
                         >
                             Início
                         </Link>
