@@ -685,34 +685,18 @@ export default function FichaTreinoPDF({
                         {/* CATEGORIAS DO TREINO */}
                         {/* ================================================= */}
 
-                        {treino.categorias.map(
-                            (nomeCategoria) => {
-
-                                const categoria =
-                                    encontrarCategoria(
-                                        nomeCategoria
-                                    );
-
-
-                                /*
-                                 * Se não encontrou a categoria
-                                 * na resposta da API, simplesmente
-                                 * não quebra o PDF.
-                                 */
-
-                                if (!categoria) {
-                                    return null;
-                                }
-
-
-                                /*
-                                 * Exercícios pertencentes
-                                 * àquela categoria.
-                                 */
+                        {treino.categorias
+                            .map((nomeCategoria) =>
+                                encontrarCategoria(nomeCategoria)
+                            )
+                            .filter(
+                                (categoria): categoria is Categoria =>
+                                    Boolean(categoria)
+                            )
+                            .map((categoria) => {
 
                                 const exercicios =
                                     categoria.exercicio ?? [];
-
 
                                 return (
 
@@ -796,8 +780,7 @@ export default function FichaTreinoPDF({
 
                                     </View>
                                 );
-                            }
-                        )}
+                            })}
 
                     </View>
 
