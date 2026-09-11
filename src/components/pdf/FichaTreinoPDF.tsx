@@ -7,7 +7,6 @@ import {
 } from "@react-pdf/renderer";
 
 import type Categoria from "../../models/Categoria";
-import { useTheme } from "../../contexts/ThemeContext";
 
 interface Treino {
     letra: string;
@@ -26,6 +25,7 @@ interface FichaTreinoPDFProps {
     usuario: Usuario;
     treinos: Treino[];
     categorias: Categoria[];
+    tema: "escuro" | "claro";
 }
 
 
@@ -216,53 +216,31 @@ const coresPDF = {
 
     escuro: {
         page: "#0B0812",
-
         texto: "#FFFFFF",
-
         secundario: "#A1A1AA",
-
         roxo: "#7C3AED",
-
         roxoClaro: "#C084FC",
-
         logo: "#A855F7",
-
         card: "#15111F",
-
         cardInterno: "#211C2B",
-
         borda: "#302A3D",
-
         bordaExercicio: "#292332",
-
         bordaCategoria: "#282331",
-
         vazio: "#71717A",
     },
 
     claro: {
         page: "#FAF9FC",
-
         texto: "#111111",
-
         secundario: "#6B6573",
-
         roxo: "#7C3AED",
-
         roxoClaro: "#7C3AED",
-
         logo: "#7C3AED",
-
         card: "#FFFFFF",
-
         cardInterno: "#F3EFF8",
-
         borda: "#DDD7E3",
-
         bordaExercicio: "#E5DFEA",
-
         bordaCategoria: "#E2DCE8",
-
         vazio: "#77717E",
     },
 };
@@ -276,19 +254,17 @@ export default function FichaTreinoPDF({
     usuario,
     treinos,
     categorias,
+    tema,
 }: FichaTreinoPDFProps) {
 
     // =========================================================
-    // TEMA
+    // CORES DO TEMA
     // =========================================================
 
-    const { tema } = useTheme();
-
-    const modoClaro = tema === "claro";
-
-    const cores = modoClaro
-        ? coresPDF.claro
-        : coresPDF.escuro;
+    const cores =
+        tema === "claro"
+            ? coresPDF.claro
+            : coresPDF.escuro;
 
 
     // =========================================================
@@ -416,7 +392,7 @@ export default function FichaTreinoPDF({
 
 
     // =========================================================
-    // FUNÇÃO PARA NORMALIZAR TEXTOS
+    // NORMALIZAR TEXTOS
     // =========================================================
 
     const normalizar = (valor: unknown) => {
@@ -450,18 +426,6 @@ export default function FichaTreinoPDF({
             .trim()
     );
 
-
-    /*
-     * A API pode enviar:
-     *
-     * 165
-     * 165.0
-     * 1.65
-     * "165"
-     * "1.65"
-     *
-     * Se for >= 100, entendemos como centímetros.
-     */
 
     let alturaEmMetros = 0;
 
@@ -682,7 +646,7 @@ export default function FichaTreinoPDF({
 
 
                         {/* ================================================= */}
-                        {/* CATEGORIAS DO TREINO */}
+                        {/* CATEGORIAS */}
                         {/* ================================================= */}
 
                         {treino.categorias

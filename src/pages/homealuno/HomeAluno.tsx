@@ -16,6 +16,7 @@ import Autoplay from "embla-carousel-autoplay";
 
 import type Categoria from "../../models/Categoria";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useTheme } from "../../contexts/ThemeContext";
 import { atualizar, buscar } from "../../service/Service";
 import { pdf } from "@react-pdf/renderer";
 import FichaTreinoPDF from "../../components/pdf/FichaTreinoPDF";
@@ -133,6 +134,7 @@ const TREINOS_POR_NIVEL: Record<Nivel, Treino[]> = {
 
 export default function HomeAluno() {
     const { usuario } = useContext(AuthContext);
+    const { tema } = useTheme();
 
     const [categorias, setCategorias] = useState<Categoria[]>([]);
 
@@ -325,6 +327,7 @@ export default function HomeAluno() {
                 usuario={usuario}
                 treinos={treinos}
                 categorias={categorias}
+                tema={tema}
             />
         );
 
@@ -343,6 +346,7 @@ export default function HomeAluno() {
         URL.revokeObjectURL(url);
 
         toast.success("Ficha de treino baixada com sucesso!");
+
     } catch (error) {
         console.error("Erro ao gerar PDF:", error);
         toast.error("Erro ao gerar a ficha de treino.");
