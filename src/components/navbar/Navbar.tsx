@@ -120,21 +120,21 @@ function Navbar() {
                             Início
                         </Link>
 
-                        <a
-                            href="/sobre"
+                        <Link
+                            to="/sobre"
                             onClick={fecharMenu}
                             className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
                         >
                             Sobre
-                        </a>
+                        </Link>
 
-                        <a
-                            href="/suporte"
+                        <Link
+                            to="/suporte"
                             onClick={fecharMenu}
                             className="rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition hover:bg-white/5 hover:text-purple-400"
                         >
                             Suporte
-                        </a>
+                        </Link>
 
                         {/* BOTÃO LOGIN MOBILE */}
                         <Link
