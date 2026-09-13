@@ -221,8 +221,7 @@ function HomeAdmin() {
                                 </h1>
 
                                 <p className="mt-3 max-w-2xl text-xs leading-relaxed text-gray-500 sm:text-sm">
-                                    Gerencie alunos, categorias e exercícios da
-                                    sua academia.
+                                    Gerencie sua academia.
                                 </p>
 
                             </div>
