@@ -179,7 +179,7 @@ function HomeAdmin() {
 
     return (
 
-        <main className="relative min-h-screen w-full overflow-x-hidden bg-[#08070d] py-30 text-white">
+        <main className="relative min-h-screen w-full overflow-x-hidden bg-[#08070d] py-24 sm:py-28 lg:py-30 text-white">
 
             {/* =========================
                 GLOWS DE FUNDO
@@ -197,6 +197,7 @@ function HomeAdmin() {
 
             </div>
 
+
             {/* =========================
                 CONTEÚDO
             ========================= */}
@@ -209,17 +210,17 @@ function HomeAdmin() {
 
                 <section className="border-b border-white/5 bg-[#120c1d]">
 
-                    <div className="w-full px-10 py-10">
+                    <div className="w-full px-4 py-8 sm:px-6 sm:py-9 lg:px-10 lg:py-10">
 
                         <div className="flex items-center justify-between">
 
                             <div>
 
-                                <h1 className="mt-4 text-4xl font-black tracking-tight">
+                                <h1 className="mt-4 text-2xl font-black tracking-tight sm:text-3xl lg:text-4xl">
                                     Olá, Administrador
                                 </h1>
 
-                                <p className="mt-3 text-sm text-gray-500">
+                                <p className="mt-3 max-w-2xl text-xs leading-relaxed text-gray-500 sm:text-sm">
                                     Gerencie alunos, categorias e exercícios da
                                     sua academia.
                                 </p>
@@ -239,13 +240,13 @@ function HomeAdmin() {
 
                 <section className="bg-[#09080e]">
 
-                    <div className="w-full px-10 py-8">
+                    <div className="w-full px-4 py-6 sm:px-6 sm:py-7 lg:px-10 lg:py-8">
 
-                        <div className="grid grid-cols-4 gap-5">
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
 
                             {/* ALUNOS */}
 
-                            <div className="rounded-xl border border-white/5 bg-[#100d16] p-5 transition hover:border-purple-500/20">
+                            <div className="rounded-xl border border-white/5 bg-[#100d16] p-4 transition hover:border-purple-500/20 sm:p-5">
 
                                 <div className="flex items-start justify-between">
 
@@ -264,7 +265,7 @@ function HomeAdmin() {
                                     Total de alunos
                                 </p>
 
-                                <p className="mt-1 text-3xl font-black">
+                                <p className="mt-1 text-2xl font-black sm:text-3xl">
                                     1.248
                                 </p>
 
@@ -277,7 +278,7 @@ function HomeAdmin() {
 
                             {/* TREINOS */}
 
-                            <div className="rounded-xl border border-white/5 bg-[#100d16] p-5 transition hover:border-purple-500/20">
+                            <div className="rounded-xl border border-white/5 bg-[#100d16] p-4 transition hover:border-purple-500/20 sm:p-5">
 
                                 <div className="flex items-start justify-between">
 
@@ -296,7 +297,7 @@ function HomeAdmin() {
                                     Treinos realizados
                                 </p>
 
-                                <p className="mt-1 text-3xl font-black">
+                                <p className="mt-1 text-2xl font-black sm:text-3xl">
                                     3.842
                                 </p>
 
@@ -309,7 +310,7 @@ function HomeAdmin() {
 
                             {/* ALUNOS ATIVOS */}
 
-                            <div className="rounded-xl border border-white/5 bg-[#100d16] p-5 transition hover:border-purple-500/20">
+                            <div className="rounded-xl border border-white/5 bg-[#100d16] p-4 transition hover:border-purple-500/20 sm:p-5">
 
                                 <div className="flex items-start justify-between">
 
@@ -327,7 +328,7 @@ function HomeAdmin() {
                                     Alunos ativos
                                 </p>
 
-                                <p className="mt-1 text-3xl font-black">
+                                <p className="mt-1 text-2xl font-black sm:text-3xl">
                                     876
                                 </p>
 
@@ -340,7 +341,7 @@ function HomeAdmin() {
 
                             {/* PERFORMANCE */}
 
-                            <div className="rounded-xl border border-purple-500/20 bg-[#120d1b] p-5">
+                            <div className="rounded-xl border border-purple-500/20 bg-[#120d1b] p-4 sm:p-5">
 
                                 <div className="flex items-start justify-between">
 
@@ -358,7 +359,7 @@ function HomeAdmin() {
                                     Performance média
                                 </p>
 
-                                <p className="mt-1 text-3xl font-black">
+                                <p className="mt-1 text-2xl font-black sm:text-3xl">
                                     87,4%
                                 </p>
 
@@ -381,7 +382,7 @@ function HomeAdmin() {
 
                 <section className="bg-[#09080e]">
 
-                    <div className="w-full px-10 pb-10">
+                    <div className="w-full px-4 pb-8 sm:px-6 sm:pb-9 lg:px-10 lg:pb-10">
 
                         <div className="mb-6">
 
@@ -389,36 +390,36 @@ function HomeAdmin() {
                                 Administração
                             </p>
 
-                            <h2 className="mt-1 text-2xl font-black">
+                            <h2 className="mt-1 text-xl font-black sm:text-2xl">
                                 Gerenciamento
                             </h2>
 
-                            <p className="mt-2 text-sm text-gray-500">
+                            <p className="mt-2 text-xs text-gray-500 sm:text-sm">
                                 Crie, edite e remova categorias e exercícios.
                             </p>
 
                         </div>
 
 
-                        <div className="grid grid-cols-2 gap-5">
+                        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
 
                             {/* =========================
                                 CATEGORIAS
                             ========================= */}
 
-                            <div className="rounded-xl border border-purple-500/30 bg-[#100d16] p-6 shadow-lg shadow-purple-950/10 transition hover:border-purple-500/50">
+                            <div className="rounded-xl border border-purple-500/30 bg-[#100d16] p-4 shadow-lg shadow-purple-950/10 transition hover:border-purple-500/50 sm:p-6">
 
-                                <div className="flex items-start justify-between">
+                                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
 
-                                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
+                                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
                                             <FolderIcon size={24} />
                                         </div>
 
-                                        <div>
+                                        <div className="min-w-0">
 
-                                            <h3 className="text-lg font-bold">
+                                            <h3 className="text-base font-bold sm:text-lg">
                                                 Categorias
                                             </h3>
 
@@ -430,7 +431,7 @@ function HomeAdmin() {
 
                                     </div>
 
-                                    <span className="rounded-md bg-purple-500/10 px-2 py-1 text-[9px] font-bold text-purple-400">
+                                    <span className="w-fit shrink-0 rounded-md bg-purple-500/10 px-2 py-1 text-[9px] font-bold text-purple-400">
                                         {categorias.length} categorias
                                     </span>
 
@@ -439,7 +440,7 @@ function HomeAdmin() {
 
                                 {/* Container com scroll interno */}
 
-                                <div className="mt-6 max-h-72 space-y-3 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-purple-500/20 hover:scrollbar-thumb-purple-500/40">
+                                <div className="mt-5 max-h-72 space-y-3 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-purple-500/20 hover:scrollbar-thumb-purple-500/40 sm:mt-6">
 
                                     {categorias.map((categoria) => {
 
@@ -453,23 +454,23 @@ function HomeAdmin() {
 
                                             <div
                                                 key={categoria.id}
-                                                className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4 transition hover:border-purple-500/20"
+                                                className="flex items-center justify-between gap-3 rounded-lg border border-white/5 bg-white/[0.02] p-3 transition hover:border-purple-500/20 sm:p-4"
                                             >
 
-                                                <div>
+                                                <div className="min-w-0">
 
-                                                    <p className="text-sm font-semibold">
+                                                    <p className="break-words text-sm font-semibold">
                                                         {categoria.nome}
                                                     </p>
 
-                                                    <p className="mt-1 text-[9px] text-gray-600">
+                                                    <p className="mt-1 break-words text-[9px] text-gray-600">
                                                         {quantidadeExercicios} exercícios
                                                     </p>
 
                                                 </div>
 
 
-                                                <div className="flex items-center gap-2">
+                                                <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
 
                                                     <button
                                                         onClick={() =>
@@ -505,7 +506,7 @@ function HomeAdmin() {
 
                                 <button
                                     onClick={abrirAdicionarCategoria}
-                                    className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-purple-600 py-3 text-[10px] font-bold transition hover:bg-purple-500"
+                                    className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-purple-600 py-3 text-[10px] font-bold transition hover:bg-purple-500 sm:text-xs"
                                 >
                                     <PlusIcon size={15} weight="bold" />
                                     Adicionar categoria
@@ -518,19 +519,19 @@ function HomeAdmin() {
                                 EXERCÍCIOS
                             ========================= */}
 
-                            <div className="rounded-xl border border-purple-500/30 bg-[#100d16] p-6 shadow-lg shadow-purple-950/10 transition hover:border-purple-500/50">
+                            <div className="rounded-xl border border-purple-500/30 bg-[#100d16] p-4 shadow-lg shadow-purple-950/10 transition hover:border-purple-500/50 sm:p-6">
 
-                                <div className="flex items-start justify-between">
+                                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
 
-                                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
+                                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
                                             <BarbellIcon size={24} />
                                         </div>
 
-                                        <div>
+                                        <div className="min-w-0">
 
-                                            <h3 className="text-lg font-bold">
+                                            <h3 className="text-base font-bold sm:text-lg">
                                                 Exercícios
                                             </h3>
 
@@ -542,7 +543,7 @@ function HomeAdmin() {
 
                                     </div>
 
-                                    <span className="rounded-md bg-purple-500/10 px-2 py-1 text-[9px] font-bold text-purple-400">
+                                    <span className="w-fit shrink-0 rounded-md bg-purple-500/10 px-2 py-1 text-[9px] font-bold text-purple-400">
                                         {exercicios.length} exercícios
                                     </span>
 
@@ -551,22 +552,22 @@ function HomeAdmin() {
 
                                 {/* Container com scroll interno */}
 
-                                <div className="mt-6 max-h-72 space-y-3 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-purple-500/20 hover:scrollbar-thumb-purple-500/40">
+                                <div className="mt-5 max-h-72 space-y-3 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-purple-500/20 hover:scrollbar-thumb-purple-500/40 sm:mt-6">
 
                                     {exercicios.map((exercicio) => (
 
                                         <div
                                             key={exercicio.id}
-                                            className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-4 transition hover:border-purple-500/20"
+                                            className="flex items-center justify-between gap-3 rounded-lg border border-white/5 bg-white/[0.02] p-3 transition hover:border-purple-500/20 sm:p-4"
                                         >
 
-                                            <div>
+                                            <div className="min-w-0">
 
-                                                <p className="text-sm font-semibold">
+                                                <p className="break-words text-sm font-semibold">
                                                     {exercicio.nome}
                                                 </p>
 
-                                                <p className="mt-1 text-[9px] text-gray-600">
+                                                <p className="mt-1 break-words text-[9px] text-gray-600">
                                                     Categoria:{" "}
                                                     {exercicio.categoria?.nome || "Sem categoria"}
                                                 </p>
@@ -574,7 +575,7 @@ function HomeAdmin() {
                                             </div>
 
 
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
 
                                                 <button
                                                     onClick={() =>
@@ -608,7 +609,7 @@ function HomeAdmin() {
 
                                 <button
                                     onClick={abrirAdicionarExercicio}
-                                    className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-purple-600 py-3 text-[10px] font-bold transition hover:bg-purple-500"
+                                    className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-purple-600 py-3 text-[10px] font-bold transition hover:bg-purple-500 sm:text-xs"
                                 >
                                     <PlusIcon size={15} weight="bold" />
                                     Adicionar exercício
@@ -623,23 +624,23 @@ function HomeAdmin() {
                             INTEGRAÇÃO FITRH
                         ========================= */}
 
-                        <div className="mt-5 rounded-xl border border-purple-500/30 bg-[#100d16] p-6 transition hover:border-purple-500/50">
+                        <div className="mt-5 rounded-xl border border-purple-500/30 bg-[#100d16] p-4 transition hover:border-purple-500/50 sm:p-6">
 
-                            <div className="flex items-center justify-between">
+                            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
 
-                                <div className="flex items-center gap-4">
+                                <div className="flex min-w-0 items-center gap-3 sm:gap-4">
 
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
+                                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
                                         <UsersThreeIcon size={24} />
                                     </div>
 
-                                    <div>
+                                    <div className="min-w-0">
 
-                                        <h3 className="text-lg font-bold">
+                                        <h3 className="text-base font-bold sm:text-lg">
                                             Gestão de Colaboradores
                                         </h3>
 
-                                        <p className="mt-1 text-[10px] text-gray-600">
+                                        <p className="mt-1 text-[10px] leading-relaxed text-gray-600 sm:text-xs">
                                             Acesse o FitRH para gerenciar sua equipe.
                                         </p>
 
@@ -652,7 +653,7 @@ function HomeAdmin() {
                                     href="https://rh-frontend-five.vercel.app"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 rounded-lg bg-purple-600 px-5 py-3 text-[10px] font-bold transition hover:bg-purple-500"
+                                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-purple-600 px-5 py-3 text-[10px] font-bold transition hover:bg-purple-500 sm:w-auto sm:text-xs"
                                 >
                                     Acessar FitRH
                                     <ArrowSquareOutIcon size={15} />
