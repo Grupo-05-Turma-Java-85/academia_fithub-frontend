@@ -368,9 +368,6 @@ export default function Chatbot({
                         </button>
                     </div>
 
-                    <p className="mt-2 text-center text-[10px] text-neutral-500">
-                        Assistente virtual do FitGym
-                    </p>
                 </div>
             </div>
         </div>

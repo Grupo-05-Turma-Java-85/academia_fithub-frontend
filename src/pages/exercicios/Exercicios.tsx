@@ -110,7 +110,7 @@ export default function Exercicios() {
     if (erro) {
 
         return (
-            <div className="min-h-screen bg-[#08060D] flex flex-col items-center justify-center text-white gap-4 px-6">
+            <div className="min-h-screen bg-background flex flex-col items-center justify-center text-white gap-4 px-6">
 
                 <BarbellIcon
                     size={50}

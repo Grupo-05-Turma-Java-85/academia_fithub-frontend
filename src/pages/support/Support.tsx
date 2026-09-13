@@ -69,7 +69,7 @@ export default function Support() {
   };
 
   return (
-    <div className='bg-[#08060D] py-24'>
+    <div className='bg-background py-24'>
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 flex flex-col gap-8 sm:gap-10 text-neutral-200">
 
         <div className="pointer-events-none absolute bottom-[-150px] right-[-150px] h-[550px] w-[550px] rounded-full bg-purple-700/20 blur-[130px]" />

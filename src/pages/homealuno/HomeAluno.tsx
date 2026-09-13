@@ -354,7 +354,7 @@ export default function HomeAluno() {
 };
 
     return (
-        <div className="min-h-screen bg-[#08060D] text-white">
+        <div className="min-h-screen bg-background text-white">
 
             {/* HERO */}
             <section className="relative overflow-hidden bg-[#08060D] px-6 py-20 md:py-28">

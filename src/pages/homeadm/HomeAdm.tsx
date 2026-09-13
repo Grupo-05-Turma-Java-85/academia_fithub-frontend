@@ -179,7 +179,7 @@ function HomeAdmin() {
 
     return (
 
-        <main className="relative min-h-screen w-full overflow-x-hidden bg-[#08070d] py-24 sm:py-28 lg:py-30 text-white">
+        <main className="relative min-h-screen w-full overflow-x-hidden bg-background py-24 sm:py-28 lg:py-30 text-white">
 
             {/* =========================
                 GLOWS DE FUNDO

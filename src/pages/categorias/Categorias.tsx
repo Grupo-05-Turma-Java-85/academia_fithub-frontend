@@ -71,7 +71,7 @@ export default function Categorias() {
 
     if (carregando) {
         return (
-            <main className="relative min-h-screen overflow-hidden bg-[#08060D] text-white flex items-center justify-center">
+            <main className="relative min-h-screen overflow-hidden bg-background text-white flex items-center justify-center">
 
                 {/* FUNDOS ROXOS */}
 
