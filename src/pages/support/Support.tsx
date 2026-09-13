@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { MagnifyingGlass, ArrowRight, Barbell, ForkKnife, User, Wrench, CaretDown, Robot, WhatsappLogo, EnvelopeSimple } from '@phosphor-icons/react';
 import Footer from '../../components/footer/Footer';
 import EmailModal from '../../components/suporte/EmailModal';
+import Chatbot from '../../components/chatbot/Chatbot';
 
 export default function Support() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [emailModalAberto, setEmailModalAberto] = useState(false);
+  const [chatbotAberto, setChatbotAberto] = useState(false);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -151,8 +153,12 @@ export default function Support() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
+
             {/* Assistente IA */}
-            <div className="bg-neutral-900/80 border border-purple-500/30 rounded-xl p-5 sm:p-6 flex flex-col items-center justify-center gap-2.5 hover:border-purple-500 transition cursor-pointer">
+            <div
+              onClick={() => setChatbotAberto(true)}
+              className="bg-neutral-900/80 border border-purple-500/30 rounded-xl p-5 sm:p-6 flex flex-col items-center justify-center gap-2.5 hover:border-purple-500 transition cursor-pointer"
+            >
               <div className="w-10 h-10 rounded-lg bg-purple-950/60 border border-purple-800/40 flex items-center justify-center text-purple-400">
                 <Robot size={22} />
               </div>
@@ -160,8 +166,6 @@ export default function Support() {
               <small className="text-xs text-neutral-400">Disponível 24/7</small>
             </div>
 
-            {/* WhatsApp */}
-            {/* WhatsApp */}
             {/* WhatsApp */}
             <div
               onClick={abrirWhatsApp}
@@ -189,7 +193,7 @@ export default function Support() {
                 <EnvelopeSimple size={22} />
               </div>
               <strong className="block text-sm font-bold text-white">Envie um E-mail</strong>
-              <small className="text-xs text-neutral-400 break-all">support@fitacademy.com</small>
+              <small className="text-xs text-neutral-400 break-all">gen.grupo5@gmail.com</small>
             </div>
           </div>
         </div>
@@ -202,6 +206,11 @@ export default function Support() {
           />
         )
       }
+
+      <Chatbot
+        aberto={chatbotAberto}
+        onClose={() => setChatbotAberto(false)}
+      />
 
     </div>
   );
