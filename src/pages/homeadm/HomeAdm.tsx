@@ -187,9 +187,9 @@ function HomeAdmin() {
 
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
 
-                <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-purple-600/20 blur-[120px]" />
+                <div className="absolute -left-40 top-2 h-96 w-96 rounded-full bg-purple-600/40 blur-[120px]" />
 
-                <div className="absolute right-[-150px] top-[35%] h-[500px] w-[500px] rounded-full bg-purple-500/15 blur-[140px]" />
+                <div className="absolute right-[-150px] top-[35%] h-[500px] w-[500px] rounded-full bg-purple-600/20 blur-[120px]" />
 
                 <div className="absolute left-[35%] top-[55%] h-80 w-80 rounded-full bg-fuchsia-600/10 blur-[120px]" />
 
@@ -208,7 +208,7 @@ function HomeAdmin() {
                     HEADER
                 ========================= */}
 
-                <section className="border-b border-white/5 bg-[#120c1d]">
+                <section className="">
 
                     <div className="w-full px-4 py-8 sm:px-6 sm:py-9 lg:px-10 lg:py-10">
 
@@ -220,7 +220,7 @@ function HomeAdmin() {
                                     Olá, Administrador
                                 </h1>
 
-                                <p className="mt-3 max-w-2xl text-xs leading-relaxed text-gray-500 sm:text-sm">
+                                <p className="mt-3 text-md leading-relaxed text-white lg:text-xl">
                                     Gerencie sua academia.
                                 </p>
 
@@ -237,7 +237,7 @@ function HomeAdmin() {
                     INDICADORES
                 ========================= */}
 
-                <section className="bg-[#09080e]">
+                <section>
 
                     <div className="w-full px-4 py-6 sm:px-6 sm:py-7 lg:px-10 lg:py-8">
 
@@ -245,7 +245,7 @@ function HomeAdmin() {
 
                             {/* ALUNOS */}
 
-                            <div className="rounded-xl border border-white/5 bg-[#100d16] p-4 transition hover:border-purple-500/20 sm:p-5">
+                            <div className="rounded-xl border border-white/5 transition duration-300 hover:-translate-y-2 bg-purple-800/20 p-4 transition hover:border-purple-500/20 sm:p-5">
 
                                 <div className="flex items-start justify-between">
 
@@ -253,14 +253,14 @@ function HomeAdmin() {
                                         <UsersThreeIcon size={21} />
                                     </div>
 
-                                    <span className="flex items-center gap-1 text-[9px] font-bold text-green-400">
-                                        <ArrowUpRightIcon size={12} />
+                                    <span className="flex items-center gap-1 text-[14px] font-bold text-green-400">
+                                        <ArrowUpRightIcon size={16} />
                                         12,5%
                                     </span>
 
                                 </div>
 
-                                <p className="mt-5 text-[10px] uppercase tracking-widest text-gray-600">
+                                <p className="mt-5 text-sm font-bold uppercase tracking-widest text-gray-400">
                                     Total de alunos
                                 </p>
 
@@ -268,7 +268,7 @@ function HomeAdmin() {
                                     1.248
                                 </p>
 
-                                <p className="mt-2 text-[9px] text-gray-600">
+                                <p className="mt-2 text-sm font-bold text-gray-400">
                                     +138 este mês
                                 </p>
 
@@ -277,7 +277,7 @@ function HomeAdmin() {
 
                             {/* TREINOS */}
 
-                            <div className="rounded-xl border border-white/5 bg-[#100d16] p-4 transition hover:border-purple-500/20 sm:p-5">
+                            <div className="rounded-xl border border-white/5 bg-purple-800/20 p-4 transition duration-300 hover:-translate-y-2 transition hover:border-purple-500/20 sm:p-5">
 
                                 <div className="flex items-start justify-between">
 
@@ -285,14 +285,14 @@ function HomeAdmin() {
                                         <BarbellIcon size={21} />
                                     </div>
 
-                                    <span className="flex items-center gap-1 text-[9px] font-bold text-green-400">
-                                        <ArrowUpRightIcon size={12} />
+                                    <span className="flex items-center gap-1 text-[14px] font-bold text-green-400">
+                                        <ArrowUpRightIcon size={16} />
                                         8,4%
                                     </span>
 
                                 </div>
 
-                                <p className="mt-5 text-[10px] uppercase tracking-widest text-gray-600">
+                                <p className="mt-5 text-sm font-bold uppercase tracking-widest text-gray-400">
                                     Treinos realizados
                                 </p>
 
@@ -300,7 +300,7 @@ function HomeAdmin() {
                                     3.842
                                 </p>
 
-                                <p className="mt-2 text-[9px] text-gray-600">
+                                <p className="mt-2 text-sm font-bold text-gray-400">
                                     nesta semana
                                 </p>
 
@@ -309,7 +309,7 @@ function HomeAdmin() {
 
                             {/* ALUNOS ATIVOS */}
 
-                            <div className="rounded-xl border border-white/5 bg-[#100d16] p-4 transition hover:border-purple-500/20 sm:p-5">
+                            <div className="rounded-xl border border-white/5 bg-purple-800/20 p-4 transition transition duration-300 hover:-translate-y-2 hover:border-purple-500/20 sm:p-5">
 
                                 <div className="flex items-start justify-between">
 
@@ -317,13 +317,13 @@ function HomeAdmin() {
                                         <UserCircleIcon size={21} />
                                     </div>
 
-                                    <span className="text-[9px] font-bold text-green-400">
+                                    <span className="text-sm font-bold text-green-400">
                                         Online agora
                                     </span>
 
                                 </div>
 
-                                <p className="mt-5 text-[10px] uppercase tracking-widest text-gray-600">
+                                <p className="mt-5 text-sm font-bold uppercase tracking-widest text-gray-400">
                                     Alunos ativos
                                 </p>
 
@@ -331,7 +331,7 @@ function HomeAdmin() {
                                     876
                                 </p>
 
-                                <p className="mt-2 text-[9px] text-gray-600">
+                                <p className="mt-2 text-sm font-bold text-gray-400">
                                     70,2% da base
                                 </p>
 
@@ -340,7 +340,7 @@ function HomeAdmin() {
 
                             {/* PERFORMANCE */}
 
-                            <div className="rounded-xl border border-purple-500/20 bg-[#120d1b] p-4 sm:p-5">
+                            <div className="rounded-xl border border-white/5  hover:border-purple-500/20 transition duration-300 hover:-translate-y-2 bg-purple-800/20 p-4 sm:p-5">
 
                                 <div className="flex items-start justify-between">
 
@@ -348,13 +348,13 @@ function HomeAdmin() {
                                         <ChartLineUpIcon size={21} />
                                     </div>
 
-                                    <span className="text-[9px] font-bold text-green-400">
+                                    <span className="text-[14px] font-bold text-green-400">
                                         Excelente
                                     </span>
 
                                 </div>
 
-                                <p className="mt-5 text-[10px] uppercase tracking-widest text-gray-600">
+                                <p className="mt-5 text-sm font-bold uppercase tracking-widest text-gray-400">
                                     Performance média
                                 </p>
 
@@ -362,7 +362,7 @@ function HomeAdmin() {
                                     87,4%
                                 </p>
 
-                                <p className="mt-2 text-[9px] text-gray-600">
+                                <p className="mt-2 text-sm font-bold text-gray-400">
                                     +5,8% comparado ao mês anterior
                                 </p>
 
@@ -379,21 +379,17 @@ function HomeAdmin() {
                     GERENCIAMENTO
                 ========================= */}
 
-                <section className="bg-[#09080e]">
+                <section>
 
                     <div className="w-full px-4 pb-8 sm:px-6 sm:pb-9 lg:px-10 lg:pb-10">
 
                         <div className="mb-6">
 
-                            <p className="text-[9px] uppercase tracking-widest text-gray-600">
-                                Administração
-                            </p>
-
                             <h2 className="mt-1 text-xl font-black sm:text-2xl">
                                 Gerenciamento
                             </h2>
 
-                            <p className="mt-2 text-xs text-gray-500 sm:text-sm">
+                            <p className="mt-2 text-lg  text-gray-400">
                                 Crie, edite e remova categorias e exercícios.
                             </p>
 
@@ -406,7 +402,7 @@ function HomeAdmin() {
                                 CATEGORIAS
                             ========================= */}
 
-                            <div className="rounded-xl border border-purple-500/30 bg-[#100d16] p-4 shadow-lg shadow-purple-950/10 transition hover:border-purple-500/50 sm:p-6">
+                            <div className="rounded-xl border border-purple-500/30 bg-purple-800/20 p-4 shadow-lg shadow-purple-950/10 transition hover:border-purple-500/50 sm:p-6">
 
                                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 
@@ -422,7 +418,7 @@ function HomeAdmin() {
                                                 Categorias
                                             </h3>
 
-                                            <p className="mt-1 text-[10px] text-gray-600">
+                                            <p className="mt-1 text-sm font-bold text-gray-400">
                                                 Organize os exercícios por categoria
                                             </p>
 
@@ -430,8 +426,8 @@ function HomeAdmin() {
 
                                     </div>
 
-                                    <span className="w-fit shrink-0 rounded-md bg-purple-500/10 px-2 py-1 text-[9px] font-bold text-purple-400">
-                                        {categorias.length} categorias
+                                    <span className="w-fit shrink-0 rounded-md bg-purple-500/10 px-2 py-1 text-sm font-bold text-purple-400">
+                                        {categorias.length} Categorias
                                     </span>
 
                                 </div>
@@ -462,7 +458,7 @@ function HomeAdmin() {
                                                         {categoria.nome}
                                                     </p>
 
-                                                    <p className="mt-1 break-words text-[9px] text-gray-600">
+                                                    <p className="mt-1 break-words text-sm text-gray-600">
                                                         {quantidadeExercicios} exercícios
                                                     </p>
 
@@ -518,7 +514,7 @@ function HomeAdmin() {
                                 EXERCÍCIOS
                             ========================= */}
 
-                            <div className="rounded-xl border border-purple-500/30 bg-[#100d16] p-4 shadow-lg shadow-purple-950/10 transition hover:border-purple-500/50 sm:p-6">
+                            <div className="rounded-xl border border-purple-500/30 bg-purple-800/20 p-4 shadow-lg shadow-purple-950/10 transition hover:border-purple-500/50 sm:p-6">
 
                                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 
@@ -530,11 +526,11 @@ function HomeAdmin() {
 
                                         <div className="min-w-0">
 
-                                            <h3 className="text-base font-bold sm:text-lg">
+                                            <h3 className="text-lg font-bold ">
                                                 Exercícios
                                             </h3>
 
-                                            <p className="mt-1 text-[10px] text-gray-600">
+                                            <p className="mt-1 text-md font-bold text-gray-400">
                                                 Gerencie os exercícios disponíveis
                                             </p>
 
@@ -542,8 +538,8 @@ function HomeAdmin() {
 
                                     </div>
 
-                                    <span className="w-fit shrink-0 rounded-md bg-purple-500/10 px-2 py-1 text-[9px] font-bold text-purple-400">
-                                        {exercicios.length} exercícios
+                                    <span className="w-fit shrink-0 rounded-md bg-purple-500/10 px-2 py-1 text-sm font-bold text-purple-400">
+                                        {exercicios.length} Exercícios
                                     </span>
 
                                 </div>
@@ -566,7 +562,7 @@ function HomeAdmin() {
                                                     {exercicio.nome}
                                                 </p>
 
-                                                <p className="mt-1 break-words text-[9px] text-gray-600">
+                                                <p className="mt-1 break-words text-sm text-gray-600">
                                                     Categoria:{" "}
                                                     {exercicio.categoria?.nome || "Sem categoria"}
                                                 </p>
@@ -639,7 +635,7 @@ function HomeAdmin() {
                                             Gestão de Colaboradores
                                         </h3>
 
-                                        <p className="mt-1 text-[10px] leading-relaxed text-gray-600 sm:text-xs">
+                                        <p className="mt-1 text-sm font-bold leading-relaxed text-gray-600">
                                             Acesse o FitRH para gerenciar sua equipe.
                                         </p>
 
